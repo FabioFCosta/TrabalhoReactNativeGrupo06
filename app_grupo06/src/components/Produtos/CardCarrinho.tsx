@@ -7,7 +7,13 @@ const CardCarrinho = (props) => {
   const handleClick=(props)=>{    
     console.log(`O produto ${props.produto.nome_produto} foi clicado no carrinho`)
     props.navigation.navigate({name:'ProdutoScreen',params:{
-      produto:props.produto,      
+      produto:{
+        idProduto:props.produto.id_produto,
+        sku:props.produto.sku,
+        imagemProduto:props.produto.imagem_produto,
+        nomeProduto:props.produto.nome_produto,
+        descricaoProduto:props.produto.descricao_produto
+      }     
     }})
   }
 
