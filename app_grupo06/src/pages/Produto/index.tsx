@@ -1,30 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { CarrinhoContext } from "../../context/CarrinhoContext";
 
 const Produto = ({ route, navigation }) => {
-  const { id_produto, sku, nome_produto, descricao_produto, imagem_produto, preco_produto } = route.params;
+  const { produto } = route.params;
   const { adicionarProduto } = useContext(CarrinhoContext);
-  console.log(imagem_produto)
-  // _sku: string, _nome: string, _descricao: string, _preco: number, _imagem: string
-
+  
   const handleAddProduto = () => {
-    adicionarProduto(sku, nome_produto, descricao_produto, preco_produto, imagem_produto);
+    adicionarProduto(produto.sku, produto.nomeProduto, produto.descricaoProduto, produto.PrecoProduto, produto.imagemProduto);
+  }
+
+  const handleFavoritar = () => {    
+    // favoritar(produto)
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.container_imagem}>
-        <Image source={{ uri: imagem_produto }} style={styles.image} />
+        <Image source={{ uri: produto.imagemProduto }} style={styles.image} />
       </View>
       <View>
-        <Text style={styles.text}>Produto: {nome_produto}</Text>
-        <Text style={styles.text}>Descrição: {descricao_produto}</Text>
+        <Text style={styles.text}>Produto: {produto.nomeProduto}</Text>
+        <Text style={styles.text}>Descrição: {produto.descricaoProduto}</Text>
         <View style={styles.container_buttons}>
           <TouchableOpacity style={styles.buttons} onPress={() => handleAddProduto()}>
             <Text>Comprar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttons} >
+          <TouchableOpacity style={styles.buttons} onPress={() => handleFavoritar()} >
             <Text>Favoritar</Text>
           </TouchableOpacity>
         </View>
@@ -56,18 +58,18 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#000',
-  }, 
-  container_buttons:{
-    flexDirection:'row',
-    justifyContent:'space-around',
-    alignItems:'center',
-    marginTop:10,
+  },
+  container_buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 10,
   },
   buttons: {
-    width:100,
-    height: 50,    
-    backgroundColor:'#333',
-    justifyContent:'center',
-    alignItems:'center',
+    width: 100,
+    height: 50,
+    backgroundColor: '#333',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

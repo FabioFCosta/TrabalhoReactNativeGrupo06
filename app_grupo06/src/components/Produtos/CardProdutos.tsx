@@ -7,12 +7,7 @@ const CardProdutos = (props) => {
   const handleClick=(props)=>{    
     console.log(`O produto ${props.produto.nomeProduto} foi clicado`)
     props.navigation.navigate({name:'ProdutoScreen',params:{
-      id_produto: props.produto.idProduto,
-      sku:props.produto.sku,
-      nome_produto:props.produto.nomeProduto,
-      descricao_produto:props.produto.descricaoProduto,
-      preco_produto:props.produto.precoProduto,
-      imagem_produto:props.produto.imagemProduto,
+      produto:props.produto,      
     }})
   }
 
