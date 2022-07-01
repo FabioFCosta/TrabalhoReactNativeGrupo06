@@ -31,7 +31,7 @@ const Categorias = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#bba3f8',
+    backgroundColor: '#fff',
     padding: 15,
     margin: 0,
   },

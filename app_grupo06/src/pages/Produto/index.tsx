@@ -15,16 +15,16 @@ const Produto = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container_imagem}>
-        <Text>Imagem</Text>
+        <Text style={styles.text}>Imagem</Text>
       </View>
       <View>
         <Text>{ }</Text>
         <Text>{ }</Text>
         <TouchableOpacity onPress={()=> handleAddProduto()}>
-          <Text>Comprar</Text>
+          <Text style={styles.text}>Comprar</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text>Favoritar</Text>
+          <Text style={styles.text}>Favoritar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -35,7 +35,7 @@ export default Produto;
 const styles=StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'#997AE5',
+    backgroundColor:'#fff',
     padding:16,
     alignItems:'stretch',
     justifyContent:'space-between',
@@ -46,5 +46,9 @@ const styles=StyleSheet.create({
   },
   container_produto:{
     width:'50%',
+  },
+
+  text : {
+    color:'#000',
   }
 });
