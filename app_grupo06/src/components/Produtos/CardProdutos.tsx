@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Text } from "react-native-elements";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import AddCarrinho from "./AddCarrinho";
+import Favoritar from "../Favoritos";
 
 const CardProdutos = (props) => {
 
@@ -28,6 +29,7 @@ const CardProdutos = (props) => {
           <Text style={styles.card_price}>R$ {props.produto.precoProduto}</Text>
           <AddCarrinho produto={props.produto} />
         </View>
+        <Favoritar produto={props.produto}/>
       </Card>
     </TouchableOpacity>
   )
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 10,
     alignItems: 'center',
+    backgroundColor: '#C4DFE8',
   },
   card_image: {
     width: 165,
@@ -62,6 +65,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 18,
     fontWeight: 'bold',
+    color:'#fe5430'
 
   },
   price_addCart: {

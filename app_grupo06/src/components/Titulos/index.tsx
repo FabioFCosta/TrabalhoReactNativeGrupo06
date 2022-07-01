@@ -11,7 +11,7 @@ const TitulosHome=({titulo})=>{
 
 const styles = StyleSheet.create({
   titulo: {
-    color:'#000', 
+    color:'#546EE5', 
     fontWeight:'bold',
     fontSize:20,
     marginTop:5,
