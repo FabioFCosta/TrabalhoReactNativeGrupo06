@@ -7,7 +7,7 @@ const CardCategoria = (props) => {
   const handleClick = (categoria) => {
     console.log(`A categoria ${categoria.nomeCategoria} foi clicada`)
   }
-  
+
   return (
     <TouchableOpacity
       onPress={() => handleClick(props.categoria)}
@@ -21,7 +21,8 @@ const CardCategoria = (props) => {
 const styles = StyleSheet.create({
   view_itens_categoria: {
     width: 100,
-    height: 50,
+    height: 40,
+    borderRadius: 20,
     marginRight: 10,
     backgroundColor: '#333',
     alignContent: 'center',
