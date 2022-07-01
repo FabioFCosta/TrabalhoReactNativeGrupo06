@@ -3,9 +3,6 @@ import { CarrinhoContext } from "../../context/CarrinhoContext";
 import { View, FlatList, StyleSheet, Text } from "react-native";
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 
-import Realm from "realm";
-
-
 const Carrinho = ({navigation}) => {
   const { listarProdutos } = useContext(CarrinhoContext);
   console.log("Listar produtos no carrinho: "+listarProdutos)

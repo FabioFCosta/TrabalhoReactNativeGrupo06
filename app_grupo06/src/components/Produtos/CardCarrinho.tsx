@@ -21,7 +21,7 @@ const CardCarrinho = (props) => {
           style={styles.card_image}
         />
         <Card.Title style={styles.card_desc}>{props.produto.nome_produto}</Card.Title>
-        <Text style={styles.card_desc}>{props.produto.descricao_roduto}</Text>
+        <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
       </Card>
     </TouchableOpacity>
   )
