@@ -8,7 +8,7 @@ const Produto = ({ route, navigation }) => {
   const [favorited, setFavorited] = useState(false);
 
   const handleAddProduto = () => {
-    adicionarProduto(produto.sku, produto.nomeProduto, produto.descricaoProduto, produto.PrecoProduto, produto.imagemProduto);
+    adicionarProduto(produto.sku, produto.nomeProduto, produto.descricaoProduto, produto.precoProduto, produto.imagemProduto);
   }
 
   const handleFavoritar = () => {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     width: 100,
-    height: 50,
+    height: 50, 
     backgroundColor: '#333',
     justifyContent: 'center',
     alignItems: 'center',
