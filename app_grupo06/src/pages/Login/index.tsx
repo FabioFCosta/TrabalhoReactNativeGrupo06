@@ -75,23 +75,23 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#7054b6',
+    backgroundColor: '#fff',
     padding: 16,
     alignItems: 'stretch',
     justifyContent: 'center'
   },
   boasVindas: {
-    color: '#fff',
+    color: '#000',
     fontWeight: 'bold',
     fontSize: 30,
     marginBottom: 10,
     textAlign: 'center'
   },
   tituloBotao: {
-    color: '#7054b6',
+    color: '#000',
   },
   styleBotao: {
-    backgroundColor: '#fff'
+    backgroundColor: '#333'
   },
   containerBotao: {
     alignSelf: 'center',

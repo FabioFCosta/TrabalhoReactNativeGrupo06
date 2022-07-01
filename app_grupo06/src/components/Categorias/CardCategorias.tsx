@@ -21,7 +21,7 @@ const CardCategoria = (props) => {
 const styles = StyleSheet.create({
   view_itens_categoria: {
     width: 100,
-    height: 100,
+    height: 50,
     marginRight: 10,
     backgroundColor: '#333',
     alignContent: 'center',

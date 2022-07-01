@@ -16,7 +16,7 @@ const BottomTabNavigator = () => {
     <TabNavigation.Navigator screenOptions={{
       tabBarHideOnKeyboard:true,
       headerShown: false,
-      tabBarStyle: { backgroundColor: '#7054B6', borderBottomWidth: 0, },
+      tabBarStyle: { backgroundColor: '#fff', borderBottomWidth: 0, },
     }}>
       <TabNavigation.Screen
         name='HomeTabScreen'
