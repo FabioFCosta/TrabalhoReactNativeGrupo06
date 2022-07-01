@@ -9,6 +9,7 @@ import Produto from "../pages/Produto";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Categorias from "../pages/Categorias";
+import Carrinho from "../pages/Carrinho";
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
@@ -27,6 +28,11 @@ const BottomTabNavigator = () => {
         name='CategoriasTabScreen'
         options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="search" color="#000" type="font-awesome" size={24} />)}}
         component={Categorias} 
+        />
+        <TabNavigation.Screen
+        name='Carrinho'
+        options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="shopping-cart" color="#000" type="font-awesome" size={24} />)}}
+        component={Carrinho} 
         />
     </TabNavigation.Navigator>
   );

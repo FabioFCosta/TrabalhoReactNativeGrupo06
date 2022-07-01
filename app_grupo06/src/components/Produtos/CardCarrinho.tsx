@@ -2,10 +2,10 @@ import React from "react";
 import { Card, Text } from "react-native-elements";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-const CardProdutos = (props) => {
+const CardCarrinho = (props) => {
 
   const handleClick=(props)=>{    
-    console.log(`O produto ${props.produto.nomeProduto} foi clicado`)
+    console.log(`O produto ${props.produto.nome_produto} foi clicado no carrinho`)
     props.navigation.navigate({name:'ProdutoScreen',params:{
       produto:props.produto,      
     }})
@@ -17,11 +17,11 @@ const CardProdutos = (props) => {
     >
       <Card containerStyle={styles.card_container} >
         <Card.Image
-          source={{ uri: props.produto.imagemProduto }}
+          source={{ uri: props.produto.imagem_produto }}
           style={styles.card_image}
         />
-        <Card.Title style={styles.card_desc}>{props.produto.nomeProduto}</Card.Title>
-        <Text style={styles.card_desc}>{props.produto.descricaoProduto}</Text>
+        <Card.Title style={styles.card_desc}>{props.produto.nome_produto}</Card.Title>
+        <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
       </Card>
     </TouchableOpacity>
   )
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CardProdutos;
+export default CardCarrinho;

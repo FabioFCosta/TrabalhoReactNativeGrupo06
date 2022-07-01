@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import Routes from './routes';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
-import { LoginProvider } from './context/LoginContext';
+import { LoadingProvider } from './context/LoadingContext';
 import { CategoriaProvider } from './context/CategoriaContext';
 import { CarrinhoProvider } from './context/CarrinhoContext';
 
@@ -10,13 +10,13 @@ export default () => {
 
   return (
     <AutenticacaoProvider>
-      <LoginProvider>
+      <LoadingProvider>
         <CategoriaProvider>
-        <CarrinhoProvider>
-          <Routes />
-        </CarrinhoProvider>
+          <CarrinhoProvider>
+            <Routes />
+          </CarrinhoProvider>
         </CategoriaProvider>
-      </LoginProvider>
+      </LoadingProvider>
     </AutenticacaoProvider>
   );
 }

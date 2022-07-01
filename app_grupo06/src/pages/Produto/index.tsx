@@ -1,54 +1,93 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { CarrinhoContext } from "../../context/CarrinhoContext";
 
 const Produto = ({ route, navigation }) => {
-  const{id_produto,sku,nome_produto,descricao_produto,imagem_produto,preco_produto}=route.params;
+  const { produto } = route.params;
   const { adicionarProduto } = useContext(CarrinhoContext);
-
-  // _sku: string, _nome: string, _descricao: string, _preco: number, _imagem: string
+  const [favorited, setFavorited] = useState(false);
 
   const handleAddProduto = () => {
-    adicionarProduto(sku, nome_produto, descricao_produto, preco_produto, imagem_produto);
+    adicionarProduto(produto.sku, produto.nomeProduto, produto.descricaoProduto, produto.precoProduto, produto.imagemProduto);
+  }
+
+  const handleFavoritar = () => {
+    setFavorited(!favorited)
+    // favoritar(produto)
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.container_imagem}>
-        <Text style={styles.text}>Imagem</Text>
+        <Image source={{ uri: produto.imagemProduto }} style={styles.image} />
       </View>
       <View>
-        <Text>{ }</Text>
-        <Text>{ }</Text>
-        <TouchableOpacity onPress={()=> handleAddProduto()}>
-          <Text style={styles.text}>Comprar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.text}>Favoritar</Text>
-        </TouchableOpacity>
+        <Text style={styles.text}>Produto: {produto.nomeProduto}</Text>
+        <Text style={styles.text}>Descrição: {produto.descricaoProduto}</Text>
+        <View style={styles.container_buttons}>
+          <TouchableOpacity style={styles.buttons} onPress={() => handleAddProduto()}>
+            <Text>Comprar</Text>
+          </TouchableOpacity>
+          {favorited ?
+            <TouchableOpacity style={styles.buttons_favorited} onPress={() => handleFavoritar()} >
+              <Text style={styles.text_desfavoritar}>Desfavoritar</Text>
+            </TouchableOpacity> :
+            <TouchableOpacity style={styles.buttons} onPress={() => handleFavoritar()} >
+              <Text>Favorito</Text>
+            </TouchableOpacity>
+          }
+
+        </View>
       </View>
     </View>
   );
 }
 export default Produto;
 
-const styles=StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:'#fff',
-    padding:16,
-    alignItems:'stretch',
-    justifyContent:'space-between',
-    flexGrow:1
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 16,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    flexGrow: 1
   },
-  container_imagem:{
-    width:'50%',
+  container_imagem: {
+    width: 300,
+    height: 200,
   },
-  container_produto:{
-    width:'50%',
+  image: {
+    width: '100%',
+    height: '100%',
   },
-
-  text : {
-    color:'#000',
-  }
+  container_produto: {
+    width: '50%',
+  },
+  text: {
+    color: '#000',
+  },
+  container_buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttons: {
+    width: 100,
+    height: 50, 
+    backgroundColor: '#333',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttons_favorited: {
+    width: 100,
+    height: 50,
+    backgroundColor: '#f3e306',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text_desfavoritar: {
+    color: '#333',
+  },
 });

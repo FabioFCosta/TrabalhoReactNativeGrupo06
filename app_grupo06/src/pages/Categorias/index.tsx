@@ -1,18 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import { SearchBar } from "../../components/Search";
 
 import { IconCategoria } from "../../components/Categorias/IconCategorias";
-import { CategoriaType } from "../../models/CategoriaType";
 
-import AxiosInstance from "../../api/AxiosInstance";
-import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { CategoriaContext } from "../../context/CategoriaContext";
 
 const Categorias = () => {
 
-  const {categoria, setCategoria} = useContext(CategoriaContext);
-  
+  const { categoria, setCategoria } = useContext(CategoriaContext);
+
   return (
     <View style={styles.container}>
       <SearchBar />
