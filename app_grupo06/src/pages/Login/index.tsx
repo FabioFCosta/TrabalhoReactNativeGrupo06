@@ -3,7 +3,7 @@ import { View, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard } from 'rea
 import { Input, Text, Icon, Button } from 'react-native-elements';
 import { AppLoader } from '../../components/AppLoader';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import { LoginContext } from '../../context/LoginContext';
+import { LoadingContext } from '../../context/LoadingContext';
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -15,18 +15,18 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const { login } = useContext(AutenticacaoContext);
-  const { loginPending, setLoginPending } = useContext(LoginContext);
+  const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
-    setLoginPending(false);
+    setLoading(false);
   }, []);
 
   const handleLogin = async (email: string, senha: string) => {
     Keyboard.dismiss();
-    setLoginPending(true)
+    setLoading(true)
     const respostaLogin = await login(email, senha);
     if (!respostaLogin) {
-      setLoginPending(false)
+      setLoading(false)
       Alert.alert(
         "Erro",
         "",
@@ -37,7 +37,7 @@ const Login = ({ navigation }) => {
       );
     } else {
       navigation.navigate('HomeScreen');
-      setLoginPending(false)
+      setLoading(false)
     }
   }
   return (
@@ -58,7 +58,7 @@ const Login = ({ navigation }) => {
             leftIcon={<Icon name="key" color="#000" type="font-awesome" size={24} />}
             secureTextEntry
           />
-          {loginPending ? null : <Button
+          {loading ? null : <Button
             titleStyle={styles.tituloBotao}
             containerStyle={styles.containerBotao}
             buttonStyle={styles.styleBotao}
@@ -67,7 +67,7 @@ const Login = ({ navigation }) => {
           />}
         </View>
       </DismissKeyboard>
-      {loginPending ? <AppLoader /> : null}
+      {loading ? <AppLoader /> : null}
     </>
   );
 }

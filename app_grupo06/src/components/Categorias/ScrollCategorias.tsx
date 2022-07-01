@@ -5,7 +5,7 @@ import CardCategoria from "./CardCategorias";
 import { AppLoader } from "../AppLoader";
 
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
-import { LoginContext } from "../../context/LoginContext";
+import { LoadingContext} from "../../context/LoadingContext";
 import { CategoriaType } from "../../models/CategoriaType";
 import { CategoriaContext } from "../../context/CategoriaContext";
 
@@ -14,10 +14,10 @@ const ScrollCategorias = ({ navigation }) => {
 
   const { usuario } = useContext(AutenticacaoContext);
   const {categoria, setCategoria} = useContext(CategoriaContext);
-  const { loginPending, setLoginPending } = useContext(LoginContext);
+  const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
-    setLoginPending(true);
+    setLoading(true);
     getDadosCategoria();
   }, []);
 
@@ -30,12 +30,12 @@ const ScrollCategorias = ({ navigation }) => {
     }).catch((error) => {
       console.log("Erro ao carregar a lista de categorias - " + JSON.stringify(error));
     })
-    { setLoginPending(false) }
+    { setLoading(false) }
   }
 
   return (
     <>
-      {loginPending ? <AppLoader /> :
+      {loading ? <AppLoader /> :
         <FlatList
           horizontal={true}
           data={categoria}

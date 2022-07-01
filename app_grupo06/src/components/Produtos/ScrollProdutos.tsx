@@ -4,7 +4,7 @@ import AxiosInstance from "../../api/AxiosInstance";
 
 import { ProdutoType } from "../../models/ProdutoType";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
-import { LoginContext } from "../../context/LoginContext";
+import { LoadingContext } from "../../context/LoadingContext";
 
 import CardProdutos from "./CardProdutos";
 import TitulosHome from "../Home/Titulos";
@@ -13,14 +13,14 @@ import { AppLoader } from "../AppLoader";
 const ScrollProdutos = ({navigation}) => {
   const { usuario } = useContext(AutenticacaoContext);
   const [produto, setProduto] = useState<ProdutoType[]>([]);
-  const { loginPending, setLoginPending } = useContext(LoginContext);
+  const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     getDadosProduto();
   }, []);
 
   const getDadosProduto = async () => {
-    setLoginPending(true);
+    setLoading(true);
     AxiosInstance.get(
       '/produto',
       { headers: { "Authorization": `Bearer ${usuario.token}` } }
@@ -29,13 +29,13 @@ const ScrollProdutos = ({navigation}) => {
     }).catch((error) => {
       console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
     })
-    setLoginPending(false);
+    setLoading(false);
   }
 
   return (
     <>
       <TitulosHome titulo="Recentes" />
-      {loginPending ? <AppLoader /> :
+      {loading ? <AppLoader /> :
         <FlatList
           horizontal={true}
           data={produto}
