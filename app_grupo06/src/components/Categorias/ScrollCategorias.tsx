@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useContext } from "react";
+import { StyleSheet, FlatList, View } from "react-native";
 import AxiosInstance from "../../api/AxiosInstance";
 import CardCategoria from "./CardCategorias";
 import { AppLoader } from "../AppLoader";
 
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { LoadingContext} from "../../context/LoadingContext";
-import { CategoriaType } from "../../models/CategoriaType";
 import { CategoriaContext } from "../../context/CategoriaContext";
 
 
@@ -34,7 +33,7 @@ const ScrollCategorias = ({ navigation }) => {
   }
 
   return (
-    <>
+    <View style={styles.scroll_categorias}>
       {loading ? <AppLoader /> :
         <FlatList
           horizontal={true}
@@ -48,14 +47,14 @@ const ScrollCategorias = ({ navigation }) => {
           }
         />
       }
-    </> 
+    </View> 
   );
 }
 
 const styles = StyleSheet.create({
   scroll_categorias: {
     padding: 0,
-    margin: 0
+    marginBottom:20,
   }
 })
 

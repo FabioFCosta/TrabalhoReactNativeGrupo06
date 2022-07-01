@@ -10,7 +10,7 @@ import CardProdutos from "./CardProdutos";
 import TitulosHome from "../Titulos";
 import { AppLoader } from "../AppLoader";
 
-const ScrollProdutos = ({navigation}) => {
+const ScrollProdutos = ({ navigation }) => {
   const { usuario } = useContext(AutenticacaoContext);
   const [produto, setProduto] = useState<ProdutoType[]>([]);
   const { loading, setLoading } = useContext(LoadingContext);
@@ -34,11 +34,10 @@ const ScrollProdutos = ({navigation}) => {
 
   return (
     <>
-      <TitulosHome titulo="Recentes" />
       {loading ? <AppLoader /> :
         <FlatList
-          horizontal={true}
           data={produto}
+          numColumns={2}
           keyExtractor={item => item.idProduto}
           renderItem={response =>
             <>
