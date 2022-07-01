@@ -20,8 +20,7 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#bba3f8',
+    flex: 1,    
     padding: 15,
     margin: 0
   },
@@ -29,6 +28,3 @@ const styles = StyleSheet.create({
 
 export default Home;
 
-{/*
-<Icon name="heart" color="#000" type="font-awesome" size={24} />
-<Icon name="shopping-basket" color="#000" type="font-awesome" size={24} /> */}

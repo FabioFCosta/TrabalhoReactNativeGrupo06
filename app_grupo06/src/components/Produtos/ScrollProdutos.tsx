@@ -7,7 +7,7 @@ import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { LoginContext } from "../../context/LoginContext";
 
 import CardProdutos from "./CardProdutos";
-import TitulosHome from "../Home/Titulos";
+import TitulosHome from "../Titulos";
 import { AppLoader } from "../AppLoader";
 
 const ScrollProdutos = ({navigation}) => {

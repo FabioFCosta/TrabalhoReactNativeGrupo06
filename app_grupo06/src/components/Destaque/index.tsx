@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
-import TitulosHome from "../Home/Titulos";
+import TitulosHome from "../Titulos";
 
 export const Destaque = ({ nome, desc }) => {
   return (
