@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Categorias from "../pages/Categorias";
 import Carrinho from "../pages/Carrinho";
+import Favoritos from "../pages/Favoritos";
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
@@ -33,6 +34,11 @@ const BottomTabNavigator = () => {
         name='Carrinho'
         options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="shopping-cart" color="#000" type="font-awesome" size={24} />)}}
         component={Carrinho} 
+        />
+        <TabNavigation.Screen
+        name='Favoritos'
+        options={{ tabBarShowLabel:false,tabBarIcon:({color,size})=>(<Icon name="heart" color="#000" type="font-awesome" size={24} />)}}
+        component={Favoritos} 
         />
     </TabNavigation.Navigator>
   );
