@@ -44,7 +44,7 @@ export function CarrinhoProvider({ children }) {
       });
     });
 
-    console.log(JSON.stringify(listarProdutos()));
+    console.log("Adicionando ao carrinho")
   }
 
   // const deletarProduto=()=>{

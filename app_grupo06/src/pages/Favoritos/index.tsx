@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
-import { FavoritoContext } from "../../context/FavoritosContext";
+import React from "react";
 import { View, FlatList, StyleSheet, Text } from "react-native";
-import CardFavoritos from "../../components/Produtos/CardFavoritos";
+import CardProdutos from "../../components/Produtos/CardProdutos";
 
 const Favoritos = ({navigation}) => {
-  const { listarFavoritos } = useContext(FavoritoContext);
-  console.log("Listar produtos nos favoritos: "+listarFavoritos)
 
 
   return (
@@ -13,18 +10,18 @@ const Favoritos = ({navigation}) => {
       <Text style={styles.text}>
         Favoritos
       </Text>
-      <FlatList
-        data={listarFavoritos()}
+      {/* <FlatList
+        data={}
         keyExtractor={item => item.id_produto}
         renderItem={response =>
           <>
-            <CardFavoritos
+            <CardProdutos
               produto={response.item}
               navigation={navigation}
             />
           </>
         }
-      />
+      /> */}
     </View>
 
   );

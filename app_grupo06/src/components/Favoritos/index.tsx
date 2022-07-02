@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
-import { FavoritoContext } from "../../context/FavoritosContext";
 
 const Favoritar = ({ produto }) => {
-  const { adicionarFavorito } = useContext(FavoritoContext);
 
   const handleAddFavorito = () => {
-    adicionarFavorito(produto.sku, produto.nomeProduto, produto.descricaoProduto, produto.precoProduto, produto.imagemProduto)
+   
   }
 
   return (
