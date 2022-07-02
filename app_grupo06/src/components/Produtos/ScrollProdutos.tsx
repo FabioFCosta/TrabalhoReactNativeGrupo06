@@ -2,12 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import { FlatList } from "react-native";
 import AxiosInstance from "../../api/AxiosInstance";
 
-import { ProdutoType } from "../../models/ProdutoType";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { LoadingContext } from "../../context/LoadingContext";
 
 import CardProdutos from "./CardProdutos";
-import TitulosHome from "../Titulos";
 import { AppLoader } from "../AppLoader";
 import { ProdutoContext } from "../../context/ProdutoContext";
 

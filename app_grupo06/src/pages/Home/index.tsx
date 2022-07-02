@@ -23,14 +23,18 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container_title}>
-        <TitulosHome titulo="Conheça os melhores jogos" />
-        {hasImage? <Image style={styles.usario_image} source={''}/>
-        :
-        <Icon name="user-circle" color="#dddddd" type="font-awesome" size={70} />
-      }
+        <View style={styles.container_title_content_text}>
+          <TitulosHome titulo="Conheça os melhores jogos" />
+        </View>
+        <View style={styles.container_title_content_img}>
+          {hasImage ? <Image style={styles.usario_image} source={''} />
+            :
+            <Icon name="user-circle" color="#dddddd" type="font-awesome" size={70} />
+          }
+        </View>
       </View>
       <ScrollCategorias navigation={navigation} />
-      <SearchBar titulo="Encontre seu jogo" type="Produtos" />
+      <SearchBar titulo="Encontre seu jogo" type="Produto" />
       <ScrollProdutos navigation={navigation} />
     </View>
   );
@@ -49,9 +53,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 15,
   },
-  usuario_image:{
-    width:70,
-    height:70
+  container_title_content_text:{
+    width:'50%',
+  },
+  container_title_content_img:{
+    justifyContent:'center'
+  },
+  usuario_image: {
+    width: 70,
+    height: 70
   }
 })
 

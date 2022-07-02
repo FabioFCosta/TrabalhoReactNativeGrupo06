@@ -24,9 +24,9 @@ const CardProdutos = (props) => {
           style={styles.card_image}
         />
         <Text style={styles.card_title}>{props.produto.nomeProduto}</Text>
-        <Text style={styles.card_subtitle}>{props.produto.descricaoProduto}</Text>
+        <Text style={styles.card_subtitle}>{props.produto.nomeCategoria}</Text>
         <View style={styles.price_addCart}>
-          <Text style={styles.card_price}>R$ {props.produto.precoProduto}</Text>
+          <Text style={styles.card_price}>R$ {props.produto.precoProduto.toFixed(2)}</Text>
           <AddCarrinho produto={props.produto} />
         </View>
         <Favoritar produto={props.produto}/>
