@@ -9,10 +9,11 @@ import { LoadingContext } from "../../context/LoadingContext";
 import CardProdutos from "./CardProdutos";
 import TitulosHome from "../Titulos";
 import { AppLoader } from "../AppLoader";
+import { ProdutoContext } from "../../context/ProdutoContext";
 
 const ScrollProdutos = ({ navigation }) => {
   const { usuario } = useContext(AutenticacaoContext);
-  const [produto, setProduto] = useState<ProdutoType[]>([]);
+  const {produto, setProduto} = useContext(ProdutoContext)
   const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {

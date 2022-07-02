@@ -4,14 +4,16 @@ import { Input, Icon } from "react-native-elements";
 import AxiosInstance from "../../api/AxiosInstance";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { CategoriaContext } from "../../context/CategoriaContext";
+import { ProdutoContext } from "../../context/ProdutoContext";
 
-export const SearchBar = ({titulo}) => {
+export const SearchBar = (props) => {
   const [busca, setBusca] = useState('');
   const { usuario } = useContext(AutenticacaoContext);
   const { categoria, setCategoria } = useContext(CategoriaContext);
+  const { produto, setProduto } = useContext(ProdutoContext);
 
   useEffect(() => {
-    buscarCategoria(busca);
+    props.type==="Categoria"? buscarCategoria(busca):buscarProduto(busca)
   }, [busca])
 
   const getDadosCategoria = async () => {
@@ -25,6 +27,17 @@ export const SearchBar = ({titulo}) => {
     });
   }
 
+  const getDadosProduto = async () => {
+    AxiosInstance.get(
+      '/produto',
+      { headers: { "Authorization": `Bearer ${usuario.token}` } }
+    ).then(result => {
+      setProduto(result.data);
+    }).catch((error) => {
+      console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
+    })
+  }
+
   const buscarCategoria = (busca: string) => {
     if (busca !== '') {
       setCategoria(
@@ -34,10 +47,19 @@ export const SearchBar = ({titulo}) => {
       getDadosCategoria();
     }
   }
+  const buscarProduto = (busca: string) => {
+    if (busca !== '') {
+      setProduto(
+        produto.filter
+          (res => res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
+    } else {
+      getDadosProduto();
+    }
+  }
 
   return (
     <Input
-      placeholder={titulo}
+      placeholder={props.titulo}
       leftIcon={<Icon name="search" color="#00000080" type="font-awesome" size={24} />}
       onChangeText={setBusca}
       value={busca}
