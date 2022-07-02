@@ -1,53 +1,63 @@
 import React from "react";
-import { Card, Text } from "react-native-elements";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Text } from "react-native-elements";
+import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
 
 const CardCarrinho = (props) => {
 
-  const handleClick=(props)=>{    
+  const handleClick = (props) => {
     console.log(`O produto ${props.produto.nome_produto} foi clicado no carrinho`)
-    props.navigation.navigate({name:'ProdutoScreen',params:{
-      produto:{
-        idProduto:props.produto.id_produto,
-        sku:props.produto.sku,
-        imagemProduto:props.produto.imagem_produto,
-        nomeProduto:props.produto.nome_produto,
-        descricaoProduto:props.produto.descricao_produto
-      }     
-    }})
+    props.navigation.navigate({
+      name: 'ProdutoScreen', params: {
+        produto: {
+          idProduto: props.produto.id_produto,
+          sku: props.produto.sku,
+          imagemProduto: props.produto.imagem_produto,
+          nomeProduto: props.produto.nome_produto,
+          descricaoProduto: props.produto.descricao_produto
+        }
+      }
+    })
   }
 
   return (
     <TouchableOpacity
-      onPress={()=>handleClick(props)}
+      onPress={() => handleClick(props)}
     >
-      <Card containerStyle={styles.card_container} >
-        <Card.Image
+      <View style={styles.card_container} >
+        <Image
           source={{ uri: props.produto.imagem_produto }}
           style={styles.card_image}
         />
-        <Card.Title style={styles.card_desc}>{props.produto.nome_produto}</Card.Title>
-        <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
-      </Card>
+        <View>
+          <Text style={styles.card_nome}>{props.produto.nome_produto}</Text>
+          <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   )
 }
 const styles = StyleSheet.create({
   card_container: {
-    width: 185,
-    height: 250,
+    flexDirection:'row',
+    width: '90%',
     borderRadius: 10,
-    padding: 0,
-    margin: 0,
-    marginRight: 10,
-    alignItems: 'center',
+    marginBottom: 10,
+    backgroundColor:'#eeeeee'
   },
   card_image: {
-    width: 185,
+    width: '50%',
     height: 150,
     marginBottom: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+  },
+  card_nome: {
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    fontWeight:'bold',
+    color:'#978413',
+    paddingHorizontal: 10,
+    backgroundColor:'#333'
   },
   card_desc: {
     textAlign: 'left',

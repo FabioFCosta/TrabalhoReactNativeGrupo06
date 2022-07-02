@@ -3,9 +3,9 @@ import { CarrinhoContext } from "../../context/CarrinhoContext";
 import { View, FlatList, StyleSheet, Text } from "react-native";
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 
-const Carrinho = ({navigation}) => {
+const Carrinho = ({ navigation }) => {
   const { listarProdutos } = useContext(CarrinhoContext);
-  console.log("Listar produtos no carrinho: "+listarProdutos)
+  console.log("Listar produtos no carrinho: " + listarProdutos)
 
   return (
     <View style={styles.container}>
@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     flexGrow: 1,
+  },  
+  text: {
+    color: '#000',
   },
-  text:{
-    color:'#000',
-  },
-  });
+});
 
 export default Carrinho;
