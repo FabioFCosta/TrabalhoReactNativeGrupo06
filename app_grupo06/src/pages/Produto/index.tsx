@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { CarrinhoContext } from "../../context/CarrinhoContext";
 import Favoritar from "../../components/Favoritos";
 import Voltar from "../../components/Voltar";
+import QtdProdutos from "../../components/QtdProdutos/QtdProdutos";
 
 const Produto = ({ route, navigation }) => {
   const { produto } = route.params;
@@ -25,9 +26,7 @@ const Produto = ({ route, navigation }) => {
         <Text style={styles.desc_produto}>{produto.descricaoProduto}</Text>
         <View style={styles.container_price_qtd}>
           <Text style={styles.price}>R$ {produto.precoProduto.toFixed(2)}</Text>
-          <View style={styles.container_buttons}>
-            <Text>- Qtd +</Text>
-          </View>
+          <QtdProdutos />
         </View>
       </View>
     </View>
@@ -66,16 +65,17 @@ const styles = StyleSheet.create({
   },
   desc_produto: {
     height: 200,
+    fontSize:20,
     color: '#C4DFE8',
   },
-  container_price_qtd:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+  container_price_qtd: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  price:{
-    color:'#FE5430',
-    fontSize:30,
+  price: {
+    color: '#FE5430',
+    fontSize: 30,
   },
   container_buttons: {
     width: 100,
