@@ -17,6 +17,7 @@ export const AutenticacaoProvider = ({ children }) => {
         name: respostaServiceLogin?.name,
         email: respostaServiceLogin?.email,
         token: respostaServiceLogin?.token, 
+        // imagem:respostaServiceLogin?.imagem,
         imagem:'https://yt3.ggpht.com/ytc/AKedOLQ6Ief26j8b1lgSA1OpXSCzJBlnlEEsWtQAfdwB=s900-c-k-c0x00ffffff-no-rj',       
       });
       return true;
