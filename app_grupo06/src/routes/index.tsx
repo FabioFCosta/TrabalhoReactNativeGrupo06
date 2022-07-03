@@ -8,7 +8,7 @@ import Produto from "../pages/Produto";
 
 import Login from "../pages/Login";
 import Home from "../pages/Home";
-import Categorias from "../pages/Categorias";
+import PerfilUsuario from "../pages/PerfilUsuario";
 import Carrinho from "../pages/Carrinho";
 import Favoritos from "../pages/Favoritos";
 
@@ -26,9 +26,9 @@ const BottomTabNavigator = () => {
         component={Home}  
          />
       <TabNavigation.Screen
-        name='CategoriasTabScreen'
-        options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="search" color="#000" type="font-awesome" size={24} />)}}
-        component={Categorias} 
+        name='Perfil'
+        options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="user" color="#000" type="font-awesome" size={24} />)}}
+        component={PerfilUsuario} 
         />
         <TabNavigation.Screen
         name='Carrinho'
@@ -52,9 +52,9 @@ const NavigationDrawer = () => {
         options={{ title: 'Home' }}
         component={BottomTabNavigator} />
       <DrawerNavigation.Screen
-        name="CategoriasDrawerScreen"
-        options={{ title: 'Categorias' }}
-        component={Categorias} />
+        name="Perfil"
+        options={{ title: 'Perfil' }}
+        component={PerfilUsuario} />
     </DrawerNavigation.Navigator>
   );
 }
