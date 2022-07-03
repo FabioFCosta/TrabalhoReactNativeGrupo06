@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Icon } from "react-native-elements";
+import { Icon, withBadge } from "react-native-elements";
 import Produto from "../pages/Produto";
 
 import Login from "../pages/Login";
@@ -11,51 +10,63 @@ import Home from "../pages/Home";
 import PerfilUsuario from "../pages/PerfilUsuario";
 import Carrinho from "../pages/Carrinho";
 import Favoritos from "../pages/Favoritos";
+import { CarrinhoContext } from "../context/CarrinhoContext";
+import { StatusBar } from "react-native";
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
+  
+  const { contarQtdProdutos } = useContext(CarrinhoContext);
+  const BadgeIcon = withBadge(contarQtdProdutos())(Icon);
+  
   return (
     <TabNavigation.Navigator screenOptions={{
       tabBarHideOnKeyboard:true,
-      headerShown: false,
-      tabBarStyle: { backgroundColor: '#fff', borderBottomWidth: 0, },
+      headerStyle: {
+        backgroundColor: '#546ee5',
+      },
+      headerTitleAlign: 'center',
+      headerTitleStyle: {
+        color: '#c4dfe8',
+        fontSize: 30,
+        fontWeight: '900'
+      },
+      tabBarStyle: { 
+        backgroundColor: '#546ee5', 
+        borderBottomWidth: 0,
+        borderTopWidth: 0,
+      },
     }}>
       <TabNavigation.Screen
-        name='HomeTabScreen'
-        options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="home" color="#000" type="font-awesome" size={24} />)}}
+        name='Home'
+        options={{ 
+          tabBarShowLabel: false,
+          tabBarIcon:({color,size})=>(<Icon name="home" color="#c4dfe8" type="font-awesome" size={24} />)}}
         component={Home}  
          />
       <TabNavigation.Screen
         name='Perfil'
-        options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="user" color="#000" type="font-awesome" size={24} />)}}
+        options={{ 
+          tabBarShowLabel:false, 
+          tabBarIcon:({color,size})=>(<Icon name="user" color="#c4dfe8" type="font-awesome" size={24} />)}}
         component={PerfilUsuario} 
         />
         <TabNavigation.Screen
-        name='Carrinho'
-        options={{ tabBarShowLabel:false, tabBarIcon:({color,size})=>(<Icon name="shopping-cart" color="#000" type="font-awesome" size={24} />)}}
-        component={Carrinho} 
-        />
-        <TabNavigation.Screen
         name='Favoritos'
-        options={{ tabBarShowLabel:false,tabBarIcon:({color,size})=>(<Icon name="heart" color="#000" type="font-awesome" size={24} />)}}
+        options={{ 
+          tabBarShowLabel:false,
+          tabBarIcon:({color,size})=>(<Icon name="heart" color="#c4dfe8" type="font-awesome" size={24} />)}}
         component={Favoritos} 
         />
+        <TabNavigation.Screen
+        name='Carrinho'
+        options={{ 
+          tabBarShowLabel:false, 
+          tabBarIcon:()=>(
+          <BadgeIcon name="shopping-cart" color="#c4dfe8" type="font-awesome" size={24} />)}}
+        component={Carrinho} 
+        />
     </TabNavigation.Navigator>
-  );
-}
-const DrawerNavigation = createDrawerNavigator();
-const NavigationDrawer = () => {
-  return (
-    <DrawerNavigation.Navigator>
-      <DrawerNavigation.Screen
-        name="TabNavigationScreen"
-        options={{ title: 'Home' }}
-        component={BottomTabNavigator} />
-      <DrawerNavigation.Screen
-        name="Perfil"
-        options={{ title: 'Perfil' }}
-        component={PerfilUsuario} />
-    </DrawerNavigation.Navigator>
   );
 }
 
@@ -73,7 +84,7 @@ const Routes = () => {
         />
         <StackNavigation.Screen
           name='HomeScreen'
-          component={NavigationDrawer}
+          component={BottomTabNavigator}
         />
         <StackNavigation.Screen
           name='ProdutoScreen'
