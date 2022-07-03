@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Icon, Image } from "react-native-elements";
 
 import ScrollCategorias from "../../components/Categorias/ScrollCategorias";
 import ScrollProdutos from "../../components/Produtos/ScrollProdutos";
@@ -10,13 +10,14 @@ import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
 const Home = ({ navigation }) => {
   const { usuario } = useContext(AutenticacaoContext);
-  const [hasImage, setHasImage] = useState();
+  const [hasImage, setHasImage] = useState(false);
 
   useEffect(() => {
     usuarioHasImage();
   }, []);
 
   const usuarioHasImage = () => {
+    console.log(usuario.imagem)
     usuario.imagem === undefined ? setHasImage(false) : setHasImage(true);
   }
 
@@ -27,7 +28,7 @@ const Home = ({ navigation }) => {
           <TitulosHome titulo="Conheça os melhores jogos" />
         </View>
         <View style={styles.container_title_content_img}>
-          {hasImage ? <Image style={styles.usario_image} source={''} />
+          {hasImage ? <Image style={styles.usuario_image} source={{uri:usuario.imagem}} />
             :
             <Icon name="user-circle" color="#dddddd" type="font-awesome" size={70} />
           }
@@ -61,7 +62,8 @@ const styles = StyleSheet.create({
   },
   usuario_image: {
     width: 70,
-    height: 70
+    height: 70,
+    borderRadius:35
   }
 })
 
