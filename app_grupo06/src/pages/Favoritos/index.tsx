@@ -1,29 +1,27 @@
-import React, { useContext } from "react";
-import { CarrinhoContext } from "../../context/CarrinhoContext";
+import React from "react";
 import { View, FlatList, StyleSheet, Text } from "react-native";
-import CardCarrinho from "../../components/Produtos/CardCarrinho";
+import CardProdutos from "../../components/Produtos/CardProdutos";
 
-const Carrinho = ({ navigation }) => {
-  const { listarProdutos } = useContext(CarrinhoContext);
-  console.log("Listar produtos no carrinho: " + listarProdutos)
+const Favoritos = ({navigation}) => {
+
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        Carrinho
+        Favoritos
       </Text>
-      <FlatList
-        data={listarProdutos()}
+      {/* <FlatList
+        data={}
         keyExtractor={item => item.id_produto}
         renderItem={response =>
           <>
-            <CardCarrinho
+            <CardProdutos
               produto={response.item}
               navigation={navigation}
             />
           </>
         }
-      />
+      /> */}
     </View>
 
   );
@@ -36,10 +34,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     flexGrow: 1,
-  },  
-  text: {
-    color: '#000',
   },
-});
+  text:{
+    color:'#000',
+  },
+  });
 
-export default Carrinho;
+export default Favoritos;

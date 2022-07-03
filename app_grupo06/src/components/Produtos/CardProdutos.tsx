@@ -23,13 +23,15 @@ const CardProdutos = (props) => {
           source={{ uri: props.produto.imagemProduto }}
           style={styles.card_image}
         />
+        <View style={styles.icon_fav}>
+          <Favoritar produto={props.produto} />
+        </View>
         <Text style={styles.card_title}>{props.produto.nomeProduto}</Text>
-        <Text style={styles.card_subtitle}>{props.produto.descricaoProduto}</Text>
+        <Text style={styles.card_subtitle}>{props.produto.nomeCategoria}</Text>
         <View style={styles.price_addCart}>
-          <Text style={styles.card_price}>R$ {props.produto.precoProduto}</Text>
+          <Text style={styles.card_price}>R$ {props.produto.precoProduto.toFixed(2)}</Text>
           <AddCarrinho produto={props.produto} />
         </View>
-        <Favoritar produto={props.produto}/>
       </Card>
     </TouchableOpacity>
   )
@@ -52,6 +54,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10,
   },
+  icon_fav: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+  },
   card_title: {
     textAlign: 'left',
     fontWeight: 'bold',
@@ -65,13 +71,13 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 18,
     fontWeight: 'bold',
-    color:'#fe5430'
+    color: '#fe5430'
 
   },
   price_addCart: {
-    flexDirection:'row',
-    justifyContent:'space-between',
-    marginTop:10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
   },
 });
 

@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Text } from "react-native-elements";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { ProdutoContext } from "../../context/ProdutoContext";
+import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
 const CardCategoria = (props) => {
+  const { produto } = useContext(ProdutoContext);
+  const { setFilterProd } = useContext(ProdutoContext);
 
-  const handleClick = (categoria) => {
-    console.log(`A categoria ${categoria.nomeCategoria} foi clicada`)
+  const handleClick = () => {
+    setFilterProd(produto.filter(item => item.nomeCategoria === props.categoria.nomeCategoria))
   }
 
   return (
     <TouchableOpacity
-      onPress={() => handleClick(props.categoria)}
+      onPress={() => handleClick()}
     >
-      <View style={styles.view_itens_categoria}>
+      <View style={styles.container_categoria}>
         <Text style={styles.texto_nome_categoria}>{props.categoria.nomeCategoria}</Text>
       </View>
     </TouchableOpacity>
   )
 }
 const styles = StyleSheet.create({
-  view_itens_categoria: {
+  container_categoria: {
     width: 100,
     height: 40,
     borderRadius: 20,
