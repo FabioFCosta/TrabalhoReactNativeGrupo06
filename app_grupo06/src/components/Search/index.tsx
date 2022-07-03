@@ -1,42 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Icon } from "react-native-elements";
-import AxiosInstance from "../../api/AxiosInstance";
-import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { CategoriaContext } from "../../context/CategoriaContext";
 import { ProdutoContext } from "../../context/ProdutoContext";
 
 export const SearchBar = (props) => {
   const [busca, setBusca] = useState('');
-  const { usuario } = useContext(AutenticacaoContext);
-  const { categoria, setCategoria } = useContext(CategoriaContext);
-  const { produto, setProduto } = useContext(ProdutoContext);
+  const { categoria, setCategoria, filtercat, setFilterCat, getDadosCategoria } = useContext(CategoriaContext);
+  const {produto, setProduto, filterProd, setFilterProd, getDadosProduto} = useContext(ProdutoContext)
 
   useEffect(() => {
     props.type==="Categoria"? buscarCategoria(busca):buscarProduto(busca)
   }, [busca])
-
-  const getDadosCategoria = async () => {
-    AxiosInstance.get(
-      `/categoria`,
-      { headers: { "Authorization": `Bearer ${usuario.token}` } }
-    ).then(result => {
-      setCategoria(result.data);
-    }).catch((error) => {
-      console.log("Erro ao carregar a lista de categorias - " + JSON.stringify(error));
-    });
-  }
-
-  const getDadosProduto = async () => {
-    AxiosInstance.get(
-      '/produto',
-      { headers: { "Authorization": `Bearer ${usuario.token}` } }
-    ).then(result => {
-      setProduto(result.data);
-    }).catch((error) => {
-      console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
-    })
-  }
 
   const buscarCategoria = (busca: string) => {
     if (busca !== '') {
@@ -49,8 +24,8 @@ export const SearchBar = (props) => {
   }
   const buscarProduto = (busca: string) => {
     if (busca !== '') {
-      setProduto(
-        produto.filter
+      setFilterProd(
+        filterProd.filter
           (res => res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
     } else {
       getDadosProduto();
