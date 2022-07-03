@@ -38,7 +38,7 @@ const BottomTabNavigator = () => {
       },
     }}>
       <TabNavigation.Screen
-        name='Home'
+        name='Foldbreakers Store'
         options={{ 
           tabBarShowLabel: false,
           tabBarIcon:({color,size})=>(<Icon name="home" color="#c4dfe8" type="font-awesome" size={24} />)}}
