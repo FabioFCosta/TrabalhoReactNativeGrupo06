@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { Text, Image, Icon } from "react-native-elements";
 
