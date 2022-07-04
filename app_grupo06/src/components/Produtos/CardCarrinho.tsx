@@ -1,11 +1,11 @@
 import React from "react";
 import { Text } from "react-native-elements";
 import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
+import RemoverCarrinho from "./RemoverCarrinho";
 
 const CardCarrinho = (props) => {
 
   const handleClick = (props) => {
-    console.log(`O produto ${props.produto.nome_produto} foi clicado no carrinho`)
     props.navigation.navigate({
       name: 'ProdutoScreen', params: {
         produto: {
@@ -31,6 +31,7 @@ const CardCarrinho = (props) => {
         <View>
           <Text style={styles.card_nome}>{props.produto.nome_produto}</Text>
           <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
+          <RemoverCarrinho produto={props.produto}/>
         </View>
       </View>
     </TouchableOpacity>

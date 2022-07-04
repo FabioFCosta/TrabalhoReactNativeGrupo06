@@ -47,14 +47,11 @@ export function CarrinhoProvider({ children }) {
     console.log("Adicionando ao carrinho")
   }
 
-  // const deletarProduto=()=>{
-
-  //   realm_carrinho.write(()=>{
-  //     const produto = realm_carrinho.delete('Produto',{
-
-  //     })
-  //   })
-  // }
+  const deletarProduto = (produto) => {
+    realm_carrinho.write(() => {
+      realm_carrinho.delete(produto)
+    })
+  }
 
   return (
     <CarrinhoContext.Provider value={{
