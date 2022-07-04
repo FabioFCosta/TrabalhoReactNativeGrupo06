@@ -13,16 +13,17 @@ import Favoritos from "../pages/Favoritos";
 import { CadastroUsuario } from "../pages/CadastroUsuario";
 import { CarrinhoContext } from "../context/CarrinhoContext";
 import { StatusBar } from "react-native";
+import { RecuperacaoSenha } from "../pages/RecuperacaoSenha";
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
-  
+
   const { contarQtdProdutos } = useContext(CarrinhoContext);
   const BadgeIcon = withBadge(contarQtdProdutos())(Icon);
-  
+
   return (
     <TabNavigation.Navigator screenOptions={{
-      tabBarHideOnKeyboard:true,
+      tabBarHideOnKeyboard: true,
       headerStyle: {
         backgroundColor: '#546ee5',
       },
@@ -32,41 +33,45 @@ const BottomTabNavigator = () => {
         fontSize: 30,
         fontWeight: '900'
       },
-      tabBarStyle: { 
-        backgroundColor: '#546ee5', 
+      tabBarStyle: {
+        backgroundColor: '#546ee5',
         borderBottomWidth: 0,
         borderTopWidth: 0,
       },
     }}>
       <TabNavigation.Screen
         name='Foldbreakers Store'
-        options={{ 
+        options={{
           tabBarShowLabel: false,
-          tabBarIcon:({color,size})=>(<Icon name="home" color="#c4dfe8" type="font-awesome" size={24} />)}}
-        component={Home}  
-         />
+          tabBarIcon: ({ color, size }) => (<Icon name="home" color="#c4dfe8" type="font-awesome" size={24} />)
+        }}
+        component={Home}
+      />
       <TabNavigation.Screen
         name='Perfil'
-        options={{ 
-          tabBarShowLabel:false, 
-          tabBarIcon:({color,size})=>(<Icon name="user" color="#c4dfe8" type="font-awesome" size={24} />)}}
-        component={PerfilUsuario} 
-        />
-        <TabNavigation.Screen
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (<Icon name="user" color="#c4dfe8" type="font-awesome" size={24} />)
+        }}
+        component={PerfilUsuario}
+      />
+      <TabNavigation.Screen
         name='Favoritos'
-        options={{ 
-          tabBarShowLabel:false,
-          tabBarIcon:({color,size})=>(<Icon name="heart" color="#c4dfe8" type="font-awesome" size={24} />)}}
-        component={Favoritos} 
-        />
-        <TabNavigation.Screen
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (<Icon name="heart" color="#c4dfe8" type="font-awesome" size={24} />)
+        }}
+        component={Favoritos}
+      />
+      <TabNavigation.Screen
         name='Carrinho'
-        options={{ 
-          tabBarShowLabel:false, 
-          tabBarIcon:()=>(
-          <BadgeIcon name="shopping-cart" color="#c4dfe8" type="font-awesome" size={24} />)}}
-        component={Carrinho} 
-        />
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: () => (
+            <BadgeIcon name="shopping-cart" color="#c4dfe8" type="font-awesome" size={24} />)
+        }}
+        component={Carrinho}
+      />
     </TabNavigation.Navigator>
   );
 }
@@ -98,6 +103,10 @@ const Routes = () => {
         <StackNavigation.Screen
           name='CadastroUsuario'
           component={CadastroUsuario}
+        />
+        <StackNavigation.Screen
+          name='RecuperacaoSenha'
+          component={RecuperacaoSenha}
         />
       </StackNavigation.Navigator>
     </NavigationContainer>

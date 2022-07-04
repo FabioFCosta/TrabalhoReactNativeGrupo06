@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity, ScrollView } from 'react-native';
 import { Input, Text, Icon, Button } from 'react-native-elements';
 import { AppLoader } from '../../components/AppLoader';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
@@ -44,7 +44,7 @@ const Login = ({ navigation }) => {
   return (
     <>
       <DismissKeyboard>
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.boasVindas}>{'Login'}</Text>
           <Input
             inputContainerStyle={styles.inputContainer}
@@ -53,7 +53,7 @@ const Login = ({ navigation }) => {
             placeholderTextColor={"#070d2d"}
             onChangeText={setEmail}
             value={email}
-            //leftIcon={<Icon name="user" color="#000" type="font-awesome" size={24} />}
+          //leftIcon={<Icon name="user" color="#000" type="font-awesome" size={24} />}
           />
           <Input
             inputContainerStyle={styles.inputContainer}
@@ -66,7 +66,9 @@ const Login = ({ navigation }) => {
             secureTextEntry
           />
 
-          <TouchableOpacity onPress={() => navigation.navigate('')}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('RecuperacaoSenha')}
+          >
             <Text style={styles.esqueceuBotao}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
 
@@ -81,12 +83,12 @@ const Login = ({ navigation }) => {
           <View>
             <Text style={styles.tituloCadastro}>Ainda não está cadastrado?</Text>
           </View>
-          
+
           <TouchableOpacity onPress={() => navigation.navigate('CadastroUsuario')}>
             <Text style={styles.cadastroBotao}>Cadastre-se!</Text>
           </TouchableOpacity>
 
-        </View>
+        </ScrollView>
       </DismissKeyboard>
       {loading ? <AppLoader /> : null}
     </>
@@ -95,10 +97,11 @@ const Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#070d2d',
+    flexGrow: 1,
     alignItems: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingVertical: 16
   },
   boasVindas: {
     color: '#fe5430',
