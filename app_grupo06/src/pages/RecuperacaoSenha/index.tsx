@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text } from "react-native";
+import AxiosInstance from "../../api/AxiosInstance";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
 
@@ -8,12 +9,37 @@ export const RecuperacaoSenha = () => {
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
 
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       console.log('Submit')
       if (confirmSenha === senha) {
-         return console.log('senha confirmada')
+         console.log('Senha confirmada')
+         const usuario = {
+            email,
+            senha
+         }
+         try {
+            await AxiosInstance.post('autenticacao/recuperar-senha', usuario)
+            Alert.alert(
+               'Sucesso:',
+               '',
+               [
+                  { text: 'OK' },
+                  { text: 'Senha redefinida com sucesso.' },
+               ]
+            )
+         } catch (error) {
+            console.log(error)
+            Alert.alert(
+               'Erro:',
+               '',
+               [
+                  { text: 'OK' },
+                  { text: 'Erro ao redefinir a senha.' },
+               ]
+            )
+         }
       } else {
-         return console.log('senha incompatível')
+         console.log('Senha incompatível')
       }
    }
 
