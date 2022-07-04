@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Icon, Image, Input } from "react-native-elements";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Icon, Image } from "react-native-elements";
+import { ActionButton } from "../../components/ActionButton/ActionButton";
+import { InputTexto } from "../../components/InputTexto/InputTexto";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
 export const CadastroUsuario = () => {
@@ -9,21 +10,36 @@ export const CadastroUsuario = () => {
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   const { usuario, setUsuario } = useContext(AutenticacaoContext)
+   const { usuario } = useContext(AutenticacaoContext)
 
-   const confirmarSenha = (senha: string) => {
-      setConfirmSenha(confirmSenha)
-      console.log('Senha: ' + senha)
-      console.log('Senha confirm: ' + confirmSenha)
+   const handleSubmit = () => {
+      console.log('Submit')
       if (confirmSenha === senha) {
          return console.log('senha confirmada')
       } else {
          return console.log('senha incompatível')
       }
-   }
 
-   const handleSubmit = () => {
-      console.log('Submit')
+      // const usuario = {
+      //    nome,
+      //    email,
+      //    senha
+      // }
+      // const formData = new FormData()
+      // formData.append('usuario', new Blob([JSON.stringify(usuario)], { type: 'application/json' }))
+      // formData.append('file', fotoPerfil)
+      // try {
+      //    await api.post('produto/com-foto', formData, {
+      //       headers: {
+      //          'accept': 'application/json',
+      //          'Content-Type': 'multipart/form-data'
+      //       }
+      //    })
+      //    alert('Produto cadastrado com sucesso!')
+      // } catch (error) {
+      //    console.log(error);
+      //    alert(error.response.data.message + ' ' + error.response.data.details)
+      // }
    }
 
    return (
@@ -39,48 +55,38 @@ export const CadastroUsuario = () => {
             />
          </View>
          <View style={styles.addPhotoButton}>
-            <TouchableOpacity >
-               <View><Icon name="camera" color="#fff" type="font-awesome" size={24} /></View>
+            <TouchableOpacity>
+               <Icon name="camera" color="#fff" type="font-awesome" size={24} />
             </TouchableOpacity>
          </View>
-         <Input
-
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.inputStyle}
+         <InputTexto
+            secureTextEntry={false}
             placeholder='Nome'
-            placeholderTextColor={'#070d2d5c'}
             onChangeText={setNome}
             value={nome}
          />
-         <Input
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.inputStyle}
-            placeholder="Email"
-            placeholderTextColor={'#070d2d5c'}
+         <InputTexto
+            secureTextEntry={false}
+            placeholder='E-mail'
             onChangeText={setEmail}
             value={email}
          />
-         <Input
-            // secureTextEntry={true}
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.inputStyle}
-            placeholder="Senha"
-            placeholderTextColor={'#070d2d5c'}
+         <InputTexto
+            secureTextEntry={true}
+            placeholder='Senha'
             onChangeText={setSenha}
             value={senha}
          />
-         <Input
-            // secureTextEntry={true}
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.inputStyle}
-            placeholder="Confirme sua senha"
-            placeholderTextColor={'#070d2d5c'}
-            onChangeText={confirmarSenha}
+         <InputTexto
+            secureTextEntry={true}
+            placeholder='Confirme sua senha'
+            onChangeText={setConfirmSenha}
             value={confirmSenha}
          />
-         <TouchableOpacity style={styles.submitButton}>
-            <Text style={styles.submitButtonText} onPress={handleSubmit}>Cadastrar</Text>
-         </TouchableOpacity>
+         <ActionButton
+            text='Cadastrar'
+            onPress={handleSubmit}
+         />
       </ScrollView >
    )
 }
