@@ -13,7 +13,7 @@ const RemoverCarrinho = (props) => {
 
   return (
     <TouchableOpacity style={styles.container}>
-      <Icon name="trash" color="#fe5430" type="font-awesome" size={30} onPress={ handleRemoverProduto} />
+      <Icon name="trash" color="#546EE5" type="font-awesome" size={30} onPress={ handleRemoverProduto} />
     </TouchableOpacity>
   );
 }
