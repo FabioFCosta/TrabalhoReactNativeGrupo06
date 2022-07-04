@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CarrinhoContext } from "../../context/CarrinhoContext";
-import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 
 const Carrinho = ({ navigation }) => {
@@ -9,31 +9,31 @@ const Carrinho = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        contentContainerStyle={styles.container_flatList}
-        data={listarProdutos()}
-        keyExtractor={item => item.id_produto}
-        renderItem={response =>
-          <>
-            <CardCarrinho
-              produto={response.item}
-              navigation={navigation}
-            />
-          </>
-        }
-      />
-      <View style={styles.container_detalhes_compra}>
+      <View style={styles.container_flatList}>
+        <FlatList
+          data={listarProdutos()}
+          keyExtractor={item => item.id_produto}
+          renderItem={response =>
+            <>
+              <CardCarrinho
+                produto={response.item}
+                navigation={navigation}
+              />
+            </>
+          }
+          />
+          </View>
+        <View style={styles.container_detalhes_compra}>
         <Text style={styles.continuar_comprando}>Continuar comprando</Text>
-        <View style={styles.detalhes_compra}>
-          <Text style={styles.total_itens}>Total ({contarQtdProdutos()} itens):</Text>
-          <Text style={styles.total_valor}>R$ x.xxx,xx</Text>
+          <View style={styles.detalhes_compra}>
+            <Text style={styles.total_itens}>Total ({contarQtdProdutos()} itens):</Text>
+            <Text style={styles.total_valor}>R$ x.xxx,xx</Text>
+          </View>
+          <TouchableOpacity style={styles.submit}>
+            <Text style={styles.submit_text}>Finalizar Pedido</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.submit}>
-          <Text style={styles.submit_text}>Finalizar Pedido</Text>
-        </TouchableOpacity>
-      </View>
     </View>
-
   );
 }
 const styles = StyleSheet.create({
@@ -42,14 +42,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#070D2D',
   },
   container_flatList: {
-    height: '80%',
-    margin:0,
-    backgroundColor: '#333',
+    marginBottom:250,
   },
   container_detalhes_compra: {
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
-    backgroundColor: '#333',
+    padding: 20,
+    backgroundColor: '#070D2D',
+    position: 'absolute',
+    bottom: 0,
 
   },
   continuar_comprando: {
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
     color: '#FE5430',
     fontSize: 24,
     marginBottom: 20,
+    textDecorationLine:'underline',
   },
   detalhes_compra: {
     flexDirection: 'row',
@@ -65,22 +67,22 @@ const styles = StyleSheet.create({
 
   },
   total_itens: {
-
+    fontSize: 20,
+    color: '#06C1FF'
   },
   total_valor: {
+    fontSize: 20,
     color: '#FE5430'
-
   },
   submit: {
-    padding: 20,
+    padding: 10,
     backgroundColor: '#06C1FF',
-    borderRadius:50,
-
+    borderRadius: 50,
   },
   submit_text: {
     textAlign: 'center',
     fontSize: 24,
-    fontWeight:'bold',
+    fontWeight: 'bold',
     color: '#070D2D',
   },
 });

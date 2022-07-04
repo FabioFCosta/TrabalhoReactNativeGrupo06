@@ -14,7 +14,7 @@ const CardCarrinho = (props) => {
           sku: props.produto.sku,
           imagemProduto: props.produto.imagem_produto,
           nomeProduto: props.produto.nome_produto,
-          precoProduto:props.produto.preco_produto,
+          precoProduto: props.produto.preco_produto,
           descricaoProduto: props.produto.descricao_produto
         }
       }
@@ -38,7 +38,9 @@ const CardCarrinho = (props) => {
           <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
           <View style={styles.prod_preco_qtd}>
             <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)}</Text>
-            <QtdProdutos />
+            <View style={styles.qtd_produto}>
+              <QtdProdutos />
+            </View>
           </View>
         </View>
       </View>
@@ -48,7 +50,7 @@ const CardCarrinho = (props) => {
 const styles = StyleSheet.create({
   card_container: {
     flexDirection: 'row',
-    height:110,
+    height: 110,
     width: '95%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -71,31 +73,36 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   prod_detalhes: {
-    width:'50%',
+    width: '50%',
   },
   prod_preco_qtd: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'space-between',
-    marginTop:10
+    justifyContent: 'space-between',
+    marginTop: 10
 
   },
   prod_preco: {
     color: '#FE5430',
-    fontSize:18,
+    fontSize: 18,
   },
   card_nome: {
     textAlign: 'left',
-    fontSize:18,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#070D2D',
   },
   card_desc: {
     textAlign: 'left',
-    fontSize:14,
-    fontStyle:'italic',
-    color:'#546EE5',
-  }
+    fontSize: 14,
+    fontStyle: 'italic',
+    color: '#546EE5',
+  },
+  qtd_produto:{
+    borderRadius:20,
+    padding:2,
+    backgroundColor:'#fff',
+  },
 });
 
 export default CardCarrinho;
