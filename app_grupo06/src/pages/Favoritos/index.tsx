@@ -1,45 +1,42 @@
 import React, { useContext } from "react";
 import { View, FlatList, StyleSheet, Text } from "react-native";
-import CardCarrinho from "../../components/Produtos/CardCarrinho";
+import CardFavorito from "../../components/Favoritos/CardFavoritos";
 import { FavoritosContext } from "../../context/FavoritosContext";
 
-const Favoritos = ({navigation}) => {
-  const{listarProdutos}=useContext(FavoritosContext);
+const Favoritos = ({ navigation }) => {
+  const { listarFavoritos } = useContext(FavoritosContext);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Favoritos
-      </Text>
       <FlatList
-        data={listarProdutos()}
+      contentContainerStyle={styles.flatList}
+        numColumns={2}
+        data={listarFavoritos()}
         keyExtractor={item => item.id_produto}
         renderItem={response =>
           <>
-            <CardCarrinho
+            <CardFavorito
               produto={response.item}
               navigation={navigation}
             />
           </>
         }
       />
-      
     </View>
 
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
+    flexGrow: 1,    
+    backgroundColor: '#070D2D',
+    paddingHorizontal: 15,
     alignItems: 'stretch',
     justifyContent: 'center',
-    flexGrow: 1,
   },
-  text:{
-    color:'#000',
-  },
-  });
+  flatList:{
+    paddingTop:15,
+  }
+});
 
 export default Favoritos;
