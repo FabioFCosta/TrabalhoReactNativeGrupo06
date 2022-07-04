@@ -1,24 +1,46 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Icon, Image } from "react-native-elements";
+import AxiosInstance from "../../api/AxiosInstance";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
-import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
 export const CadastroUsuario = () => {
-   const [nome, setNome] = useState('')
+   const [nomeUsuario, setNomeUsuario] = useState('')
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   const { usuario } = useContext(AutenticacaoContext)
+   const [fotoPerfil, setFotoPerfil] = useState('')
 
-   const handleSubmit = () => {
+
+   const handleSubmit = async () => {
       console.log('Submit')
-      if (confirmSenha === senha) {
-         return console.log('senha confirmada')
-      } else {
-         return console.log('senha incompatível')
-      }
+      // if (confirmSenha === senha) {
+      //    console.log('Senha confirmada')
+      //    const usuario = {
+      //       nomeUsuario,
+      //       email,
+      //       senha
+      //    }
+      //    const formData = new FormData()
+      //    formData.append('usuario', new Blob([JSON.stringify(usuario)]))
+      //    formData.append('file', fotoPerfil)
+      //    try {
+      //       await AxiosInstance.post('autenticacao/registro', formData, {
+      //          headers: {
+      //             'Content-Type': 'multipart/form-data'
+      //          }
+      //       })
+      //       console.log('Usuário cadastrado com sucesso');
+
+      //       // fazer alert
+      //    } catch (error) {
+      //       console.log(error)
+      //       // fazer alert
+      //    }
+      // } else {
+      //    console.log('Senha incompatível')
+      // }
 
       // const usuario = {
       //    nome,
@@ -59,8 +81,8 @@ export const CadastroUsuario = () => {
          <InputTexto
             secureTextEntry={false}
             placeholder='Nome'
-            onChangeText={setNome}
-            value={nome}
+            onChangeText={setNomeUsuario}
+            value={nomeUsuario}
          />
          <InputTexto
             secureTextEntry={false}
