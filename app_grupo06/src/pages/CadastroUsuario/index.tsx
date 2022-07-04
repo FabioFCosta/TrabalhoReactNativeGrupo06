@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Icon, Image } from "react-native-elements";
+import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import AxiosInstance from "../../api/AxiosInstance";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
@@ -10,8 +11,62 @@ export const CadastroUsuario = () => {
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   const [fotoPerfil, setFotoPerfil] = useState('')
+   const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
 
+
+   const handleFotoPerfil = () => {
+      Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
+         [
+            {
+               text: 'Galeria',
+               onPress: () => pickImageFromGallery(),
+               style: 'default'
+            },
+            {
+               text: 'Câmera',
+               onPress: () => pickImageFromCamera(),
+               style: 'default'
+            },
+            {
+               text: 'Cancelar'
+               // cancelable: true,
+               // onDismiss: () => console.log('tratar depois')
+            }
+         ])
+   }
+
+   const pickImageFromGallery = async () => {
+
+      const options: ImageLibraryOptions = {
+         mediaType: 'photo'
+      }
+
+      const result = await launchImageLibrary(options)
+      console.log('TESTE FOTO: ' + result);
+
+      if (result?.assets) {
+         console.log(result.assets);
+         setFotoPerfil(result.assets[0].uri!)
+      }
+   }
+
+   const pickImageFromCamera = async () => {
+
+      const options: CameraOptions = {
+         mediaType: 'photo',
+         saveToPhotos: false,
+         cameraType: 'front',
+         quality: 1
+      }
+
+      const result = await launchCamera(options)
+      console.log('TESTE CAMERA: ' + result);
+
+      if (result?.assets) {
+         console.log(result.assets);
+         setFotoPerfil(result.assets[0].uri!)
+      }
+   }
 
    const handleSubmit = async () => {
       console.log('Submit')
@@ -70,11 +125,11 @@ export const CadastroUsuario = () => {
          <View>
             <Image
                style={styles.imageStyle}
-               source={{ uri: 'https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png' }}
+               source={{ uri: fotoPerfil }}
             />
          </View>
          <View style={styles.addPhotoButton}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleFotoPerfil}>
                <Icon name="camera" color="#fff" type="font-awesome" size={24} />
             </TouchableOpacity>
          </View>
