@@ -28,15 +28,15 @@ export function CarrinhoProvider({ children }) {
   const listarQtdProduto = (_id: number) => {
     const prod = realm_carrinho.objects<ProdutoType>('Produto').filter(item => item.id_produto == _id)[0]
 
-    if(prod!=undefined){
-    console.log(prod+" dentro do listar Qtd PRoduto != undefined")
+    if (prod != undefined) {
+      console.log(prod + " dentro do listar Qtd PRoduto != undefined")
       return prod.quantidade_produto;
-    } else{
-    console.log(prod+" dentro do listar Qtd PRoduto == undefined")
+    } else {
+      console.log(prod + " dentro do listar Qtd PRoduto == undefined")
 
       return 0;
     }
-    
+
   }
 
   const contarQtdProdutos = () => {
@@ -63,14 +63,24 @@ export function CarrinhoProvider({ children }) {
       })
     } else {
       let prod = realm_carrinho.objects<ProdutoType>('Produto').filter(item => item.id_produto == produto.idProduto)[0];
-      console.log(prod);
 
       let qtdCarrinho = prod.quantidade_produto;
-      console.log(qtdCarrinho);
 
       realm_carrinho.write(() => {
         prod.quantidade_produto = qtdCarrinho + 1;
       })
+    }
+  }
+
+  const removerItem = (_id: number) => {
+    let prod = realm_carrinho.objects<ProdutoType>('Produto').filter(item => item.id_produto == _id)[0];
+    let qtdCarrinho = prod.quantidade_produto;
+    if(qtdCarrinho>1){
+      realm_carrinho.write(() => {
+        prod.quantidade_produto = qtdCarrinho - 1;
+      })
+    } else {
+      deletarProduto(prod)
     }
   }
 
@@ -86,7 +96,8 @@ export function CarrinhoProvider({ children }) {
       contarQtdProdutos,
       adicionarProduto,
       deletarProduto,
-      listarQtdProduto
+      listarQtdProduto,
+      removerItem
     }}>
       {children}
     </CarrinhoContext.Provider>
