@@ -110,4 +110,4 @@ INSERT INTO public.usuario (NOME_USUARIO,EMAIL,SENHA) VALUES
 	 ('usuario','usuario@mail.com','$2a$12$3COb/LHNYO/JeLWy1ExGFe6U2iyFczP70/kBUEHbf9miQ4Vp64A42');
 	
 INSERT INTO public.usuario_rel_perfil  (ID_USUARIO,ID_PERFIL) VALUES
-	 (1,1);	
+	 (1,1);
