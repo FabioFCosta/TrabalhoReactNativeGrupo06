@@ -6,6 +6,14 @@ import QtdProdutos from "../QtdProdutos/QtdProdutos";
 
 const CardCarrinho = (props) => {
 
+  const produto = {    
+      idProduto: props.produto.id_produto,
+      sku: props.produto.sku,
+      imagemProduto: props.produto.imagem_produto,
+      nomeProduto: props.produto.nome_produto,
+      precoProduto: props.produto.preco_produto,
+      descricaoProduto: props.produto.descricao_produto
+  }
   const handleClick = (props) => {
     props.navigation.navigate({
       name: 'ProdutoScreen', params: {
@@ -39,7 +47,7 @@ const CardCarrinho = (props) => {
           <View style={styles.prod_preco_qtd}>
             <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)}</Text>
             <View style={styles.qtd_produto}>
-              <QtdProdutos />
+              <QtdProdutos quantidade={props.produto.quantidade_produto} produto={produto} />
             </View>
           </View>
         </View>
@@ -98,10 +106,10 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     color: '#546EE5',
   },
-  qtd_produto:{
-    borderRadius:20,
-    padding:2,
-    backgroundColor:'#fff',
+  qtd_produto: {
+    borderRadius: 20,
+    padding: 2,
+    backgroundColor: '#fff',
   },
 });
 

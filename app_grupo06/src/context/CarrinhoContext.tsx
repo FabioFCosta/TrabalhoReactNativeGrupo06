@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import Realm from 'realm';
+import { ProdutoType } from '../models/ProdutoType';
 
 export const CarrinhoContext = createContext({});
 
@@ -7,13 +8,15 @@ class ProdutoSchema extends Realm.Object { }
 ProdutoSchema.schema = {
   name: 'Produto',
   properties: {
-    id_produto: { type: 'int', default: 0 },
+    id_produto: 'int',
     sku: 'string',
     nome_produto: 'string',
     descricao_produto: 'string',
     preco_produto: 'double',
     imagem_produto: 'string',
-  }}; 
+    quantidade_produto: 'int'
+  }
+};
 
 let realm_carrinho = new Realm({ schema: [ProdutoSchema], schemaVersion: 1 });
 
@@ -22,29 +25,53 @@ export function CarrinhoProvider({ children }) {
     return realm_carrinho.objects('Produto')
   }
 
-  const contarQtdProdutos = () => {
-    return realm_carrinho.objects('Produto').length;
+  const listarQtdProduto = (_id: number) => {
+    const prod = realm_carrinho.objects<ProdutoType>('Produto').filter(item => item.id_produto == _id)[0]
+
+    if(prod!=undefined){
+    console.log(prod+" dentro do listar Qtd PRoduto != undefined")
+      return prod.quantidade_produto;
+    } else{
+    console.log(prod+" dentro do listar Qtd PRoduto == undefined")
+
+      return 0;
+    }
+    
   }
 
-  const adicionarProduto = (_sku: string, _nome: string, _descricao: string, _preco: number, _imagem: string) => {
+  const contarQtdProdutos = () => {
+    let quantidade = 0;
+    realm_carrinho.objects('Produto').map((item) => {
+      quantidade += item.quantidade_produto;
+    })
+    return quantidade;
+  }
 
-    const ultimoProdutoCadastrado = realm_carrinho.objects('Produto').sorted('id_produto', true)[0];
-    console.log("passou do ultimoProdutoCadastrado")
-    const ultimoIdCadastrado = ultimoProdutoCadastrado == null ? 0 : ultimoProdutoCadastrado.id_produto;
-    const proximoId = ultimoIdCadastrado == null ? 1 : ultimoIdCadastrado + 1;
+  const adicionarProduto = (produto) => {
 
-    realm_carrinho.write(() => {
-      const produto = realm_carrinho.create('Produto', {
-        id_produto: proximoId,
-        sku: _sku,
-        nome_produto: _nome,
-        descricao_produto: _descricao,
-        preco_produto: _preco,
-        imagem_produto: _imagem,
-      });
-    });
+    if (realm_carrinho.objects('Produto').filtered("id_produto == " + produto.idProduto).isEmpty()) {
+      realm_carrinho.write(() => {
+        realm_carrinho.create('Produto', {
+          id_produto: produto.idProduto,
+          sku: produto.sku,
+          nome_produto: produto.nomeProduto,
+          descricao_produto: produto.descricaoProduto,
+          preco_produto: produto.precoProduto,
+          imagem_produto: produto.imagemProduto,
+          quantidade_produto: 1
+        });
+      })
+    } else {
+      let prod = realm_carrinho.objects<ProdutoType>('Produto').filter(item => item.id_produto == produto.idProduto)[0];
+      console.log(prod);
 
-    console.log("Adicionando ao carrinho")
+      let qtdCarrinho = prod.quantidade_produto;
+      console.log(qtdCarrinho);
+
+      realm_carrinho.write(() => {
+        prod.quantidade_produto = qtdCarrinho + 1;
+      })
+    }
   }
 
   const deletarProduto = (produto) => {
@@ -58,7 +85,8 @@ export function CarrinhoProvider({ children }) {
       listarProdutos,
       contarQtdProdutos,
       adicionarProduto,
-      deletarProduto
+      deletarProduto,
+      listarQtdProduto
     }}>
       {children}
     </CarrinhoContext.Provider>

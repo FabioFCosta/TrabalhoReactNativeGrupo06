@@ -1,21 +1,21 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
-import { FavoritosContext } from "../../context/FavoritosContext";
+// import { FavoritosContext } from "../../context/FavoritosContext";
 
 const Favoritar = ({ produto }) => {
   const [favorited, setFavorited] = useState(true);
-  const { adicionarProduto,deletarProduto } = useContext(FavoritosContext)
+  // const { adicionarProduto,deletarProduto } = useContext(FavoritosContext)
 
   const handleAddFavorito = () => {
     setFavorited(!favorited);
-    favorited? adicionarProduto(
-      produto.sku,
-      produto.nomeProduto,
-      produto.descricaoProduto,
-      produto.precoProduto,
-      produto.imagemProduto)
-      :deletarProduto(produto)
+    // favorited? adicionarProduto(
+    //   produto.sku,
+    //   produto.nomeProduto,
+    //   produto.descricaoProduto,
+    //   produto.precoProduto,
+    //   produto.imagemProduto)
+    //   :deletarProduto(produto)
   }
 
 

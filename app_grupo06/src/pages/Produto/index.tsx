@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { CarrinhoContext } from "../../context/CarrinhoContext";
 import Favoritar from "../../components/Favoritos";
@@ -7,12 +7,15 @@ import QtdProdutos from "../../components/QtdProdutos/QtdProdutos";
 
 const Produto = ({ route, navigation }) => {
   const { produto } = route.params;
-  const { adicionarProduto } = useContext(CarrinhoContext);
+  const { listarQtdProduto } = useContext(CarrinhoContext)
 
-  const handleAddProduto = () => {
-    adicionarProduto(produto.sku, produto.nomeProduto, produto.descricaoProduto, produto.precoProduto, produto.imagemProduto);
+  useEffect(() => {
+    localizarNoCarrinho();
+  }, [])
+
+  const localizarNoCarrinho = () => {
+    listarQtdProduto(produto.idProduto)
   }
-
 
   return (
     <View style={styles.container}>
@@ -26,7 +29,7 @@ const Produto = ({ route, navigation }) => {
         <Text style={styles.desc_produto}>{produto.descricaoProduto}</Text>
         <View style={styles.container_price_qtd}>
           <Text style={styles.price}>R$ {produto.precoProduto.toFixed(2)}</Text>
-          <QtdProdutos />
+          <QtdProdutos quantidade={listarQtdProduto(produto.idProduto)} produto={produto} />
         </View>
       </View>
     </View>
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
   },
   desc_produto: {
     height: 200,
-    fontSize:20,
+    fontSize: 20,
     color: '#C4DFE8',
   },
   container_price_qtd: {

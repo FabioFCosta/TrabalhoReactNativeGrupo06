@@ -8,5 +8,6 @@ export type ProdutoType = {
   nomeFornecedor: string,
   idFornecedor: number,
   nomeCategoria: string,
-  idCategoria: number
+  idCategoria: number,
+  quantidade:number
 }

@@ -7,7 +7,7 @@ const AddCarrinho = ({ produto }) => {
   const { adicionarProduto } = useContext(CarrinhoContext);
 
   const handleAddProduto = () => {
-    adicionarProduto(produto.sku, produto.nomeProduto, produto.descricaoProduto, produto.precoProduto, produto.imagemProduto)
+    adicionarProduto(produto)
   }
 
   return (

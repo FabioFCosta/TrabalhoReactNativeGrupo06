@@ -1,26 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
+import { CarrinhoContext } from "../../context/CarrinhoContext";
 
-const QtdProdutos = () => {
-  const [quantidade, setQuantidade] = useState(0);
+const QtdProdutos = (props) => {
+  const { adicionarProduto } = useContext(CarrinhoContext)
 
   const handleAddProduto = () => {
-    setQuantidade(quantidade + 1);
+    adicionarProduto(props.produto)
   }
-
-  const handleSubProduto = () => {
-    quantidade != 0 ? setQuantidade(quantidade - 1) : 0;
-  }
-
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        <Icon name="minus-circle" color="#06C1FF" type="font-awesome" size={30} onPress={() => handleSubProduto()} />
+        <Icon name="minus-circle" color="#06C1FF" type="font-awesome" size={30} />
       </TouchableOpacity>
-        <Text style={styles.contador}>{quantidade}</Text>
+      <Text style={styles.contador}>{props.quantidade}</Text>
       <TouchableOpacity>
-        <Icon name="plus-circle" color="#06C1FF" type="font-awesome" size={30} onPress={() => handleAddProduto()} />
+        <Icon name="plus-circle" color="#06C1FF" type="font-awesome" size={30} onPress={()=>handleAddProduto()} />
       </TouchableOpacity>
     </View>
   );
@@ -34,8 +30,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contador: {
-    fontSize:20,
-    color:'#06C1FF',
+    fontSize: 20,
+    color: '#06C1FF',
   }
 
 })
