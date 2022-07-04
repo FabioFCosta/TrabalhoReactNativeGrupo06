@@ -58,6 +58,7 @@ export function CarrinhoProvider({ children }) {
       listarProdutos,
       contarQtdProdutos,
       adicionarProduto,
+      deletarProduto
     }}>
       {children}
     </CarrinhoContext.Provider>
