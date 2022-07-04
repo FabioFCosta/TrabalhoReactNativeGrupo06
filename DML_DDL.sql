@@ -44,6 +44,7 @@ CREATE TABLE public.usuario (
 	nome_usuario varchar(100) NULL,
 	email varchar(100) NULL,
 	senha varchar(255) NULL,
+	foto_perfil varchar(255) NULL;
 	CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario)
 );
 
