@@ -43,10 +43,7 @@ export const CadastroUsuario = () => {
    }
 
    return (
-      <ScrollView
-         style={styles.container}
-         contentContainerStyle={styles.contentContainer}
-      >
+      <ScrollView contentContainerStyle={styles.container}>
          <Text style={styles.title}>Cadastro</Text>
          <View>
             <Image
@@ -93,12 +90,9 @@ export const CadastroUsuario = () => {
 
 const styles = StyleSheet.create({
    container: {
-      flex: 1,
+      flexGrow: 1,
       backgroundColor: '#070D2D',
-      padding: 16
-   },
-
-   contentContainer: {
+      padding: 16,
       alignItems: 'center'
    },
 
@@ -128,32 +122,5 @@ const styles = StyleSheet.create({
       marginTop: -70,
       marginLeft: 150,
       marginBottom: 30
-   },
-
-   inputContainerStyle: {
-      backgroundColor: '#C4DFE8',
-      borderRadius: 50,
-      justifyContent: 'center',
-      height: 60
-   },
-
-   inputStyle: {
-      color: '#070D2D',
-      textAlign: 'center',
-      fontSize: 24,
-   },
-
-   submitButton: {
-      backgroundColor: '#06C1FF',
-      borderRadius: 50,
-      width: 200,
-      height: 60,
-      justifyContent: 'center',
-      alignItems: 'center'
-   },
-
-   submitButtonText: {
-      fontSize: 24,
-      fontWeight: 'bold'
    }
 })
