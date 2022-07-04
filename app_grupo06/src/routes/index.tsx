@@ -10,6 +10,7 @@ import Home from "../pages/Home";
 import PerfilUsuario from "../pages/PerfilUsuario";
 import Carrinho from "../pages/Carrinho";
 import Favoritos from "../pages/Favoritos";
+import { CadastroUsuario } from "../pages/CadastroUsuario";
 import { CarrinhoContext } from "../context/CarrinhoContext";
 import { StatusBar } from "react-native";
 
@@ -89,6 +90,10 @@ const Routes = () => {
         <StackNavigation.Screen
           name='ProdutoScreen'
           component={Produto}
+        />
+        <StackNavigation.Screen
+          name='CadastroUsuario'
+          component={CadastroUsuario}
         />
       </StackNavigation.Navigator>
     </NavigationContainer>

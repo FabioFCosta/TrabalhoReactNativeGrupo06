@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
 import { Input, Text, Icon, Button } from 'react-native-elements';
 import { AppLoader } from '../../components/AppLoader';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
@@ -16,6 +16,7 @@ const Login = ({ navigation }) => {
   const [senha, setSenha] = useState('');
   const { login } = useContext(AutenticacaoContext);
   const { loading, setLoading } = useContext(LoadingContext);
+
 
   useEffect(() => {
     setLoading(false);
@@ -44,27 +45,47 @@ const Login = ({ navigation }) => {
     <>
       <DismissKeyboard>
         <View style={styles.container}>
-          <Text style={styles.boasVindas}>{'Bem-vindo'}</Text>
+          <Text style={styles.boasVindas}>{'Login'}</Text>
           <Input
+            inputContainerStyle={styles.inputContainer}
+            style={styles.inputEntrada}
             placeholder="E-mail"
+            placeholderTextColor={"#070d2d"}
             onChangeText={setEmail}
             value={email}
-            leftIcon={<Icon name="user" color="#000" type="font-awesome" size={24} />}
+            //leftIcon={<Icon name="user" color="#000" type="font-awesome" size={24} />}
           />
           <Input
+            inputContainerStyle={styles.inputContainer}
+            style={styles.inputEntrada}
             placeholder="Senha"
+            placeholderTextColor={"#070d2d"}
             onChangeText={setSenha}
             value={senha}
-            leftIcon={<Icon name="key" color="#000" type="font-awesome" size={24} />}
+            //leftIcon={<Icon name="key" color="#000" type="font-awesome" size={24} />}
             secureTextEntry
           />
+
+          <TouchableOpacity onPress={() => navigation.navigate('')}>
+            <Text style={styles.esqueceuBotao}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
+
           {loading ? null : <Button
             titleStyle={styles.tituloBotao}
             containerStyle={styles.containerBotao}
             buttonStyle={styles.styleBotao}
-            title="Entrar"
+            title="Login"
             onPress={() => handleLogin(email, senha)}
           />}
+
+          <View>
+            <Text style={styles.tituloCadastro}>Ainda não está cadastrado?</Text>
+          </View>
+          
+          <TouchableOpacity onPress={() => navigation.navigate('CadastroUsuario')}>
+            <Text style={styles.cadastroBotao}>Cadastre-se!</Text>
+          </TouchableOpacity>
+
         </View>
       </DismissKeyboard>
       {loading ? <AppLoader /> : null}
@@ -75,30 +96,67 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
+    backgroundColor: '#070d2d',
     alignItems: 'stretch',
     justifyContent: 'center'
   },
   boasVindas: {
-    color: '#000',
+    color: '#fe5430',
     fontWeight: 'bold',
-    fontSize: 30,
-    marginBottom: 10,
+    fontSize: 33,
+    marginBottom: 40,
     textAlign: 'center'
   },
   tituloBotao: {
-    color: '#000',
+    color: '#070d2d',
+    fontSize: 20
   },
   styleBotao: {
-    backgroundColor: '#333'
+    backgroundColor: '#06c1ff'
   },
   containerBotao: {
     alignSelf: 'center',
     justifyContent: 'center',
     marginTop: 10,
-    borderRadius: 15,
-    width: 150
+    borderRadius: 40,
+    width: 175
+  },
+  inputEntrada: {
+    backgroundColor: '#c4dfe8',
+    color: '#070d2d',
+    marginVertical: 7,
+    borderRadius: 40,
+    padding: 15,
+    height: 80,
+    width: 20,
+    fontSize: 25,
+    textAlign: 'center'
+  },
+  inputContainer: {
+    borderBottomWidth: 0,
+    paddingHorizontal: 30
+  },
+  esqueceuBotao: {
+    color: "#fe5430",
+    fontSize: 16,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginLeft: 145,
+    marginBottom: 25,
+    marginTop: -20
+  },
+  tituloCadastro: {
+    color: "#06c1ff",
+    fontSize: 25,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginTop: 40,
+  },
+  cadastroBotao: {
+    color: "#fe5430",
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20
   }
 
 })
