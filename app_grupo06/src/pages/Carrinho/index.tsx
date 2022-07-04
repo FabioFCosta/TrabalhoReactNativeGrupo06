@@ -4,7 +4,7 @@ import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 
 const Carrinho = ({ navigation }) => {
-  const { listarProdutos, contarQtdProdutos } = useContext(CarrinhoContext);
+  const { listarProdutos, contarQtdProdutos, totalizarCarrinho } = useContext(CarrinhoContext);
 
   const HandleContinuarComprando = () => {
     navigation.navigate('HomeScreen')
@@ -31,7 +31,7 @@ const Carrinho = ({ navigation }) => {
         </TouchableOpacity>
         <View style={styles.detalhes_compra}>
           <Text style={styles.total_itens}>Total ({contarQtdProdutos()} itens):</Text>
-          <Text style={styles.total_valor}>R$ x.xxx,xx</Text>
+          <Text style={styles.total_valor}>R$ {totalizarCarrinho().toFixed(2)}</Text>
         </View>
         <TouchableOpacity style={styles.submit}>
           <Text style={styles.submit_text}>Finalizar Pedido</Text>

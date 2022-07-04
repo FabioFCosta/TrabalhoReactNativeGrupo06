@@ -47,6 +47,14 @@ export function CarrinhoProvider({ children }) {
     return quantidade;
   }
 
+  const totalizarCarrinho = ()=>{
+    let total = 0;
+    realm_carrinho.objects('Produto').map((item) => {
+      total += (item.quantidade_produto*item.preco_produto);
+    })
+    return total;
+  }
+
   const adicionarProduto = (produto) => {
 
     if (realm_carrinho.objects('Produto').filtered("id_produto == " + produto.idProduto).isEmpty()) {
@@ -97,7 +105,8 @@ export function CarrinhoProvider({ children }) {
       adicionarProduto,
       deletarProduto,
       listarQtdProduto,
-      removerItem
+      removerItem,
+      totalizarCarrinho
     }}>
       {children}
     </CarrinhoContext.Provider>
