@@ -12,9 +12,8 @@ ProdutoSchema.schema = {
     nome_produto: 'string',
     descricao_produto: 'string',
     preco_produto: 'double',
-    imagem_produto: 'string'
-  }
-};
+    imagem_produto: 'string',
+  }}; 
 
 let realm_carrinho = new Realm({ schema: [ProdutoSchema], schemaVersion: 1 });
 
@@ -30,6 +29,7 @@ export function CarrinhoProvider({ children }) {
   const adicionarProduto = (_sku: string, _nome: string, _descricao: string, _preco: number, _imagem: string) => {
 
     const ultimoProdutoCadastrado = realm_carrinho.objects('Produto').sorted('id_produto', true)[0];
+    console.log("passou do ultimoProdutoCadastrado")
     const ultimoIdCadastrado = ultimoProdutoCadastrado == null ? 0 : ultimoProdutoCadastrado.id_produto;
     const proximoId = ultimoIdCadastrado == null ? 1 : ultimoIdCadastrado + 1;
 

@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import { CarrinhoContext } from "../../context/CarrinhoContext";
-import { View, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 
 const Carrinho = ({ navigation }) => {
   const { listarProdutos, contarQtdProdutos } = useContext(CarrinhoContext);
-  console.log("Listar produtos no carrinho: " + listarProdutos)
 
+  const HandleContinuarComprando = () => {
+    navigation.navigate('HomeScreen')
+  }
   return (
     <View style={styles.container}>
       <View style={styles.container_flatList}>
@@ -21,18 +23,20 @@ const Carrinho = ({ navigation }) => {
               />
             </>
           }
-          />
-          </View>
-        <View style={styles.container_detalhes_compra}>
-        <Text style={styles.continuar_comprando}>Continuar comprando</Text>
-          <View style={styles.detalhes_compra}>
-            <Text style={styles.total_itens}>Total ({contarQtdProdutos()} itens):</Text>
-            <Text style={styles.total_valor}>R$ x.xxx,xx</Text>
-          </View>
-          <TouchableOpacity style={styles.submit}>
-            <Text style={styles.submit_text}>Finalizar Pedido</Text>
-          </TouchableOpacity>
+        />
+      </View>
+      <View style={styles.container_detalhes_compra}>
+        <TouchableOpacity onPress={HandleContinuarComprando}>
+          <Text style={styles.continuar_comprando}>Continuar comprando</Text>
+        </TouchableOpacity>
+        <View style={styles.detalhes_compra}>
+          <Text style={styles.total_itens}>Total ({contarQtdProdutos()} itens):</Text>
+          <Text style={styles.total_valor}>R$ x.xxx,xx</Text>
         </View>
+        <TouchableOpacity style={styles.submit}>
+          <Text style={styles.submit_text}>Finalizar Pedido</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#070D2D',
   },
   container_flatList: {
-    marginBottom:250,
+    marginBottom: 250,
   },
   container_detalhes_compra: {
     width: '100%',
@@ -51,19 +55,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#070D2D',
     position: 'absolute',
     bottom: 0,
-
   },
   continuar_comprando: {
     textAlign: 'center',
     color: '#FE5430',
     fontSize: 24,
-    marginBottom: 20,
-    textDecorationLine:'underline',
+    marginBottom: 40,
+    textDecorationLine: 'underline',
   },
   detalhes_compra: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 40,
 
   },
   total_itens: {

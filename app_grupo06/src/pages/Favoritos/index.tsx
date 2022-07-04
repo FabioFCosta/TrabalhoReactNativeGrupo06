@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, FlatList, StyleSheet, Text } from "react-native";
-import CardProdutos from "../../components/Produtos/CardProdutos";
+import CardCarrinho from "../../components/Produtos/CardCarrinho";
+import { FavoritosContext } from "../../context/FavoritosContext";
 
 const Favoritos = ({navigation}) => {
-
+  const{listarProdutos}=useContext(FavoritosContext);
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
         Favoritos
       </Text>
-      {/* <FlatList
-        data={}
+      <FlatList
+        data={listarProdutos()}
         keyExtractor={item => item.id_produto}
         renderItem={response =>
           <>
-            <CardProdutos
+            <CardCarrinho
               produto={response.item}
               navigation={navigation}
             />
           </>
         }
-      /> */}
+      />
+      
     </View>
 
   );

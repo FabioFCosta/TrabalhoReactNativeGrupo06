@@ -92,6 +92,10 @@ const Routes = () => {
           component={Produto}
         />
         <StackNavigation.Screen
+          name='CarrinhoScreen'
+          component={Carrinho}
+        />
+        <StackNavigation.Screen
           name='CadastroUsuario'
           component={CadastroUsuario}
         />

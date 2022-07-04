@@ -16,7 +16,6 @@ const PerfilUsuario = ({ navigation }) => {
     usuario.imagem === undefined ? setHasImage(false) : setHasImage(true);
   }
   const handleClickLogout = () => {
-    console.log("clicado logout")
     navigation.navigate('Login')
   }
 
