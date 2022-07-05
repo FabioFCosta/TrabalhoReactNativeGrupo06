@@ -8,21 +8,24 @@ const Favoritos = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {listarFavoritos().length>=1?
       <FlatList
       contentContainerStyle={styles.flatList}
-        numColumns={2}
-        data={listarFavoritos()}
-        keyExtractor={item => item.id_produto}
-        renderItem={response =>
-          <>
+      numColumns={2}
+      data={listarFavoritos()}
+      keyExtractor={item => item.id_produto}
+      renderItem={response =>
+        <>
             <CardFavorito
               produto={response.item}
               navigation={navigation}
-            />
+              />
           </>
         }
-      />
-    </View>
+        />
+      :
+      <Text style={styles.text}>Opss... Seus jogos favoritos devem ter fugido! </Text>}
+        </View>
 
   );
 }
@@ -36,7 +39,13 @@ const styles = StyleSheet.create({
   },
   flatList:{
     paddingTop:15,
-  }
+  },
+  text:{
+    color:'#C4DFE8',
+    textAlign:'center',
+    fontSize:24,
+    fontWeight:'bold',
+  },
 });
 
 export default Favoritos;

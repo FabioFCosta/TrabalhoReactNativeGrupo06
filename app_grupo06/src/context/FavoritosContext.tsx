@@ -17,7 +17,7 @@ export function FavoritosProvider({ children }) {
   }
 
   const contarQtdFavorito = () => {
-    return RealmBD.objects('Produto').length;
+    return RealmBD.objects('Favorito').length;
   }
 
   const adicionarFavorito = (produto) => {
