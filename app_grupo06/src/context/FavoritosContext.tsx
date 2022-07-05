@@ -1,12 +1,13 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import RealmBD from '../Realm/Realm'
 
 export const FavoritosContext = createContext({});
 
 export function FavoritosProvider({ children }) {
+  const [favoritos, setFavoritos] = useState(RealmBD.objects('Favorito'))
 
   const listarFavoritos = () => {
-    return RealmBD.objects('Favorito');
+    setFavoritos(RealmBD.objects('Favorito'))
   }
 
   const listarFavoritoId = (id: number) => {
@@ -34,6 +35,7 @@ export function FavoritosProvider({ children }) {
           nome_categoria: produto.nomeCategoria
         });
       })
+      listarFavoritos()
     } else {
       deletarFavorito(produto.idProduto)
     }
@@ -43,6 +45,7 @@ export function FavoritosProvider({ children }) {
     RealmBD.write(() =>
       RealmBD.delete(RealmBD.objects('Favorito').filtered("id_produto == " + id)),
     );
+    listarFavoritos()
   }
 
   const resetFavoritos = () => {
@@ -58,7 +61,8 @@ export function FavoritosProvider({ children }) {
       resetFavoritos,
       listarFavoritos,
       adicionarFavorito,
-      listarFavoritoId
+      listarFavoritoId,
+      favoritos
     }}>
       {children}
     </FavoritosContext.Provider>

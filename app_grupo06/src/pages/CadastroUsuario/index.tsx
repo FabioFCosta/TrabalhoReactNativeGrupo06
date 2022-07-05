@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Icon, Image } from "react-native-elements";
 import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import AxiosInstance from "../../api/AxiosInstance";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
+import Voltar from "../../components/Voltar";
+import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
-export const CadastroUsuario = () => {
+export const CadastroUsuario = ({ navigation }) => {
    const [nomeUsuario, setNomeUsuario] = useState('')
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
+   // const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
+   const [fotoPerfil, setFotoPerfil] = useState({ uri: 'https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png', type: 'image/jpeg', name: 'emptyProfilePhoto' })
+   // const [resultadoFoto, setResultadoFoto] = useState({})
 
    const handleFotoPerfil = () => {
       Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
@@ -35,22 +39,21 @@ export const CadastroUsuario = () => {
    }
 
    const pickImageFromGallery = async () => {
-
       const options: ImageLibraryOptions = {
          mediaType: 'photo'
       }
 
       const result = await launchImageLibrary(options)
-      console.log('TESTE FOTO: ' + result);
+      console.log('TESTE: ' + JSON.stringify(result));
 
       if (result?.assets) {
-         console.log(result.assets);
-         setFotoPerfil(result.assets[0].uri!)
+         // setFotoPerfil(result.assets[0].uri!)
+         setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
+         // setResultadoFoto(result.assets[0])
       }
    }
 
    const pickImageFromCamera = async () => {
-
       const options: CameraOptions = {
          mediaType: 'photo',
          saveToPhotos: false,
@@ -59,13 +62,29 @@ export const CadastroUsuario = () => {
       }
 
       const result = await launchCamera(options)
-      console.log('TESTE CAMERA: ' + result);
-
       if (result?.assets) {
-         console.log(result.assets);
-         setFotoPerfil(result.assets[0].uri!)
+         // setFotoPerfil(result.assets[0].uri!)
+         setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
       }
    }
+
+   // const handleUploadImage = async () => {
+   //    const uploadBody = new FormData()
+   //    uploadBody.append('image', resultadoFoto)
+   //    try {
+   //       await fetch("https://api.imgur.com/3/image/", {
+   //          method: "post",
+   //          headers: {
+   //             Authorization: "Client-ID d81ac2bf25e1b41"
+   //          },
+   //          body: uploadBody
+   //       })
+   //       console.log('Upload da foto com sucesso');
+
+   //    } catch (error) {
+   //       console.log('Erro no upload da foto: ' + error)
+   //    }
+   // }
 
    const handleSubmit = async () => {
       console.log('Submit')
@@ -78,19 +97,23 @@ export const CadastroUsuario = () => {
          }
          const formData = new FormData()
          formData.append('usuario', JSON.stringify(usuario))
-         formData.append('file', { uri: fotoPerfil, type: 'image/jpeg', name: 'photo.png' })
+         formData.append('file', { uri: fotoPerfil.uri, type: fotoPerfil.type, name: fotoPerfil.name })
+
          try {
             await AxiosInstance.post('autenticacao/registro', formData, {
                headers: {
                   'Content-Type': 'multipart/form-data'
                }
             })
-            console.log('Usuário cadastrado com sucesso');
+            // handleUploadImage()
             Alert.alert(
                'Sucesso:',
                'Usuário cadastrado com sucesso.',
                [
-                  { text: 'OK' }
+                  {
+                     text: 'OK',
+                     onPress: () => { navigation.navigate('Login') }
+                  }
                ]
             )
          } catch (error) {
@@ -104,7 +127,6 @@ export const CadastroUsuario = () => {
             )
          }
       } else {
-         console.log('Senha incompatível')
          Alert.alert(
             'Erro:',
             'Senha não confirmada.',
@@ -117,11 +139,14 @@ export const CadastroUsuario = () => {
 
    return (
       <ScrollView contentContainerStyle={styles.container}>
+         <View style={styles.botaoVoltar}>
+            <Voltar navigation={navigation} route='Login' />
+         </View>
          <Text style={styles.title}>Cadastro</Text>
          <View>
             <Image
                style={styles.imageStyle}
-               source={{ uri: fotoPerfil }}
+               source={{ uri: fotoPerfil.uri }}
             />
          </View>
          <View style={styles.addPhotoButton}>
@@ -166,7 +191,14 @@ const styles = StyleSheet.create({
       flexGrow: 1,
       backgroundColor: '#070D2D',
       padding: 16,
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'center'
+   },
+
+   botaoVoltar: {
+      position: 'absolute',
+      top: 10,
+      left: 10
    },
 
    title: {
@@ -174,7 +206,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: '#FE5430',
       textAlign: 'center',
-      marginTop: 40,
       marginBottom: 20
    },
 

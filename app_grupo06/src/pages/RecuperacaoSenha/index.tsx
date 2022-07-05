@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import AxiosInstance from "../../api/AxiosInstance";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
+import Voltar from "../../components/Voltar";
 
-export const RecuperacaoSenha = () => {
+export const RecuperacaoSenha = ({ navigation }) => {
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
@@ -23,7 +24,10 @@ export const RecuperacaoSenha = () => {
                'Sucesso:',
                'Senha redefinida com sucesso.',
                [
-                  { text: 'OK' }
+                  {
+                     text: 'OK',
+                     onPress: () => { navigation.navigate('Login') }
+                  }
                ]
             )
          } catch (error) {
@@ -50,6 +54,9 @@ export const RecuperacaoSenha = () => {
 
    return (
       <ScrollView contentContainerStyle={styles.container}>
+         <View style={styles.botaoVoltar}>
+            <Voltar navigation={navigation} route='Login' />
+         </View>
          <Text style={styles.title}>Recuperação de Senha</Text>
          <InputTexto
             secureTextEntry={false}
@@ -84,6 +91,12 @@ const styles = StyleSheet.create({
       padding: 16,
       alignItems: 'center',
       justifyContent: 'center'
+   },
+
+   botaoVoltar: {
+      position: 'absolute',
+      top: 10,
+      left: 10
    },
 
    contentContainer: {

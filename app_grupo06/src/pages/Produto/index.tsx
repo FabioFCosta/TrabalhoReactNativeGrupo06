@@ -21,7 +21,7 @@ const Produto = ({ route, navigation }) => {
     <View style={styles.container}>
       <Image source={{ uri: produto.imagemProduto }} style={styles.image} />
       <View style={styles.buttons_top}>
-        <Voltar navigation={navigation} />
+        <Voltar navigation={navigation} route='HomeScreen' />
         <Favoritar produto={produto} />
       </View>
       <View style={styles.container_produto}>
