@@ -1,19 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, FlatList } from "react-native";
-import AxiosInstance from "../../api/AxiosInstance";
+import React, { useEffect, useContext } from "react";
+import { StyleSheet, FlatList, View } from "react-native";
 import CardCategoria from "./CardCategorias";
 import { AppLoader } from "../AppLoader";
 
-import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { LoadingContext} from "../../context/LoadingContext";
-import { CategoriaType } from "../../models/CategoriaType";
 import { CategoriaContext } from "../../context/CategoriaContext";
 
 
 const ScrollCategorias = ({ navigation }) => {
 
-  const { usuario } = useContext(AutenticacaoContext);
-  const {categoria, setCategoria} = useContext(CategoriaContext);
+  const { categoria, setCategoria, getDadosCategoria } = useContext(CategoriaContext);
   const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
@@ -21,20 +17,8 @@ const ScrollCategorias = ({ navigation }) => {
     getDadosCategoria();
   }, []);
 
-  const getDadosCategoria = async () => {
-    AxiosInstance.get(
-      '/categoria',
-      { headers: { "Authorization": `Bearer ${usuario.token}` } }
-    ).then(result => {
-      setCategoria(result.data);
-    }).catch((error) => {
-      console.log("Erro ao carregar a lista de categorias - " + JSON.stringify(error));
-    })
-    { setLoading(false) }
-  }
-
   return (
-    <>
+    <View style={styles.scroll_categorias}>
       {loading ? <AppLoader /> :
         <FlatList
           horizontal={true}
@@ -48,14 +32,14 @@ const ScrollCategorias = ({ navigation }) => {
           }
         />
       }
-    </> 
+    </View> 
   );
 }
 
 const styles = StyleSheet.create({
   scroll_categorias: {
     padding: 0,
-    margin: 0
+    marginBottom:20,
   }
 })
 

@@ -1,15 +1,32 @@
 import React from "react";
 import { Card, Text } from "react-native-elements";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import AddCarrinho from "./AddCarrinho";
-import Favoritar from "../Favoritos";
+import AddCarrinho from "../Produtos/AddCarrinho";
+import Favoritar from ".";
 
-const CardProdutos = (props) => {
+const CardFavorito = (props) => {
+
+  const produto = {
+    idProduto: props.produto.id_produto,
+    sku: props.produto.sku,
+    imagemProduto: props.produto.imagem_produto,
+    nomeProduto: props.produto.nome_produto,
+    precoProduto: props.produto.preco_produto,
+    descricaoProduto: props.produto.descricao_produto,
+    nomeCategoria: props.produto.nome_categoria
+  }
 
   const handleClick = (props) => {
     props.navigation.navigate({
       name: 'ProdutoScreen', params: {
-        produto: props.produto,
+        produto: {
+          idProduto: props.produto.id_produto,
+          sku: props.produto.sku,
+          imagemProduto: props.produto.imagem_produto,
+          nomeProduto: props.produto.nome_produto,
+          precoProduto: props.produto.preco_produto,
+          descricaoProduto: props.produto.descricao_produto
+        }
       }
     })
   }
@@ -20,17 +37,17 @@ const CardProdutos = (props) => {
     >
       <Card containerStyle={styles.card_container} >
         <Card.Image
-          source={{ uri: props.produto.imagemProduto }}
+          source={{ uri: produto.imagemProduto }}
           style={styles.card_image}
         />
         <View style={styles.icon_fav}>
-          <Favoritar produto={props.produto} />
+          <Favoritar produto={produto} />
         </View>
-        <Text style={styles.card_title}>{props.produto.nomeProduto}</Text>
-        <Text style={styles.card_subtitle}>{props.produto.nomeCategoria}</Text>
+        <Text style={styles.card_title}>{produto.nomeProduto}</Text>
+        <Text style={styles.card_subtitle}>{produto.nomeCategoria}</Text>
         <View style={styles.price_addCart}>
-          <Text style={styles.card_price}>R$ {props.produto.precoProduto.toFixed(2)}</Text>
-          <AddCarrinho produto={props.produto} />
+          <Text style={styles.card_price}>R$ {produto.precoProduto.toFixed(2)}</Text>
+          <AddCarrinho produto={produto} />
         </View>
       </Card>
     </TouchableOpacity>
@@ -81,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardProdutos;
+export default CardFavorito;

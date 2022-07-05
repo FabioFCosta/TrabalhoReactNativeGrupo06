@@ -1,55 +1,116 @@
 import React from "react";
-import { Card, Text } from "react-native-elements";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Text } from "react-native-elements";
+import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
+import RemoverCarrinho from "./RemoverCarrinho";
+import QtdProdutos from "../QtdProdutos/QtdProdutos";
 
 const CardCarrinho = (props) => {
 
-  const handleClick=(props)=>{    
-    console.log(`O produto ${props.produto.nome_produto} foi clicado no carrinho`)
-    props.navigation.navigate({name:'ProdutoScreen',params:{
-      produto:props.produto,      
-    }})
+  const produto = {    
+      idProduto: props.produto.id_produto,
+      sku: props.produto.sku,
+      imagemProduto: props.produto.imagem_produto,
+      nomeProduto: props.produto.nome_produto,
+      precoProduto: props.produto.preco_produto,
+      descricaoProduto: props.produto.descricao_produto
+  }
+  const handleClick = (props) => {
+    props.navigation.navigate({
+      name: 'ProdutoScreen', params: {
+        produto: {
+          idProduto: props.produto.id_produto,
+          sku: props.produto.sku,
+          imagemProduto: props.produto.imagem_produto,
+          nomeProduto: props.produto.nome_produto,
+          precoProduto: props.produto.preco_produto,
+          descricaoProduto: props.produto.descricao_produto
+        }
+      }
+    })
   }
 
   return (
     <TouchableOpacity
-      onPress={()=>handleClick(props)}
+      onPress={() => handleClick(props)}
     >
-      <Card containerStyle={styles.card_container} >
-        <Card.Image
+      <View style={styles.card_container} >
+        <View style={styles.remover_icon}>
+          <RemoverCarrinho produto={props.produto} />
+        </View>
+        <Image
           source={{ uri: props.produto.imagem_produto }}
           style={styles.card_image}
         />
-        <Card.Title style={styles.card_desc}>{props.produto.nome_produto}</Card.Title>
-        <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
-      </Card>
+        <View style={styles.prod_detalhes}>
+          <Text style={styles.card_nome}>{props.produto.nome_produto}</Text>
+          <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
+          <View style={styles.prod_preco_qtd}>
+            <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)}</Text>
+            <View style={styles.qtd_produto}>
+              <QtdProdutos quantidade={props.produto.quantidade_produto} produto={produto} />
+            </View>
+          </View>
+        </View>
+      </View>
     </TouchableOpacity>
   )
 }
 const styles = StyleSheet.create({
   card_container: {
-    width: 185,
-    height: 250,
-    borderRadius: 10,
-    padding: 0,
-    margin: 0,
-    marginRight: 10,
+    flexDirection: 'row',
+    height: 110,
+    width: '95%',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 20,
+    marginTop: 20,
+    backgroundColor: '#C4DFE8'
+  },
+  remover_icon: {
+    width: 35,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: '#06C1FF',
   },
   card_image: {
-    width: 185,
-    height: 150,
-    marginBottom: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    width: '30%',
+    height: '90%',
+    borderRadius: 10,
+  },
+  prod_detalhes: {
+    width: '50%',
+  },
+  prod_preco_qtd: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10
+
+  },
+  prod_preco: {
+    color: '#FE5430',
+    fontSize: 18,
+  },
+  card_nome: {
+    textAlign: 'left',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#070D2D',
   },
   card_desc: {
     textAlign: 'left',
-    alignSelf: 'flex-start',
-    paddingVertical: 0,
-    margin: 0,
-    paddingHorizontal: 10,
-  }
+    fontSize: 14,
+    fontStyle: 'italic',
+    color: '#546EE5',
+  },
+  qtd_produto: {
+    borderRadius: 20,
+    padding: 2,
+    backgroundColor: '#fff',
+  },
 });
 
 export default CardCarrinho;

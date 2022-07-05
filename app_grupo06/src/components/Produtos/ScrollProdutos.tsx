@@ -1,45 +1,30 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { FlatList } from "react-native";
-import AxiosInstance from "../../api/AxiosInstance";
 
-import { ProdutoType } from "../../models/ProdutoType";
-import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { LoadingContext } from "../../context/LoadingContext";
 
 import CardProdutos from "./CardProdutos";
-import TitulosHome from "../Titulos";
 import { AppLoader } from "../AppLoader";
+import { ProdutoContext } from "../../context/ProdutoContext";
 
-const ScrollProdutos = ({navigation}) => {
-  const { usuario } = useContext(AutenticacaoContext);
-  const [produto, setProduto] = useState<ProdutoType[]>([]);
+const ScrollProdutos = ({ navigation }) => {
+  const { filterProd, getDadosProduto } = useContext(ProdutoContext)
   const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     getDadosProduto();
   }, []);
 
-  const getDadosProduto = async () => {
-    setLoading(true);
-    AxiosInstance.get(
-      '/produto',
-      { headers: { "Authorization": `Bearer ${usuario.token}` } }
-    ).then(result => {
-      setProduto(result.data);
-    }).catch((error) => {
-      console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
-    })
-    setLoading(false);
-  }
-
   return (
     <>
-      <TitulosHome titulo="Recentes" />
       {loading ? <AppLoader /> :
         <FlatList
-          horizontal={true}
-          data={produto}
+          data={filterProd}
+          numColumns={2}
           keyExtractor={item => item.idProduto}
+          // onEndReached={getDadosProduto()}
+          // onEndReachedThreshold={0.1}
+          // ListFooterComponent={loading ? <AppLoader /> : null}
           renderItem={response =>
             <>
               <CardProdutos

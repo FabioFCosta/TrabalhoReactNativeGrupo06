@@ -2,20 +2,18 @@ import React from "react";
 import { Text } from "react-native-elements";
 import { StyleSheet } from "react-native";
 
-const TitulosHome=({titulo})=>{
+const TitulosHome = ({ titulo }) => {
 
-  return(
+  return (
     <Text style={styles.titulo}>{titulo}</Text>
   )
 }
 
 const styles = StyleSheet.create({
   titulo: {
-    color:'#000', 
-    fontWeight:'bold',
-    fontSize:20,
-    marginTop:5,
-    marginBottom:5 
+    color: '#546EE5',
+    fontWeight: 'bold',
+    fontSize: 23,
   },
 })
 
