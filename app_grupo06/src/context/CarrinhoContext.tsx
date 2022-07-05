@@ -83,16 +83,23 @@ export function CarrinhoProvider({ children }) {
     listarProdutos();
   }
 
+  const resetCarrinho = () => {
+    RealmBD.write(() => {
+      RealmBD.deleteAll();
+    })
+    listarProdutos();
+  }
+
   return (
     <CarrinhoContext.Provider value={{
-      listarProdutos,
       contarQtdProdutos,
       adicionarProduto,
       deletarProduto,
       listarQtdProduto,
       removerItem,
       totalizarCarrinho,
-      carrinho
+      carrinho,
+      resetCarrinho
     }}>
       {children}
     </CarrinhoContext.Provider>

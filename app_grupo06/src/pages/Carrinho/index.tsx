@@ -4,11 +4,17 @@ import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 
 const Carrinho = ({ navigation }) => {
-  const { carrinho, contarQtdProdutos, totalizarCarrinho } = useContext(CarrinhoContext);
+  const { carrinho, contarQtdProdutos, totalizarCarrinho, resetCarrinho } = useContext(CarrinhoContext);
 
   const HandleContinuarComprando = () => {
     navigation.navigate('Foldbreakers Store')
   }
+
+  const HandleFinalizarPedido = () => {
+    resetCarrinho();
+    navigation.navigate('Foldbreakers Store')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.container_flatList}>
@@ -37,8 +43,8 @@ const Carrinho = ({ navigation }) => {
           <Text style={styles.total_itens}>Total ({contarQtdProdutos()} itens):</Text>
           <Text style={styles.total_valor}>R$ {totalizarCarrinho().toFixed(2)}</Text>
         </View>
-        <TouchableOpacity style={styles.submit}>
-          <Text style={styles.submit_text}>Finalizar Pedido</Text>
+        <TouchableOpacity style={styles.submit} onPress={HandleFinalizarPedido}>
+          <Text style={styles.submit_text} >Finalizar Pedido</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#070D2D',
-    justifyContent:'center'
+    justifyContent: 'center'
   },
   container_flatList: {
     marginBottom: 250,
