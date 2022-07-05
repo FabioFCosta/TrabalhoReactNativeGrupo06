@@ -12,18 +12,22 @@ const Carrinho = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container_flatList}>
-        <FlatList
-          data={listarProdutos()}
-          keyExtractor={item => item.id_produto}
-          renderItem={response =>
-            <>
-              <CardCarrinho
-                produto={response.item}
-                navigation={navigation}
-              />
-            </>
-          }
-        />
+        {listarProdutos().length >= 1 ?
+          <FlatList
+            data={listarProdutos()}
+            keyExtractor={item => item.id_produto}
+            renderItem={response =>
+              <>
+                <CardCarrinho
+                  produto={response.item}
+                  navigation={navigation}
+                />
+              </>
+            }
+          />
+          :
+          <Text style={styles.text}>Porque seu carrinho ainda está vazio?</Text>
+        }
       </View>
       <View style={styles.container_detalhes_compra}>
         <TouchableOpacity onPress={HandleContinuarComprando}>
@@ -44,6 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#070D2D',
+    justifyContent:'center'
   },
   container_flatList: {
     marginBottom: 250,
@@ -87,6 +92,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#070D2D',
+  },
+  text: {
+    color: '#C4DFE8',
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
 
