@@ -1,12 +1,14 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import RealmBD from '../Realm/Realm'
 import { ProdutoType } from '../models/ProdutoType';
 
 export const CarrinhoContext = createContext({});
 
 export function CarrinhoProvider({ children }) {
+  const [carrinho, setCarrinho]=useState(RealmBD.objects('Produto'))
+
   const listarProdutos = () => {
-    return RealmBD.objects('Produto')
+    setCarrinho(RealmBD.objects('Produto'))
   }
 
   const listarQtdProduto = (_id: number) => {
@@ -58,6 +60,7 @@ export function CarrinhoProvider({ children }) {
         prod.quantidade_produto = qtdCarrinho + 1;
       })
     }
+    listarProdutos();
   }
 
   const removerItem = (_id: number) => {
@@ -70,12 +73,14 @@ export function CarrinhoProvider({ children }) {
     } else {
       deletarProduto(prod)
     }
+    listarProdutos();
   }
 
   const deletarProduto = (produto) => {
     RealmBD.write(() => {
       RealmBD.delete(produto)
     })
+    listarProdutos();
   }
 
   return (
@@ -86,7 +91,8 @@ export function CarrinhoProvider({ children }) {
       deletarProduto,
       listarQtdProduto,
       removerItem,
-      totalizarCarrinho
+      totalizarCarrinho,
+      carrinho
     }}>
       {children}
     </CarrinhoContext.Provider>

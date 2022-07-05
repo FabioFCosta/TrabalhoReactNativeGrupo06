@@ -4,7 +4,7 @@ import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 
 const Carrinho = ({ navigation }) => {
-  const { listarProdutos, contarQtdProdutos, totalizarCarrinho } = useContext(CarrinhoContext);
+  const { carrinho, contarQtdProdutos, totalizarCarrinho } = useContext(CarrinhoContext);
 
   const HandleContinuarComprando = () => {
     navigation.navigate('Foldbreakers Store')
@@ -12,9 +12,9 @@ const Carrinho = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container_flatList}>
-        {listarProdutos().length >= 1 ?
+        {carrinho.length >= 1 ?
           <FlatList
-            data={listarProdutos()}
+            data={carrinho}
             keyExtractor={item => item.id_produto}
             renderItem={response =>
               <>
