@@ -21,25 +21,30 @@ export const RecuperacaoSenha = () => {
             await AxiosInstance.post('autenticacao/recuperar-senha', usuario)
             Alert.alert(
                'Sucesso:',
-               '',
+               'Senha redefinida com sucesso.',
                [
-                  { text: 'OK' },
-                  { text: 'Senha redefinida com sucesso.' },
+                  { text: 'OK' }
                ]
             )
          } catch (error) {
             console.log(error)
             Alert.alert(
                'Erro:',
-               '',
+               'Erro ao redefinir a senha.',
                [
-                  { text: 'OK' },
-                  { text: 'Erro ao redefinir a senha.' },
+                  { text: 'OK' }
                ]
             )
          }
       } else {
          console.log('Senha incompatível')
+         Alert.alert(
+            'Erro:',
+            'Senha não confirmada.',
+            [
+               { text: 'OK' }
+            ]
+         )
       }
    }
 
