@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Icon, Image } from "react-native-elements";
 import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import AxiosInstance from "../../api/AxiosInstance";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
+import Voltar from "../../components/Voltar";
+import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
-export const CadastroUsuario = () => {
+export const CadastroUsuario = ({ navigation }) => {
    const [nomeUsuario, setNomeUsuario] = useState('')
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
    const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
+
+   const { usuario } = useContext(AutenticacaoContext)
 
    const handleFotoPerfil = () => {
       Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
@@ -71,14 +75,14 @@ export const CadastroUsuario = () => {
       console.log('Submit')
       if (confirmSenha === senha) {
          console.log('Senha confirmada')
-         const usuario = {
+         const usuario2 = {
             nomeUsuario,
             email,
             senha
          }
          const formData = new FormData()
-         formData.append('usuario', JSON.stringify(usuario))
-         formData.append('file', { uri: fotoPerfil, type: 'image/jpeg', name: 'photo.png' })
+         formData.append('usuario', JSON.stringify(usuario2))
+         formData.append('file', { uri: fotoPerfil, type: 'image/jpeg', name: 'photo.jpeg' })
          try {
             await AxiosInstance.post('autenticacao/registro', formData, {
                headers: {
@@ -90,7 +94,10 @@ export const CadastroUsuario = () => {
                'Sucesso:',
                'Usuário cadastrado com sucesso.',
                [
-                  { text: 'OK' }
+                  {
+                     text: 'OK',
+                     onPress: () => { navigation.navigate('Login') }
+                  }
                ]
             )
          } catch (error) {
@@ -117,6 +124,9 @@ export const CadastroUsuario = () => {
 
    return (
       <ScrollView contentContainerStyle={styles.container}>
+         <View style={styles.botaoVoltar}>
+            <Voltar navigation={navigation} route='Login' />
+         </View>
          <Text style={styles.title}>Cadastro</Text>
          <View>
             <Image
@@ -166,7 +176,14 @@ const styles = StyleSheet.create({
       flexGrow: 1,
       backgroundColor: '#070D2D',
       padding: 16,
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'center'
+   },
+
+   botaoVoltar: {
+      position: 'absolute',
+      top: 10,
+      left: 10
    },
 
    title: {
@@ -174,7 +191,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: '#FE5430',
       textAlign: 'center',
-      marginTop: 40,
       marginBottom: 20
    },
 
