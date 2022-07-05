@@ -12,6 +12,7 @@ import Carrinho from "../pages/Carrinho";
 import Favoritos from "../pages/Favoritos";
 import { CadastroUsuario } from "../pages/CadastroUsuario";
 import { CarrinhoContext } from "../context/CarrinhoContext";
+import { FavoritosContext } from "../context/FavoritosContext";
 import { StatusBar } from "react-native";
 import { RecuperacaoSenha } from "../pages/RecuperacaoSenha";
 
@@ -19,7 +20,10 @@ const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
 
   const { contarQtdProdutos } = useContext(CarrinhoContext);
+  const { contarQtdFavorito } = useContext(FavoritosContext);
+
   const BadgeIcon = withBadge(contarQtdProdutos())(Icon);
+  const BadgeIconFav = withBadge(contarQtdFavorito())(Icon);
 
   return (
     <TabNavigation.Navigator screenOptions={{
@@ -59,7 +63,7 @@ const BottomTabNavigator = () => {
         name='Favoritos'
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => (<Icon name="heart" color="#c4dfe8" type="font-awesome" size={24} />)
+          tabBarIcon: () => (<BadgeIconFav name="heart" color="#c4dfe8" type="font-awesome" size={24}/>)
         }}
         component={Favoritos}
       />
