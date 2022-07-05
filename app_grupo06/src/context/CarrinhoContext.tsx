@@ -13,10 +13,8 @@ export function CarrinhoProvider({ children }) {
     const prod = RealmBD.objects<ProdutoType>('Produto').filter(item => item.id_produto == _id)[0]
 
     if (prod != undefined) {
-      console.log(prod + " dentro do listar Qtd PRoduto != undefined")
       return prod.quantidade_produto;
     } else {
-      console.log(prod + " dentro do listar Qtd PRoduto == undefined")
       return 0;
     }
   }

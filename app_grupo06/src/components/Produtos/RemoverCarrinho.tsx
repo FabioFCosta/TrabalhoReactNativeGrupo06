@@ -7,7 +7,6 @@ const RemoverCarrinho = (props) => {
   const { deletarProduto } = useContext(CarrinhoContext);
   
   const handleRemoverProduto =()=>{   
-    console.log(props.produto.nome_produto+"dentro do remover produto") 
     deletarProduto(props.produto)
   }
 

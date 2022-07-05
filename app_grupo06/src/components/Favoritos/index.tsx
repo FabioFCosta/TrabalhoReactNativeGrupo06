@@ -10,7 +10,6 @@ const Favoritar = ({ produto }) => {
 useEffect(()=>{
   setFavorited(listarFavoritoId(produto.idProduto));
 },[])
-console.log(listarFavoritoId(produto.idProduto) + " para o produto: "+ produto.nomeProduto)
   const handleAddFavorito = () => {
     setFavorited(!favorited);
     adicionarFavorito(produto);
