@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
-const Voltar = ({navigation}) => {
-  
+const Voltar = ({ navigation, route }) => {
+
   const handleVoltar = () => {
-    navigation.navigate('HomeScreen')
+    navigation.navigate(route)
   }
 
   return (
     <TouchableOpacity style={styles.container}>
-        <Icon name="chevron-circle-left" color="#eee" type="font-awesome" size={30} onPress={() => handleVoltar()} />
+      <Icon name="chevron-circle-left" color="#eee" type="font-awesome" size={30} onPress={() => handleVoltar()} />
     </TouchableOpacity>
   );
 }
