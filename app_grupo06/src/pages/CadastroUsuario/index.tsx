@@ -13,7 +13,6 @@ export const CadastroUsuario = () => {
    const [confirmSenha, setConfirmSenha] = useState('')
    const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
 
-
    const handleFotoPerfil = () => {
       Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
          [
@@ -70,53 +69,50 @@ export const CadastroUsuario = () => {
 
    const handleSubmit = async () => {
       console.log('Submit')
-      // if (confirmSenha === senha) {
-      //    console.log('Senha confirmada')
-      //    const usuario = {
-      //       nomeUsuario,
-      //       email,
-      //       senha
-      //    }
-      //    const formData = new FormData()
-      //    formData.append('usuario', new Blob([JSON.stringify(usuario)]))
-      //    formData.append('file', fotoPerfil)
-      //    try {
-      //       await AxiosInstance.post('autenticacao/registro', formData, {
-      //          headers: {
-      //             'Content-Type': 'multipart/form-data'
-      //          }
-      //       })
-      //       console.log('Usuário cadastrado com sucesso');
-
-      //       // fazer alert
-      //    } catch (error) {
-      //       console.log(error)
-      //       // fazer alert
-      //    }
-      // } else {
-      //    console.log('Senha incompatível')
-      // }
-
-      // const usuario = {
-      //    nome,
-      //    email,
-      //    senha
-      // }
-      // const formData = new FormData()
-      // formData.append('usuario', new Blob([JSON.stringify(usuario)], { type: 'application/json' }))
-      // formData.append('file', fotoPerfil)
-      // try {
-      //    await api.post('produto/com-foto', formData, {
-      //       headers: {
-      //          'accept': 'application/json',
-      //          'Content-Type': 'multipart/form-data'
-      //       }
-      //    })
-      //    alert('Produto cadastrado com sucesso!')
-      // } catch (error) {
-      //    console.log(error);
-      //    alert(error.response.data.message + ' ' + error.response.data.details)
-      // }
+      if (confirmSenha === senha) {
+         console.log('Senha confirmada')
+         const usuario = {
+            nomeUsuario,
+            email,
+            senha
+         }
+         const formData = new FormData()
+         formData.append('usuario', JSON.stringify(usuario))
+         formData.append('file', { uri: fotoPerfil, type: 'image/jpeg', name: 'photo.png' })
+         try {
+            await AxiosInstance.post('autenticacao/registro', formData, {
+               headers: {
+                  'Content-Type': 'multipart/form-data'
+               }
+            })
+            console.log('Usuário cadastrado com sucesso');
+            Alert.alert(
+               'Sucesso:',
+               'Usuário cadastrado com sucesso.',
+               [
+                  { text: 'OK' }
+               ]
+            )
+         } catch (error) {
+            console.log(error)
+            Alert.alert(
+               'Erro:',
+               'Não foi possível cadastrar o usuário.',
+               [
+                  { text: 'OK' }
+               ]
+            )
+         }
+      } else {
+         console.log('Senha incompatível')
+         Alert.alert(
+            'Erro:',
+            'Senha não confirmada.',
+            [
+               { text: 'OK' }
+            ]
+         )
+      }
    }
 
    return (
