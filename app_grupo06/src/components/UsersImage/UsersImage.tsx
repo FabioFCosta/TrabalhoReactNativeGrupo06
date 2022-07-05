@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
-import { Image, } from "react-native-elements";
+import { Image, Icon} from "react-native-elements";
 
 const UserImage = () => {
   const { usuario } = useContext(AutenticacaoContext);

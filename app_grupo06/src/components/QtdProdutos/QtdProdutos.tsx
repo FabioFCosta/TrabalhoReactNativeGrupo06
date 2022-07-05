@@ -24,7 +24,7 @@ const QtdProdutos = (props) => {
 
   return (
     <View style={styles.container}>
-      {props.quantidade!=0?
+      {quantidade!=0?
       <TouchableOpacity>
         <Icon name="minus-circle" color="#06C1FF" type="font-awesome" size={30} onPress={() => handleRemoveProduto()} />
       </TouchableOpacity>
