@@ -1,76 +1,66 @@
-// import React, { createContext } from 'react';
-// import Realm from 'realm';
+import React, { createContext } from 'react';
+import RealmBD from '../Realm/Realm'
 
-// export const FavoritosContext = createContext({});
+export const FavoritosContext = createContext({});
 
-// class ProdutoSchema extends Realm.Object { }
-// ProdutoSchema.schema = {
-//   name: 'Produto',
-//   properties: {
-//     id_produto: { type: 'int', default: 0 },
-//     sku: 'string',
-//     nome_produto: 'string',
-//     descricao_produto: 'string',
-//     preco_produto: 'double',
-//     imagem_produto: 'string',
-//   }
-// };
-// let realm_favoritos = new Realm({ schema: [ProdutoSchema], schemaVersion: 1 });
+export function FavoritosProvider({ children }) {
 
-// export function FavoritosProvider({ children }) {
-//   const listarProdutos = () => {
-//     return realm_favoritos.objects('Produto');
-//   }
+  const listarFavoritos = () => {
+    return RealmBD.objects('Favorito');
+  }
 
-//   const contarQtdProdutos = () => {
-//     return realm_favoritos.objects('Produto').length;
-//   }
+  const listarFavoritoId = (id: number) => {
+    if (RealmBD.objects('Favorito').filtered("id_produto == " + id).isEmpty()) {
+      return true;
+    }
+    return false;
+  }
 
-//   const adicionarProduto = (_sku: string, _nome: string,
-//     _descricao: string, _preco: number, _imagem: string) => {
+  const contarQtdFavorito = () => {
+    return RealmBD.objects('Produto').length;
+  }
 
-//     const ultimoProdutoCadastrado =
-//       realm_favoritos.objects('Produto').sorted('id_produto', true)[0];
-//     const ultimoIdCadastrado =
-//       ultimoProdutoCadastrado == null ? 0 : ultimoProdutoCadastrado.id_produto;
-//     const proximoId = ultimoIdCadastrado == null ? 1 : ultimoIdCadastrado + 1;
+  const adicionarFavorito = (produto) => {
 
-//     realm_favoritos.write(() => {
-//       const produto = realm_favoritos.create('Produto', {
-//         id_produto: proximoId,
-//         sku: _sku,
-//         nome_produto: _nome,
-//         descricao_produto: _descricao,
-//         preco_produto: _preco,
-//         imagem_produto: _imagem,
-//       });
-//     });
+    if (RealmBD.objects('Favorito').filtered("id_produto == " + produto.idProduto).isEmpty()) {
+      RealmBD.write(() => {
+        RealmBD.create('Favorito', {
+          id_produto: produto.idProduto,
+          sku: produto.sku,
+          nome_produto: produto.nomeProduto,
+          descricao_produto: produto.descricaoProduto,
+          preco_produto: produto.precoProduto,
+          imagem_produto: produto.imagemProduto,
+          nome_categoria: produto.nomeCategoria
+        });
+      })
+    } else {
+      deletarFavorito(produto.idProduto)
+    }
+  }
 
-//     console.log(JSON.stringify(listarProdutos()));
-//   }
+  const deletarFavorito = (id: number) => {
+    RealmBD.write(() =>
+      RealmBD.delete(RealmBD.objects('Favorito').filtered("id_produto == " + id)),
+    );
+  }
 
-//   const deletarProduto = (produto: any) => {
-//     const prod =
-//     realm_favoritos.write(() =>
-//       realm_favoritos.delete(produto),
-//     );
-//   }
+  const resetFavoritos = () => {
+    RealmBD.write(() => {
+      RealmBD.deleteAll();
+    })
+  }
 
-//   const resetFavoritos = () => {
-//     realm_favoritos.write(() => {
-//       realm_favoritos.deleteAll();
-//     })
-//   }
-
-//   return (
-//     <FavoritosContext.Provider value={{
-//       listarProdutos,
-//       contarQtdProdutos,
-//       adicionarProduto,
-//       deletarProduto,
-//       resetFavoritos,
-//     }}>
-//       {children}
-//     </FavoritosContext.Provider>
-//   );
-// }
+  return (
+    <FavoritosContext.Provider value={{
+      contarQtdFavorito,
+      deletarFavorito,
+      resetFavoritos,
+      listarFavoritos,
+      adicionarFavorito,
+      listarFavoritoId
+    }}>
+      {children}
+    </FavoritosContext.Provider>
+  );
+}
