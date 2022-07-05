@@ -4,12 +4,9 @@ import { Icon } from "react-native-elements";
 import { FavoritosContext } from "../../context/FavoritosContext";
 
 const Favoritar = ({ produto }) => {
-  const [favorited, setFavorited] = useState(Boolean);
   const { adicionarFavorito,listarFavoritoId } = useContext(FavoritosContext)
+  const [favorited, setFavorited] = useState(listarFavoritoId(produto.idProduto));
 
-useEffect(()=>{
-  setFavorited(listarFavoritoId(produto.idProduto));
-},[])
   const handleAddFavorito = () => {
     setFavorited(!favorited);
     adicionarFavorito(produto);

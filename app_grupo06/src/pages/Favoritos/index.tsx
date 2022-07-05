@@ -4,15 +4,15 @@ import CardFavorito from "../../components/Favoritos/CardFavoritos";
 import { FavoritosContext } from "../../context/FavoritosContext";
 
 const Favoritos = ({ navigation }) => {
-  const { listarFavoritos } = useContext(FavoritosContext);
+  const { favoritos } = useContext(FavoritosContext);
 
   return (
     <View style={styles.container}>
-      {listarFavoritos().length>=1?
+      {favoritos.length>=1?
       <FlatList
       contentContainerStyle={styles.flatList}
       numColumns={2}
-      data={listarFavoritos()}
+      data={favoritos}
       keyExtractor={item => item.id_produto}
       renderItem={response =>
         <>

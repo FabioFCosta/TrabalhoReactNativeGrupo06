@@ -7,7 +7,7 @@ const Carrinho = ({ navigation }) => {
   const { listarProdutos, contarQtdProdutos, totalizarCarrinho } = useContext(CarrinhoContext);
 
   const HandleContinuarComprando = () => {
-    navigation.navigate('HomeScreen')
+    navigation.navigate('Foldbreakers Store')
   }
   return (
     <View style={styles.container}>
