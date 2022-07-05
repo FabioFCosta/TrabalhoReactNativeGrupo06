@@ -6,11 +6,11 @@ import { ProdutoContext } from "../../context/ProdutoContext";
 
 export const SearchBar = (props) => {
   const [busca, setBusca] = useState('');
-  const { categoria, setCategoria, filtercat, setFilterCat, getDadosCategoria } = useContext(CategoriaContext);
-  const {produto, setProduto, filterProd, setFilterProd, getDadosProduto} = useContext(ProdutoContext)
+  const { categoria, setCategoria, getDadosCategoria } = useContext(CategoriaContext);
+  const { filterProd, setFilterProd, getDadosProduto } = useContext(ProdutoContext)
 
   useEffect(() => {
-    props.type==="Categoria"? buscarCategoria(busca):buscarProduto(busca)
+    props.type === "Categoria" ? buscarCategoria(busca) : buscarProduto(busca)
   }, [busca])
 
   const buscarCategoria = (busca: string) => {
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#C4DFE8',
     paddingVertical: 0,
     paddingHorizontal: 5,
-    borderRadius:10,
+    borderRadius: 10,
   }
 });
