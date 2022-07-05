@@ -7,6 +7,8 @@ import CardProdutos from "./CardProdutos";
 import { AppLoader } from "../AppLoader";
 import { ProdutoContext } from "../../context/ProdutoContext";
 import { FavoritosContext } from "../../context/FavoritosContext";
+import { StyleSheet } from "react-native";
+import { Text } from "react-native-elements";
 
 const ScrollProdutos = ({ navigation }) => {
   const { filterProd, getDadosProduto } = useContext(ProdutoContext)
@@ -19,7 +21,7 @@ const ScrollProdutos = ({ navigation }) => {
 
   return (
     <>
-      {loading ? <AppLoader /> :
+      {filterProd?.length>=1?
         <FlatList
           data={filterProd}
           numColumns={2}
@@ -36,9 +38,18 @@ const ScrollProdutos = ({ navigation }) => {
             </>
           }
         />
+        :
+        <Text style={styles.text}>Não foi encontrado um jogo na busca</Text>
       }
     </>
   )
 }
-
+const styles = StyleSheet.create({
+  text: {
+    color: '#C4DFE8',
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+})
 export default ScrollProdutos;
