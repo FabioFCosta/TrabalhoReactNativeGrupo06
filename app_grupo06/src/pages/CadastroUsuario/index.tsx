@@ -13,9 +13,9 @@ export const CadastroUsuario = ({ navigation }) => {
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
-
-   const { usuario } = useContext(AutenticacaoContext)
+   // const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
+   const [fotoPerfil, setFotoPerfil] = useState({ uri: 'https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png', type: 'image/jpeg', name: 'emptyProfilePhoto' })
+   // const [resultadoFoto, setResultadoFoto] = useState({})
 
    const handleFotoPerfil = () => {
       Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
@@ -39,22 +39,21 @@ export const CadastroUsuario = ({ navigation }) => {
    }
 
    const pickImageFromGallery = async () => {
-
       const options: ImageLibraryOptions = {
          mediaType: 'photo'
       }
 
       const result = await launchImageLibrary(options)
-      console.log('TESTE FOTO: ' + result);
+      console.log('TESTE: ' + JSON.stringify(result));
 
       if (result?.assets) {
-         console.log(result.assets);
-         setFotoPerfil(result.assets[0].uri!)
+         // setFotoPerfil(result.assets[0].uri!)
+         setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
+         // setResultadoFoto(result.assets[0])
       }
    }
 
    const pickImageFromCamera = async () => {
-
       const options: CameraOptions = {
          mediaType: 'photo',
          saveToPhotos: false,
@@ -63,33 +62,50 @@ export const CadastroUsuario = ({ navigation }) => {
       }
 
       const result = await launchCamera(options)
-      console.log('TESTE CAMERA: ' + result);
-
       if (result?.assets) {
-         console.log(result.assets);
-         setFotoPerfil(result.assets[0].uri!)
+         // setFotoPerfil(result.assets[0].uri!)
+         setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
       }
    }
+
+   // const handleUploadImage = async () => {
+   //    const uploadBody = new FormData()
+   //    uploadBody.append('image', resultadoFoto)
+   //    try {
+   //       await fetch("https://api.imgur.com/3/image/", {
+   //          method: "post",
+   //          headers: {
+   //             Authorization: "Client-ID d81ac2bf25e1b41"
+   //          },
+   //          body: uploadBody
+   //       })
+   //       console.log('Upload da foto com sucesso');
+
+   //    } catch (error) {
+   //       console.log('Erro no upload da foto: ' + error)
+   //    }
+   // }
 
    const handleSubmit = async () => {
       console.log('Submit')
       if (confirmSenha === senha) {
          console.log('Senha confirmada')
-         const usuario2 = {
+         const usuario = {
             nomeUsuario,
             email,
             senha
          }
          const formData = new FormData()
-         formData.append('usuario', JSON.stringify(usuario2))
-         formData.append('file', { uri: fotoPerfil, type: 'image/jpeg', name: 'photo.jpeg' })
+         formData.append('usuario', JSON.stringify(usuario))
+         formData.append('file', { uri: fotoPerfil.uri, type: fotoPerfil.type, name: fotoPerfil.name })
+
          try {
             await AxiosInstance.post('autenticacao/registro', formData, {
                headers: {
                   'Content-Type': 'multipart/form-data'
                }
             })
-            console.log('Usuário cadastrado com sucesso');
+            // handleUploadImage()
             Alert.alert(
                'Sucesso:',
                'Usuário cadastrado com sucesso.',
@@ -111,7 +127,6 @@ export const CadastroUsuario = ({ navigation }) => {
             )
          }
       } else {
-         console.log('Senha incompatível')
          Alert.alert(
             'Erro:',
             'Senha não confirmada.',
@@ -131,7 +146,7 @@ export const CadastroUsuario = ({ navigation }) => {
          <View>
             <Image
                style={styles.imageStyle}
-               source={{ uri: fotoPerfil }}
+               source={{ uri: fotoPerfil.uri }}
             />
          </View>
          <View style={styles.addPhotoButton}>
