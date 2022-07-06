@@ -6,7 +6,6 @@ import QtdProdutos from "../QtdProdutos/QtdProdutos";
 
 
 const CardCarrinho = (props) => {
-  console.log(props.produto.quantidade_produto + " no Card Carrinho")
 
   const produto = {
     idProduto: props.produto.id_produto,
