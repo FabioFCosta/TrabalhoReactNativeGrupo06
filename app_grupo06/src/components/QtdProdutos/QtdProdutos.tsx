@@ -9,7 +9,7 @@ const QtdProdutos = (props) => {
 
   useEffect(()=>{
     setQuantidade(props.quantidade)
-  },[])
+  },[props.quantidade])
 
   const handleAddProduto = () => {
     adicionarProduto(props.produto)

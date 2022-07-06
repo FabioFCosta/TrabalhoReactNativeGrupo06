@@ -32,7 +32,7 @@ const Carrinho = ({ navigation }) => {
             }
           />
           :
-          <Text style={styles.text}>Porque seu carrinho ainda está vazio?</Text>
+          <Text style={styles.text}>Por que seu carrinho ainda está vazio?</Text>
         }
       </View>
       <View style={styles.container_detalhes_compra}>
