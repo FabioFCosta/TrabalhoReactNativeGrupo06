@@ -11,14 +11,14 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 
 const ScrollProdutos = ({ navigation }) => {
-  const { filterProd, getDadosProduto } = useContext(ProdutoContext)
+  const { filterProd, getDadosProduto, getDadosProdutoPaginacao} = useContext(ProdutoContext)
   const { loading, setLoading } = useContext(LoadingContext);
   const { favoritos } = useContext(FavoritosContext)
   const [produto, setProduto] = useState([])
   const [state, setState] = useState(true)
 
   useEffect(() => {
-    getDadosProduto();
+    getDadosProdutoPaginacao()
     setProduto(filterProd)
   }, []);
 
@@ -35,16 +35,20 @@ const ScrollProdutos = ({ navigation }) => {
     setProduto(filterProd)
   }, [filterProd])
 
+const getProdutos=()=>{
+  getDadosProdutoPaginacao()
+}
+
   return (
     <>
-      {filterProd?.length >= 1 ?
+    {filterProd?.length >= 1 ?
         <FlatList
           data={produto}
           numColumns={2}
           keyExtractor={item => item.idProduto}
-          // onEndReached={getDadosProduto()}
-          // onEndReachedThreshold={0.1}
-          // ListFooterComponent={loading ? <AppLoader /> : null}
+          onEndReached={getProdutos}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={loading ? <AppLoader /> : null}
           renderItem={response =>
             <>
               <CardProdutos

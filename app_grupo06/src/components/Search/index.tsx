@@ -7,7 +7,11 @@ import { ProdutoContext } from "../../context/ProdutoContext";
 export const SearchBar = (props) => {
   const [busca, setBusca] = useState('');
   const { categoria, setCategoria, getDadosCategoria } = useContext(CategoriaContext);
-  const { filterProd, setFilterProd, getDadosProduto } = useContext(ProdutoContext)
+  const { produto, setFilterProd, getDadosProduto, getDadosProdutoPaginacao,setPage } = useContext(ProdutoContext)
+
+useEffect(()=>{
+  getDadosProduto()
+},[])
 
   useEffect(() => {
     props.type === "Categoria" ? buscarCategoria(busca) : buscarProduto(busca)
@@ -25,10 +29,11 @@ export const SearchBar = (props) => {
   const buscarProduto = (busca: string) => {
     if (busca !== '') {
       setFilterProd(
-        filterProd.filter
+        produto.filter
           (res => res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
     } else {
-      getDadosProduto();
+      setPage(1);
+      getDadosProdutoPaginacao();
     }
   }
 
