@@ -7,12 +7,16 @@ import { CategoriaProvider } from './context/CategoriaContext';
 import { CarrinhoProvider } from './context/CarrinhoContext';
 import { ProdutoProvider } from './context/ProdutoContext';
 import { FavoritosProvider } from './context/FavoritosContext';
+import firebaseConfig from '../firebaseConfig';
+import { initializeApp } from 'firebase/app'
+
+initializeApp(firebaseConfig)
 
 export default () => {
 
   return (
-    <AutenticacaoProvider>
-      <LoadingProvider>
+    <LoadingProvider>
+      <AutenticacaoProvider>
         <CategoriaProvider>
           <ProdutoProvider>
             <CarrinhoProvider>
@@ -22,7 +26,7 @@ export default () => {
             </CarrinhoProvider>
           </ProdutoProvider>
         </CategoriaProvider>
-      </LoadingProvider>
-    </AutenticacaoProvider>
+      </AutenticacaoProvider>
+    </LoadingProvider>
   );
 }
