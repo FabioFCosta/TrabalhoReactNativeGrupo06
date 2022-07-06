@@ -22,8 +22,16 @@ export const CadastroUsuario = ({ navigation }) => {
    const [confirmSenha, setConfirmSenha] = useState('')
 
    const handleFotoPerfil = () => {
-      Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
+      Alert.alert(
+         'Selecione',
+         'Informe como você deseja obter a foto:',
          [
+            {
+               text: 'Cancelar',
+               style: 'cancel'
+               // cancelable: true,
+               // onDismiss: () => console.log('tratar depois')
+            },
             {
                text: 'Galeria',
                onPress: () => pickImageFromGallery(),
@@ -32,12 +40,7 @@ export const CadastroUsuario = ({ navigation }) => {
             {
                text: 'Câmera',
                onPress: () => pickImageFromCamera(),
-               style: 'default'
-            },
-            {
-               text: 'Cancelar'
-               // cancelable: true,
-               // onDismiss: () => console.log('tratar depois')
+               style: 'destructive'
             }
          ])
    }

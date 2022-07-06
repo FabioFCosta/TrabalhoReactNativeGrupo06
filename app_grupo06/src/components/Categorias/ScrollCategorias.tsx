@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, View } from "react-native";
 import CardCategoria from "./CardCategorias";
 import { AppLoader } from "../AppLoader";
 
-import { LoadingContext} from "../../context/LoadingContext";
+import { LoadingContext } from "../../context/LoadingContext";
 import { CategoriaContext } from "../../context/CategoriaContext";
 
 
@@ -23,6 +23,7 @@ const ScrollCategorias = ({ navigation }) => {
         <FlatList
           horizontal={true}
           data={categoria}
+          showsHorizontalScrollIndicator={false}
           keyExtractor={item => item.idCategoria}
           renderItem={response =>
             <CardCategoria
@@ -32,14 +33,14 @@ const ScrollCategorias = ({ navigation }) => {
           }
         />
       }
-    </View> 
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   scroll_categorias: {
     padding: 0,
-    marginBottom:20,
+    marginBottom: 20,
   }
 })
 
