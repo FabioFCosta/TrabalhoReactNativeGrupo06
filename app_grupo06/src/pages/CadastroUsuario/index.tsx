@@ -15,10 +15,7 @@ export const CadastroUsuario = ({ navigation }) => {
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   // const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
    const { fotoPerfil, setFotoPerfil } = useContext(AutenticacaoContext)
-   // const [fotoPerfil, setFotoPerfil] = useState({ uri: 'https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png', type: 'image/jpeg', name: 'emptyProfilePhoto' })
-   // const [resultadoFoto, setResultadoFoto] = useState({})
 
    const handleFotoPerfil = () => {
       Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
@@ -47,12 +44,8 @@ export const CadastroUsuario = ({ navigation }) => {
       }
 
       const result = await launchImageLibrary(options)
-      console.log('TESTE: ' + JSON.stringify(result));
-
       if (result?.assets) {
-         // setFotoPerfil(result.assets[0].uri!)
          setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
-         // setResultadoFoto(result.assets[0])
       }
    }
 
@@ -66,7 +59,6 @@ export const CadastroUsuario = ({ navigation }) => {
 
       const result = await launchCamera(options)
       if (result?.assets) {
-         // setFotoPerfil(result.assets[0].uri!)
          setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
       }
    }

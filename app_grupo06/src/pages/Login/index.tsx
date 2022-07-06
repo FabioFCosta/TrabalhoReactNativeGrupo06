@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity, ScrollView } from 'react-native';
-import { Input, Text, Icon, Button } from 'react-native-elements';
+import { Input, Text, Button, Image } from 'react-native-elements';
+import { ActionButton } from '../../components/ActionButton/ActionButton';
 import { AppLoader } from '../../components/AppLoader';
+import { InputTexto } from '../../components/InputTexto/InputTexto';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { LoadingContext } from '../../context/LoadingContext';
 
@@ -45,38 +47,33 @@ const Login = ({ navigation }) => {
     <>
       <DismissKeyboard>
         <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.boasVindas}>{'Login'}</Text>
-          <Input
-            inputContainerStyle={styles.inputContainer}
-            style={styles.inputEntrada}
-            placeholder="E-mail"
-            placeholderTextColor={"#070d2d"}
-            onChangeText={setEmail}
-            value={email}
-          //leftIcon={<Icon name="user" color="#000" type="font-awesome" size={24} />}
-          />
-          <Input
-            inputContainerStyle={styles.inputContainer}
-            style={styles.inputEntrada}
-            placeholder="Senha"
-            placeholderTextColor={"#070d2d"}
-            onChangeText={setSenha}
-            value={senha}
-            //leftIcon={<Icon name="key" color="#000" type="font-awesome" size={24} />}
-            secureTextEntry
+          <Image
+            style={styles.logo}
+            source={{ uri: 'https://github.com/pedromlsr/trabalhoReactJSGrupo6/blob/main/trabalho-react-grupo-6/src/Assets/Img/logo-cor.png?raw=true' }}
           />
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('RecuperacaoSenha')}
-          >
+          <Text style={styles.boasVindas}>FOLDBREAKERS STORE</Text>
+
+          <InputTexto
+            secureTextEntry={false}
+            placeholder='E-mail'
+            onChangeText={setEmail}
+            value={email}
+          />
+
+          <InputTexto
+            secureTextEntry={true}
+            placeholder='Senha'
+            onChangeText={setSenha}
+            value={senha}
+          />
+
+          <TouchableOpacity onPress={() => navigation.navigate('RecuperacaoSenha')}>
             <Text style={styles.esqueceuBotao}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
 
-          {loading ? null : <Button
-            titleStyle={styles.tituloBotao}
-            containerStyle={styles.containerBotao}
-            buttonStyle={styles.styleBotao}
-            title="Login"
+          {loading ? null : <ActionButton
+            text='Login'
             onPress={() => handleLogin(email, senha)}
           />}
 
@@ -84,10 +81,9 @@ const Login = ({ navigation }) => {
             <Text style={styles.tituloCadastro}>Ainda não está cadastrado?</Text>
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate('CadastroUsuario')}>
-            <Text style={styles.cadastroBotao}>Cadastre-se!</Text>
+          <TouchableOpacity style={styles.cadastroBotao} onPress={() => navigation.navigate('CadastroUsuario')}>
+            <Text style={styles.cadastroBotaoText}>Cadastre-se!</Text>
           </TouchableOpacity>
-
         </ScrollView>
       </DismissKeyboard>
       {loading ? <AppLoader /> : null}
@@ -99,10 +95,17 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#070d2d',
     flexGrow: 1,
-    alignItems: 'stretch',
+    alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16
+    padding: 16
   },
+
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 20
+  },
+
   boasVindas: {
     color: '#fe5430',
     fontWeight: 'bold',
@@ -110,13 +113,16 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     textAlign: 'center'
   },
+
   tituloBotao: {
     color: '#070d2d',
     fontSize: 20
   },
+
   styleBotao: {
     backgroundColor: '#06c1ff'
   },
+
   containerBotao: {
     alignSelf: 'center',
     justifyContent: 'center',
@@ -124,6 +130,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: 175
   },
+
   inputEntrada: {
     backgroundColor: '#c4dfe8',
     color: '#070d2d',
@@ -135,33 +142,46 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center'
   },
+
   inputContainer: {
     borderBottomWidth: 0,
     paddingHorizontal: 30
   },
+
   esqueceuBotao: {
     color: "#fe5430",
-    fontSize: 16,
-    textAlign: 'center',
+    fontSize: 20,
     fontStyle: 'italic',
-    marginLeft: 145,
+    marginLeft: 125,
     marginBottom: 25,
     marginTop: -20
   },
+
   tituloCadastro: {
     color: "#06c1ff",
-    fontSize: 25,
+    fontSize: 20,
     textAlign: 'center',
     fontStyle: 'italic',
-    marginTop: 40,
+    marginTop: 30,
   },
-  cadastroBotao: {
-    color: "#fe5430",
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: 20
-  }
 
+  cadastroBotao: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#fe5430',
+    borderRadius: 50,
+    marginTop: 20,
+    padding: 10,
+    justifyContent: 'center',
+    height: 50,
+    width: '50%'
+  },
+
+  cadastroBotaoText: {
+    color: '#fe5430',
+    fontSize: 20,
+    textAlign: 'center'
+  }
 })
 
 export default Login;
