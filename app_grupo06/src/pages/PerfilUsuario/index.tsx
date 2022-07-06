@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
   containerPerfil: {
     backgroundColor: '#C4DFE8',
     borderRadius: 30,
-    width: '80%',
+    width: '90%',
     alignItems: 'center',
-    padding: 30
+    paddingVertical: 30
   },
 
   imagem_usuario: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
 
   email_usuario: {
-    fontSize: 25,
+    fontSize: 22,
     color: '#FE5430',
     marginBottom: 40,
     marginLeft: 10,
