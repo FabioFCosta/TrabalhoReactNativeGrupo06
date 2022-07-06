@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { ProdutoType } from "../models/ProdutoType";
 import { LoadingContext } from "./LoadingContext";
 import AxiosInstance from "../api/AxiosInstance";
@@ -12,25 +12,37 @@ export const ProdutoProvider = ({ children }) => {
   const [produto, setProduto] = useState<ProdutoType[]>([]);
   const [filterProd, setFilterProd] = useState<ProdutoType[]>([]);
 
-  // const perPage = 8
-  // const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1)
+  const perPage = 6
 
   const getDadosProduto = async () => {
-    setLoading(true);
-    AxiosInstance.get(
+    // setLoading(true);
+    await AxiosInstance.get(
       '/produto',
-      // `/produto?per_page=${perPage}&page=${page}`,
       { headers: { "Authorization": `Bearer ${usuario.token}` } }
     ).then(result => {
-      // setProduto([...produto, ...result.data]);
       setProduto(result.data);
-      // setFilterProd([...filterProd, ...result.data]);
-      setFilterProd(result.data);
-      // setPage(page + 1)
     }).catch((error) => {
       console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
     })
-    setLoading(false);
+    // setLoading(false);
+  }
+  const getDadosProdutoPaginacao = async () => {
+    setLoading(true)
+    await AxiosInstance.get(
+      `/produto?pagina=${page}&qtdRegistros=${perPage}`,
+      { headers: { "Authorization": `Bearer ${usuario.token}` } }
+    ).then(result => {
+      if (page == 1) {
+        setFilterProd(result.data);
+      } else {        
+        setFilterProd([...filterProd, ...result.data]);
+      }
+      setPage(page + 1);
+    }).catch((error) => {
+      console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
+    })
+    setLoading(false)
   }
 
   return (
@@ -40,8 +52,9 @@ export const ProdutoProvider = ({ children }) => {
       filterProd,
       setFilterProd,
       getDadosProduto,
+      getDadosProdutoPaginacao,
+      setPage
       // page,
-      // setPage
     }}>
       {children}
     </ProdutoContext.Provider>

@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React  from "react";
 import { Text } from "react-native-elements";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { ProdutoContext } from "../../context/ProdutoContext";
-import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
 const CardCategoria = (props) => {
-  const { produto } = useContext(ProdutoContext);
-  const { setFilterProd } = useContext(ProdutoContext);
 
   const handleClick = () => {
-    setFilterProd(produto.filter(item => item.nomeCategoria === props.categoria.nomeCategoria))
+    props.navigation.navigate({
+      name: 'CategoriaScreen', params: {
+        categoria: props.categoria
+      }
+    })
   }
 
   return (
