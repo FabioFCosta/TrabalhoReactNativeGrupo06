@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { CarrinhoContext } from "../../context/CarrinhoContext";
 import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
+import { ActionButton } from "../../components/ActionButton/ActionButton";
 
 const Carrinho = ({ navigation }) => {
   const { carrinho, contarQtdProdutos, totalizarCarrinho, resetCarrinho } = useContext(CarrinhoContext);
@@ -30,6 +31,7 @@ const Carrinho = ({ navigation }) => {
                 />
               </>
             }
+            showsVerticalScrollIndicator={false}
           />
           :
           <Text style={styles.text}>Por que seu carrinho ainda está vazio?</Text>
@@ -43,9 +45,9 @@ const Carrinho = ({ navigation }) => {
           <Text style={styles.total_itens}>Total ({contarQtdProdutos()} itens):</Text>
           <Text style={styles.total_valor}>R$ {totalizarCarrinho().toFixed(2)}</Text>
         </View>
-        <TouchableOpacity style={styles.submit} onPress={HandleFinalizarPedido}>
-          <Text style={styles.submit_text} >Finalizar Pedido</Text>
-        </TouchableOpacity>
+        <View style={styles.submit}>
+          <ActionButton text='Finalizar Pedido' onPress={HandleFinalizarPedido} />
+        </View>
       </View>
     </View>
   );
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     color: '#FE5430'
   },
   submit: {
-    padding: 10,
+    alignItems: 'center',
     backgroundColor: '#06C1FF',
     borderRadius: 50,
   },
