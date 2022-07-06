@@ -7,6 +7,8 @@ import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
 import Voltar from "../../components/Voltar";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
+
 
 export const CadastroUsuario = ({ navigation }) => {
    const [nomeUsuario, setNomeUsuario] = useState('')
@@ -14,7 +16,8 @@ export const CadastroUsuario = ({ navigation }) => {
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
    // const [fotoPerfil, setFotoPerfil] = useState('https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png')
-   const [fotoPerfil, setFotoPerfil] = useState({ uri: 'https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png', type: 'image/jpeg', name: 'emptyProfilePhoto' })
+   const { fotoPerfil, setFotoPerfil } = useContext(AutenticacaoContext)
+   // const [fotoPerfil, setFotoPerfil] = useState({ uri: 'https://northmemorial.com/wp-content/uploads/2016/10/PersonPlaceholder.png', type: 'image/jpeg', name: 'emptyProfilePhoto' })
    // const [resultadoFoto, setResultadoFoto] = useState({})
 
    const handleFotoPerfil = () => {
@@ -68,23 +71,15 @@ export const CadastroUsuario = ({ navigation }) => {
       }
    }
 
-   // const handleUploadImage = async () => {
-   //    const uploadBody = new FormData()
-   //    uploadBody.append('image', resultadoFoto)
-   //    try {
-   //       await fetch("https://api.imgur.com/3/image/", {
-   //          method: "post",
-   //          headers: {
-   //             Authorization: "Client-ID d81ac2bf25e1b41"
-   //          },
-   //          body: uploadBody
-   //       })
-   //       console.log('Upload da foto com sucesso');
+   const handleUploadImage = async () => {
+      const storage = getStorage()
+      const reference = ref(storage, nomeUsuario)
 
-   //    } catch (error) {
-   //       console.log('Erro no upload da foto: ' + error)
-   //    }
-   // }
+      const img = await fetch(fotoPerfil.uri)
+      const bytes = await img.blob()
+
+      await uploadBytes(reference, bytes)
+   }
 
    const handleSubmit = async () => {
       console.log('Submit')
@@ -105,7 +100,7 @@ export const CadastroUsuario = ({ navigation }) => {
                   'Content-Type': 'multipart/form-data'
                }
             })
-            // handleUploadImage()
+            handleUploadImage()
             Alert.alert(
                'Sucesso:',
                'Usuário cadastrado com sucesso.',
