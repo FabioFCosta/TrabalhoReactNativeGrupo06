@@ -46,7 +46,7 @@ const CardCarrinho = (props) => {
         />
         <View style={styles.prod_detalhes}>
           <Text style={styles.card_nome}>{props.produto.nome_produto}</Text>
-          <Text style={styles.card_desc}>{props.produto.descricao_produto}</Text>
+          <Text style={styles.card_desc}>Ver descrição</Text>
           <View style={styles.prod_preco_qtd}>
             <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)}</Text>
             <View style={styles.qtd_produto}>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    backgroundColor: '#06C1FF',
+    // backgroundColor: '#06C1FF',
   },
   card_image: {
     width: '30%',

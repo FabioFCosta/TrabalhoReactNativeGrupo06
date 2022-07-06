@@ -8,14 +8,18 @@ import { InputTexto } from "../../components/InputTexto/InputTexto";
 import Voltar from "../../components/Voltar";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
+import { LoadingContext } from "../../context/LoadingContext";
+import { AppLoader } from "../../components/AppLoader";
 
 
 export const CadastroUsuario = ({ navigation }) => {
+   const { fotoPerfil, setFotoPerfil } = useContext(AutenticacaoContext)
+   const { loading, setLoading } = useContext(LoadingContext)
+
    const [nomeUsuario, setNomeUsuario] = useState('')
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   const { fotoPerfil, setFotoPerfil } = useContext(AutenticacaoContext)
 
    const handleFotoPerfil = () => {
       Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
@@ -42,7 +46,6 @@ export const CadastroUsuario = ({ navigation }) => {
       const options: ImageLibraryOptions = {
          mediaType: 'photo'
       }
-
       const result = await launchImageLibrary(options)
       if (result?.assets) {
          setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
@@ -56,7 +59,6 @@ export const CadastroUsuario = ({ navigation }) => {
          cameraType: 'front',
          quality: 1
       }
-
       const result = await launchCamera(options)
       if (result?.assets) {
          setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
@@ -74,9 +76,8 @@ export const CadastroUsuario = ({ navigation }) => {
    }
 
    const handleSubmit = async () => {
-      console.log('Submit')
       if (confirmSenha === senha) {
-         console.log('Senha confirmada')
+         setLoading(true)
          const usuario = {
             nomeUsuario,
             email,
@@ -93,6 +94,7 @@ export const CadastroUsuario = ({ navigation }) => {
                }
             })
             handleUploadImage()
+            setLoading(false)
             Alert.alert(
                'Sucesso:',
                'Usuário cadastrado com sucesso.',
@@ -105,6 +107,7 @@ export const CadastroUsuario = ({ navigation }) => {
             )
          } catch (error) {
             console.log(error)
+            setLoading(false)
             Alert.alert(
                'Erro:',
                'Não foi possível cadastrar o usuário.',
@@ -125,51 +128,54 @@ export const CadastroUsuario = ({ navigation }) => {
    }
 
    return (
-      <ScrollView contentContainerStyle={styles.container}>
-         <View style={styles.botaoVoltar}>
-            <Voltar navigation={navigation} route='Login' />
-         </View>
-         <Text style={styles.title}>Cadastro</Text>
-         <View>
-            <Image
-               style={styles.imageStyle}
-               source={{ uri: fotoPerfil.uri }}
+      <>
+         <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.botaoVoltar}>
+               <Voltar navigation={navigation} route='Login' />
+            </View>
+            <Text style={styles.title}>Cadastro</Text>
+            <View>
+               <Image
+                  style={styles.imageStyle}
+                  source={{ uri: fotoPerfil.uri }}
+               />
+            </View>
+            <View style={styles.addPhotoButton}>
+               <TouchableOpacity onPress={handleFotoPerfil}>
+                  <Icon name="camera" color="#fff" type="font-awesome" size={24} />
+               </TouchableOpacity>
+            </View>
+            <InputTexto
+               secureTextEntry={false}
+               placeholder='Nome'
+               onChangeText={setNomeUsuario}
+               value={nomeUsuario}
             />
-         </View>
-         <View style={styles.addPhotoButton}>
-            <TouchableOpacity onPress={handleFotoPerfil}>
-               <Icon name="camera" color="#fff" type="font-awesome" size={24} />
-            </TouchableOpacity>
-         </View>
-         <InputTexto
-            secureTextEntry={false}
-            placeholder='Nome'
-            onChangeText={setNomeUsuario}
-            value={nomeUsuario}
-         />
-         <InputTexto
-            secureTextEntry={false}
-            placeholder='E-mail'
-            onChangeText={setEmail}
-            value={email}
-         />
-         <InputTexto
-            secureTextEntry={true}
-            placeholder='Senha'
-            onChangeText={setSenha}
-            value={senha}
-         />
-         <InputTexto
-            secureTextEntry={true}
-            placeholder='Confirme sua senha'
-            onChangeText={setConfirmSenha}
-            value={confirmSenha}
-         />
-         <ActionButton
-            text='Cadastrar'
-            onPress={handleSubmit}
-         />
-      </ScrollView >
+            <InputTexto
+               secureTextEntry={false}
+               placeholder='E-mail'
+               onChangeText={setEmail}
+               value={email}
+            />
+            <InputTexto
+               secureTextEntry={true}
+               placeholder='Senha'
+               onChangeText={setSenha}
+               value={senha}
+            />
+            <InputTexto
+               secureTextEntry={true}
+               placeholder='Confirme sua senha'
+               onChangeText={setConfirmSenha}
+               value={confirmSenha}
+            />
+            <ActionButton
+               text='Cadastrar'
+               onPress={handleSubmit}
+            />
+         </ScrollView >
+         {loading ? <AppLoader /> : null}
+      </>
    )
 }
 
