@@ -2,7 +2,7 @@
 CREATE TABLE public.categoria (
 	id_categoria serial4 NOT NULL,
 	nome_categoria varchar(255) NULL,
-	imagem varchar(100) NULL,
+	imagem varchar(255) NULL,
 	CONSTRAINT categoria_pkey PRIMARY KEY (id_categoria)
 );
 
