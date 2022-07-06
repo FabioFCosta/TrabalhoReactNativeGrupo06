@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text } from "react-native-elements";
 import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
 import RemoverCarrinho from "./RemoverCarrinho";
 import QtdProdutos from "../QtdProdutos/QtdProdutos";
 
+
 const CardCarrinho = (props) => {
 
-  const produto = {    
-      idProduto: props.produto.id_produto,
-      sku: props.produto.sku,
-      imagemProduto: props.produto.imagem_produto,
-      nomeProduto: props.produto.nome_produto,
-      precoProduto: props.produto.preco_produto,
-      descricaoProduto: props.produto.descricao_produto
+  const produto = {
+    idProduto: props.produto.id_produto,
+    sku: props.produto.sku,
+    imagemProduto: props.produto.imagem_produto,
+    nomeProduto: props.produto.nome_produto,
+    precoProduto: props.produto.preco_produto,
+    descricaoProduto: props.produto.descricao_produto,
+    quantidadeProduto: props.produto.quantidade_produto
   }
+
   const handleClick = (props) => {
     props.navigation.navigate({
       name: 'ProdutoScreen', params: {

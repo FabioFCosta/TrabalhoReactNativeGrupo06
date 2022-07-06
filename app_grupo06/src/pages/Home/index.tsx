@@ -1,5 +1,6 @@
-import React  from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
+import { AppLoader } from "../../components/AppLoader";
 
 import ScrollCategorias from "../../components/Categorias/ScrollCategorias";
 import ScrollProdutos from "../../components/Produtos/ScrollProdutos";

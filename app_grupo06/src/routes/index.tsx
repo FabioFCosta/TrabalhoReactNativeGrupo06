@@ -22,8 +22,8 @@ const BottomTabNavigator = () => {
   const { contarQtdProdutos } = useContext(CarrinhoContext);
   const { contarQtdFavorito } = useContext(FavoritosContext);
 
-  const BadgeIcon = withBadge(contarQtdProdutos())(Icon);
-  const BadgeIconFav = withBadge(contarQtdFavorito())(Icon);
+  const BadgeIcon = contarQtdProdutos() > 0 ? withBadge(contarQtdProdutos())(Icon) : (Icon);
+  const BadgeIconFav = contarQtdFavorito() > 0 ? withBadge(contarQtdFavorito())(Icon) : (Icon);
 
   return (
     <TabNavigation.Navigator screenOptions={{
@@ -63,7 +63,7 @@ const BottomTabNavigator = () => {
         name='Favoritos'
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: () => (<BadgeIconFav name="heart" color="#c4dfe8" type="font-awesome" size={24}/>)
+          tabBarIcon: () => (<BadgeIconFav name="heart" color="#c4dfe8" type="font-awesome" size={24} />)
         }}
         component={Favoritos}
       />

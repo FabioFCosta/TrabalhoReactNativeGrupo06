@@ -9,17 +9,14 @@ const QtdProdutos = (props) => {
 
   useEffect(()=>{
     setQuantidade(props.quantidade)
-  },[])
+  },[props.quantidade])
 
   const handleAddProduto = () => {
     adicionarProduto(props.produto)
-    setQuantidade(quantidade+1)
-    
   }
 
   const handleRemoveProduto = () => {
     removerItem(props.produto.idProduto)
-    setQuantidade(quantidade-1)
   }
 
   return (
@@ -52,7 +49,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#06C1FF',
   }
-
 })
 
 export default QtdProdutos;

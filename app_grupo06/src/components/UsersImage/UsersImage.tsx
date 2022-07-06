@@ -1,26 +1,27 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
-import { Image, Icon} from "react-native-elements";
+import { Image, Icon } from "react-native-elements";
 
 const UserImage = () => {
-  const { usuario } = useContext(AutenticacaoContext);
+  const { usuario, buscarFotoPerfil } = useContext(AutenticacaoContext);
 
-  const [hasImage, setHasImage] = useState(false);
+  // const [hasImage, setHasImage] = useState(false);
 
   useEffect(() => {
-    usuarioHasImage();
+    buscarFotoPerfil()
+    // usuarioHasImage();
   }, []);
 
-  const usuarioHasImage = () => {
-    console.log(usuario.imagem)
-    usuario.imagem === undefined ? setHasImage(false) : setHasImage(true);
-  }
+  // const usuarioHasImage = () => {
+  //   console.log('USUARIO IMAGEM: ' + usuario.imagem)
+  //   usuario.imagem === '' ? setHasImage(false) : setHasImage(true);
+  // }
 
   return (
 
     <View style={styles.container_title_content_img}>
-      {hasImage ? <Image style={styles.usuario_image} source={{ uri: usuario.imagem }} />
+      {usuario.imagem != '' ? <Image style={styles.usuario_image} source={{ uri: usuario.imagem }} />
         :
         <Icon name="user-circle" color="#dddddd" type="font-awesome" size={70} />
       }

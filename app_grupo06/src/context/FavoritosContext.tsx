@@ -12,9 +12,9 @@ export function FavoritosProvider({ children }) {
 
   const listarFavoritoId = (id: number) => {
     if (RealmBD.objects('Favorito').filtered("id_produto == " + id).isEmpty()) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
   const contarQtdFavorito = () => {
