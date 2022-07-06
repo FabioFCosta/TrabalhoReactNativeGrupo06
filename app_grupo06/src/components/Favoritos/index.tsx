@@ -15,9 +15,9 @@ const Favoritar = ({ produto }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleAddFavorito}>
       {favorited ?
-        <Icon name="heart" color="#eee" type="font-awesome" size={30} onPress={() => handleAddFavorito()} />
-        :
         <Icon name="heart" color="#fe5430" type="font-awesome" size={30} onPress={() => handleAddFavorito()} />
+        :
+        <Icon name="heart" color="#eee" type="font-awesome" size={30} onPress={() => handleAddFavorito()} />
       }
     </TouchableOpacity>
   );
