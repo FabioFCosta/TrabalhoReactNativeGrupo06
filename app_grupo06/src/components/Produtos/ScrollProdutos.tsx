@@ -14,16 +14,32 @@ const ScrollProdutos = ({ navigation }) => {
   const { filterProd, getDadosProduto } = useContext(ProdutoContext)
   const { loading, setLoading } = useContext(LoadingContext);
   const { favoritos } = useContext(FavoritosContext)
+  const [produto, setProduto] = useState([])
+  const [state, setState] = useState(true)
 
   useEffect(() => {
     getDadosProduto();
-  }, [favoritos]);
+    setProduto(filterProd)
+  }, []);
+
+  useEffect(() => {
+    setProduto([])
+    setState(!state)
+  }, [favoritos])
+
+  useEffect(() => {
+    setProduto(filterProd)
+  }, [state])
+
+  useEffect(() => {
+    setProduto(filterProd)
+  }, [filterProd])
 
   return (
     <>
-      {filterProd?.length>=1?
+      {filterProd?.length >= 1 ?
         <FlatList
-          data={filterProd}
+          data={produto}
           numColumns={2}
           keyExtractor={item => item.idProduto}
           // onEndReached={getDadosProduto()}

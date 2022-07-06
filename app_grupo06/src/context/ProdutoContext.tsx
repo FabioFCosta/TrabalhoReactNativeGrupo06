@@ -25,7 +25,6 @@ export const ProdutoProvider = ({ children }) => {
       // setProduto([...produto, ...result.data]);
       setProduto(result.data);
       // setFilterProd([...filterProd, ...result.data]);
-      setFilterProd(...filterProd)
       setFilterProd(result.data);
       // setPage(page + 1)
     }).catch((error) => {

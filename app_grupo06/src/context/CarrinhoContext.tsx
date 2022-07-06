@@ -5,7 +5,7 @@ import { ProdutoType } from '../models/ProdutoType';
 export const CarrinhoContext = createContext({});
 
 export function CarrinhoProvider({ children }) {
-  const [carrinho, setCarrinho]=useState(RealmBD.objects('Produto'))
+  const [carrinho, setCarrinho] = useState(RealmBD.objects('Produto'))
 
   const listarProdutos = () => {
     setCarrinho(RealmBD.objects('Produto'))
@@ -84,8 +84,10 @@ export function CarrinhoProvider({ children }) {
   }
 
   const resetCarrinho = () => {
-    RealmBD.write(() => {
-      RealmBD.deleteAll();
+    carrinho?.map((item) => {
+      RealmBD.write(() => {
+        RealmBD.delete(item);
+      })
     })
     listarProdutos();
   }
