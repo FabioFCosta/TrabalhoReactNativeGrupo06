@@ -22,8 +22,8 @@ const BottomTabNavigator = () => {
   const { contarQtdProdutos } = useContext(CarrinhoContext);
   const { contarQtdFavorito } = useContext(FavoritosContext);
 
-  const BadgeIcon = withBadge(contarQtdProdutos())(Icon);
-  const BadgeIconFav = withBadge(contarQtdFavorito())(Icon);
+  const BadgeIcon = contarQtdProdutos() > 0 ? withBadge(contarQtdProdutos())(Icon) : (Icon);
+  const BadgeIconFav = contarQtdFavorito() > 0 ? withBadge(contarQtdFavorito())(Icon) : (Icon);
 
   return (
     <TabNavigation.Navigator screenOptions={{
@@ -42,12 +42,13 @@ const BottomTabNavigator = () => {
         borderBottomWidth: 0,
         borderTopWidth: 0,
       },
+      tabBarActiveBackgroundColor: '#06c1ff',
     }}>
       <TabNavigation.Screen
         name='Foldbreakers Store'
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => (<Icon name="home" color="#c4dfe8" type="font-awesome" size={24} />)
+          tabBarIcon: () => (<Icon name="home" color="#c4dfe8" type="font-awesome" size={24} />),
         }}
         component={Home}
       />
@@ -55,7 +56,7 @@ const BottomTabNavigator = () => {
         name='Perfil'
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => (<Icon name="user" color="#c4dfe8" type="font-awesome" size={24} />)
+          tabBarIcon: () => (<Icon name="user" color="#c4dfe8" type="font-awesome" size={24} />)
         }}
         component={PerfilUsuario}
       />
@@ -63,7 +64,7 @@ const BottomTabNavigator = () => {
         name='Favoritos'
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: () => (<BadgeIconFav name="heart" color="#c4dfe8" type="font-awesome" size={24}/>)
+          tabBarIcon: () => (<BadgeIconFav name="heart" color="#c4dfe8" type="font-awesome" size={24} />)
         }}
         component={Favoritos}
       />

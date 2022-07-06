@@ -15,17 +15,22 @@ const Favoritar = ({ produto }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleAddFavorito}>
       {favorited ?
-        <Icon name="heart" color="#fe5430" type="font-awesome" size={30} onPress={() => handleAddFavorito()} />
+        <Icon name="heart" color="#fe5430" type="font-awesome" size={25} onPress={() => handleAddFavorito()} />
         :
-        <Icon name="heart" color="#eee" type="font-awesome" size={30} onPress={() => handleAddFavorito()} />
+        <Icon name="heart" color="#fe5430" type="feather" size={25} onPress={() => handleAddFavorito()} />
       }
     </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 3,
+    backgroundColor: '#C4DFE8',
+    borderRadius: 50,
   },
 
 });

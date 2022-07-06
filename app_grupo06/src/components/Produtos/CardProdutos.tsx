@@ -39,13 +39,14 @@ const CardProdutos = (props) => {
 const styles = StyleSheet.create({
   card_container: {
     width: 185,
-    height: 250,
+    height: 270,
     borderRadius: 10,
     padding: 10,
     margin: 0,
     marginRight: 10,
     marginBottom: 10,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#C4DFE8',
   },
   card_image: {

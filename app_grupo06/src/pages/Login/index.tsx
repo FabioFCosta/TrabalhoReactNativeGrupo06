@@ -114,40 +114,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 
-  tituloBotao: {
-    color: '#070d2d',
-    fontSize: 20
-  },
-
-  styleBotao: {
-    backgroundColor: '#06c1ff'
-  },
-
-  containerBotao: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
-    borderRadius: 40,
-    width: 175
-  },
-
-  inputEntrada: {
-    backgroundColor: '#c4dfe8',
-    color: '#070d2d',
-    marginVertical: 7,
-    borderRadius: 40,
-    padding: 15,
-    height: 80,
-    width: 20,
-    fontSize: 25,
-    textAlign: 'center'
-  },
-
-  inputContainer: {
-    borderBottomWidth: 0,
-    paddingHorizontal: 30
-  },
-
   esqueceuBotao: {
     color: "#fe5430",
     fontSize: 20,
