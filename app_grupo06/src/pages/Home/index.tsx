@@ -19,7 +19,7 @@ const Home = ({ navigation }) => {
         <UserImage />
       </View>
       <ScrollCategorias navigation={navigation} />
-      <SearchBar titulo="Encontre seu jogo" type="Produto" />
+      <SearchBar type="Produto" />
       <ScrollProdutos navigation={navigation} />
     </View>
   );

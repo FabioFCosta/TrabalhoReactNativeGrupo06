@@ -4,17 +4,17 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 const CardCategoria = (props) => {
 
-  const handleClick = () => {
+ const handleClick = (props) => {
     props.navigation.navigate({
       name: 'CategoriaScreen', params: {
-        categoria: props.categoria
+        categoria: props.categoria,
       }
     })
   }
 
   return (
     <TouchableOpacity
-      onPress={() => handleClick()}
+      onPress={() => handleClick(props)}
     >
       <View style={styles.container_categoria}>
         <Text style={styles.texto_nome_categoria}>{props.categoria.nomeCategoria}</Text>

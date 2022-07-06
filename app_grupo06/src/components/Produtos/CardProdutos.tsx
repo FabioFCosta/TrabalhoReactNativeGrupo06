@@ -6,7 +6,7 @@ import Favoritar from "../Favoritos";
 
 const CardProdutos = (props) => {
 
-  const handleClick = (props) => {
+  const handleClick = () => {
     props.navigation.navigate({
       name: 'ProdutoScreen', params: {
         produto: props.produto,
@@ -16,7 +16,7 @@ const CardProdutos = (props) => {
 
   return (
     <TouchableOpacity
-      onPress={() => handleClick(props)}
+      onPress={handleClick}
     >
       <Card containerStyle={styles.card_container} >
         <Card.Image

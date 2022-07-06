@@ -6,11 +6,10 @@ import { ProdutoContext } from "../../context/ProdutoContext";
 
 export const SearchBar = (props) => {
   const [busca, setBusca] = useState('');
-  const { categoria, setCategoria, getDadosCategoria } = useContext(CategoriaContext);
-  const { produto, setFilterProd, getDadosProduto, getDadosProdutoPaginacao,setPage } = useContext(ProdutoContext)
+  const { produto, setFilterProd, getDadosProduto, getDadosProdutoPaginacao,setPage, setProdutoCat} = useContext(ProdutoContext)
 
 useEffect(()=>{
-  getDadosProduto()
+  getDadosProduto();
 },[])
 
   useEffect(() => {
@@ -19,11 +18,13 @@ useEffect(()=>{
 
   const buscarCategoria = (busca: string) => {
     if (busca !== '') {
-      setCategoria(
-        categoria.filter
-          (res => res.nomeCategoria.toLowerCase().includes(busca.toLowerCase())));
+      setProdutoCat(
+        produto.filter
+          (res => res.nomeCategoria==props.nome && res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
     } else {
-      getDadosCategoria();
+      setProdutoCat(
+        produto.filter
+          (res => res.nomeCategoria==props.nome));
     }
   }
   const buscarProduto = (busca: string) => {
@@ -39,7 +40,7 @@ useEffect(()=>{
 
   return (
     <Input
-      placeholder={props.titulo}
+      placeholder="Encontre o seu jogo"
       leftIcon={<Icon name="search" color="#00000080" type="font-awesome" size={24} />}
       onChangeText={setBusca}
       value={busca}

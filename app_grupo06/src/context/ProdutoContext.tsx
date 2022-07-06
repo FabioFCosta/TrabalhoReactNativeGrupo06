@@ -11,6 +11,7 @@ export const ProdutoProvider = ({ children }) => {
   const { loading, setLoading } = useContext(LoadingContext)
   const [produto, setProduto] = useState<ProdutoType[]>([]);
   const [filterProd, setFilterProd] = useState<ProdutoType[]>([]);
+  const [produtoCat, setProdutoCat] = useState<ProdutoType[]>([]);
 
   const [page, setPage] = useState(1)
   const perPage = 6
@@ -53,7 +54,9 @@ export const ProdutoProvider = ({ children }) => {
       setFilterProd,
       getDadosProduto,
       getDadosProdutoPaginacao,
-      setPage
+      setPage,
+      produtoCat,
+      setProdutoCat
       // page,
     }}>
       {children}

@@ -15,6 +15,7 @@ import { CarrinhoContext } from "../context/CarrinhoContext";
 import { FavoritosContext } from "../context/FavoritosContext";
 import { StatusBar } from "react-native";
 import { RecuperacaoSenha } from "../pages/RecuperacaoSenha";
+import Categoria from "../pages/Categoria";
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
@@ -112,6 +113,10 @@ const Routes = () => {
         <StackNavigation.Screen
           name='RecuperacaoSenha'
           component={RecuperacaoSenha}
+        />        
+        <StackNavigation.Screen
+          name='CategoriaScreen'
+          component={Categoria}
         />
       </StackNavigation.Navigator>
     </NavigationContainer>
