@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { ProdutoType } from "../models/ProdutoType";
-import { LoadingContext } from "./LoadingContext";
 import AxiosInstance from "../api/AxiosInstance";
 import { AutenticacaoContext } from "./AutenticacaoContext";
 
@@ -8,7 +7,6 @@ export const ProdutoContext = createContext({});
 
 export const ProdutoProvider = ({ children }) => {
   const { usuario } = useContext(AutenticacaoContext)
-  const { loading, setLoading } = useContext(LoadingContext)
   const [produto, setProduto] = useState<ProdutoType[]>([]);
   const [filterProd, setFilterProd] = useState<ProdutoType[]>([]);
   const [produtoCat, setProdutoCat] = useState<ProdutoType[]>([]);
@@ -17,7 +15,6 @@ export const ProdutoProvider = ({ children }) => {
   const perPage = 6
 
   const getDadosProduto = async () => {
-    // setLoading(true);
     await AxiosInstance.get(
       '/produto',
       { headers: { "Authorization": `Bearer ${usuario.token}` } }
@@ -26,10 +23,8 @@ export const ProdutoProvider = ({ children }) => {
     }).catch((error) => {
       console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
     })
-    // setLoading(false);
   }
   const getDadosProdutoPaginacao = async () => {
-    setLoading(true)
     await AxiosInstance.get(
       `/produto?pagina=${page}&qtdRegistros=${perPage}`,
       { headers: { "Authorization": `Bearer ${usuario.token}` } }
@@ -43,7 +38,6 @@ export const ProdutoProvider = ({ children }) => {
     }).catch((error) => {
       console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
     })
-    setLoading(false)
   }
 
   const PaginacaoInicio = async (page:number) => {

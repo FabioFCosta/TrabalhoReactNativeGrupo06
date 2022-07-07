@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { FlatList } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 
 import { LoadingContext } from "../../context/LoadingContext";
 
@@ -9,10 +9,11 @@ import { ProdutoContext } from "../../context/ProdutoContext";
 import { FavoritosContext } from "../../context/FavoritosContext";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
+import LottieView from 'lottie-react-native';
 
 const ScrollProdutos = ({ navigation }) => {
-  const { filterProd, getDadosProduto, getDadosProdutoPaginacao } = useContext(ProdutoContext)
-  const { loading, setLoading } = useContext(LoadingContext);
+  const { filterProd, getDadosProdutoPaginacao } = useContext(ProdutoContext)
+  const [loading, setLoading] = useState(false);
   const { favoritos } = useContext(FavoritosContext)
   const [produto, setProduto] = useState([])
   const [state, setState] = useState(true)
@@ -35,10 +36,22 @@ const ScrollProdutos = ({ navigation }) => {
     setProduto(filterProd)
   }, [filterProd])
 
-  const getProdutos = () => {
-    getDadosProdutoPaginacao()
+  async function getProdutos() {
+    if(loading)return;
+    setLoading(true);
+    await getDadosProdutoPaginacao()
+    setLoading(false);
   }
 
+  function AppLoader({load}) {
+    if(!load)return null;
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size={30} color="#fd6005"/>
+      </View>
+    );
+  };
+  
   return (
     <>
       {filterProd?.length >= 1 ?
@@ -49,7 +62,7 @@ const ScrollProdutos = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           onEndReached={getProdutos}
           onEndReachedThreshold={0.1}
-          ListFooterComponent={loading ? <AppLoader /> : null}
+          ListFooterComponent={<AppLoader load={loading}/>}
           renderItem={response =>
             <>
               <CardProdutos
@@ -71,6 +84,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  container: {
+    position:'absolute',
+    top:'200',
+    backgroundColor:'#333',
+    zIndex:20,
+
   },
 })
 export default ScrollProdutos;
