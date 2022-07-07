@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import AxiosInstance from "../../api/AxiosInstance";
 
 import { ActionButton } from "../../components/ActionButton/ActionButton";
@@ -60,37 +60,36 @@ export const RecuperacaoSenha = ({ navigation }) => {
    }
 
    return (
-      <>
-         <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.botaoVoltar}>
-               <Voltar navigation={navigation} route='Login' color='#C4DFE8' size={32} />
-            </View>
-            <Text style={styles.title}>Recuperação de Senha</Text>
-            <InputTexto
-               secureTextEntry={false}
-               placeholder='E-mail'
-               onChangeText={setEmail}
-               value={email}
-            />
-            <InputTexto
-               secureTextEntry={true}
-               placeholder='Senha'
-               onChangeText={setSenha}
-               value={senha}
-            />
-            <InputTexto
-               secureTextEntry={true}
-               placeholder='Confirme sua senha'
-               onChangeText={setConfirmSenha}
-               value={confirmSenha}
-            />
-            <ActionButton
-               text='Confirmar'
-               onPress={handleSubmit}
-            />
-            {loading ? <AppLoader /> : null}
-         </ScrollView >
-      </>
+      <ScrollView contentContainerStyle={styles.container}>
+         <Image source={{ uri: 'https://i0.wp.com/blog.credo.com/wp-content/uploads/2021/03/credo_tip_password_manager_email_950x483.png' }} style={styles.imagem} />
+         <View style={styles.botaoVoltar}>
+            <Voltar navigation={navigation} route='Login' color='#C4DFE8' size={32} />
+         </View>
+         <Text style={styles.title}>Recuperação de Senha</Text>
+         <InputTexto
+            secureTextEntry={false}
+            placeholder='E-mail'
+            onChangeText={setEmail}
+            value={email}
+         />
+         <InputTexto
+            secureTextEntry={true}
+            placeholder='Senha'
+            onChangeText={setSenha}
+            value={senha}
+         />
+         <InputTexto
+            secureTextEntry={true}
+            placeholder='Confirme sua senha'
+            onChangeText={setConfirmSenha}
+            value={confirmSenha}
+         />
+         <ActionButton
+            text='Confirmar'
+            onPress={handleSubmit}
+         />
+         {loading ? <AppLoader /> : null}
+      </ScrollView >
    )
 }
 
@@ -101,6 +100,12 @@ const styles = StyleSheet.create({
       padding: 16,
       alignItems: 'center',
       justifyContent: 'center'
+   },
+
+   imagem: {
+      width: 300,
+      height: 200,
+      borderRadius: 50
    },
 
    botaoVoltar: {

@@ -1,13 +1,16 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
+import { AppLoader } from "../../components/AppLoader";
 
 import ScrollCategorias from "../../components/Categorias/ScrollCategorias";
 import ScrollProdutos from "../../components/Produtos/ScrollProdutos";
 import { SearchBar } from "../../components/Search";
 import TitulosHome from "../../components/Titulos";
 import UserImage from "../../components/UsersImage/UsersImage";
+import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 
 const Home = ({ navigation }) => {
+  const { usuario } = useContext(AutenticacaoContext)
 
   return (
     <View style={styles.container}>
@@ -20,6 +23,7 @@ const Home = ({ navigation }) => {
       <ScrollCategorias navigation={navigation} />
       <SearchBar type="Produto" />
       <ScrollProdutos navigation={navigation} />
+      {usuario.imagem === '' ? <AppLoader /> : null}
     </View>
   );
 }
