@@ -4,6 +4,7 @@ import CardProdutos from "../../components/Produtos/CardProdutos";
 import { ProdutoContext } from "../../context/ProdutoContext";
 import { SearchBar } from "../../components/Search";
 import UserImage from "../../components/UsersImage/UsersImage";
+import Voltar from "../../components/Voltar";
 
 const Categoria = ({ route, navigation }) => {
   const { categoria } = route.params;
@@ -42,6 +43,9 @@ const Categoria = ({ route, navigation }) => {
         :
         <Text style={styles.text}>Não foi encontrado um jogo na busca</Text>
       }
+      <View style={styles.voltar}>
+        <Voltar navigation={navigation} route='HomeScreen' color='#FE5430' size={50} />
+      </View>
     </View>
   );
 }
@@ -74,10 +78,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   flatList_container: {
-    marginTop:10,
+    marginTop: 10,
     alignSelf: 'center',
-    paddingLeft:10,
+    paddingLeft: 10,
   },
+  voltar:{
+    position: 'absolute',
+    alignSelf:'center',
+    bottom:0
+  }
 })
 
 export default Categoria;

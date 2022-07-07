@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
-const Voltar = ({ navigation, route }) => {
+const Voltar = ({ navigation, route, color, size }) => {
 
   const handleVoltar = () => {
     navigation.navigate(route)
@@ -10,14 +10,14 @@ const Voltar = ({ navigation, route }) => {
 
   return (
     <TouchableOpacity style={styles.container}>
-      <Icon name="chevron-circle-left" color="#eee" type="font-awesome" size={30} onPress={() => handleVoltar()} />
+      <Icon name="chevron-circle-left" color={color} type="font-awesome" size={size} onPress={() => handleVoltar()} />
     </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    width: 30,
-    height: 30,
+    alignItems:'center',
+    justifyContent:'center',    
   },
 
 });
