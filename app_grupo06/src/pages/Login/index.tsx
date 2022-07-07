@@ -118,9 +118,10 @@ const styles = StyleSheet.create({
     color: "#fe5430",
     fontSize: 20,
     fontStyle: 'italic',
-    marginLeft: 125,
+    // marginLeft: 125,
     marginBottom: 25,
-    marginTop: -20
+    marginTop: -20,
+    textDecorationLine: 'underline'
   },
 
   tituloCadastro: {

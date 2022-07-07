@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Alert } from "react-native";
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
 import { Text, Image, Icon } from "react-native-elements";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
@@ -8,7 +8,17 @@ const PerfilUsuario = ({ navigation }) => {
   const { usuario } = useContext(AutenticacaoContext)
 
   const handleClickLogout = () => {
-    navigation.navigate('Login')
+    Alert.alert(
+      'Já vai embora? ;(',
+      'Tem certeza de que desejar realizar o logout?',
+      [
+        {
+          text: 'Realizar Logout',
+          onPress: () => navigation.navigate('Login')
+        },
+        { text: 'Continuar logado' }
+      ]
+    )
   }
 
   return (

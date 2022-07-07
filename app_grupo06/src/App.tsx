@@ -9,6 +9,7 @@ import { ProdutoProvider } from './context/ProdutoContext';
 import { FavoritosProvider } from './context/FavoritosContext';
 import firebaseConfig from '../firebaseConfig';
 import { initializeApp } from 'firebase/app'
+import { ValidacaoProvider } from './context/ValidacaoContext';
 
 initializeApp(firebaseConfig)
 
@@ -21,7 +22,9 @@ export default () => {
           <ProdutoProvider>
             <CarrinhoProvider>
               <FavoritosProvider>
-                <Routes />
+                <ValidacaoProvider>
+                  <Routes />
+                </ValidacaoProvider>
               </FavoritosProvider>
             </CarrinhoProvider>
           </ProdutoProvider>

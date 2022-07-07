@@ -1,20 +1,24 @@
 import React, { useContext, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Icon, Image } from "react-native-elements";
-import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import AxiosInstance from "../../api/AxiosInstance";
+
+import Voltar from "../../components/Voltar";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
-import Voltar from "../../components/Voltar";
-import { AutenticacaoContext } from "../../context/AutenticacaoContext";
-import { getStorage, ref, uploadBytes } from 'firebase/storage'
-import { LoadingContext } from "../../context/LoadingContext";
 import { AppLoader } from "../../components/AppLoader";
 
+import { AutenticacaoContext } from "../../context/AutenticacaoContext";
+import { LoadingContext } from "../../context/LoadingContext";
+import { ValidacaoContext } from "../../context/ValidacaoContext";
+
+import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from "react-native-image-picker";
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
 export const CadastroUsuario = ({ navigation }) => {
    const { fotoPerfil, setFotoPerfil } = useContext(AutenticacaoContext)
    const { loading, setLoading } = useContext(LoadingContext)
+   const { confirmarSenha, validarSenha, validarNomeUsuario, validarEmail } = useContext(ValidacaoContext)
 
    const [nomeUsuario, setNomeUsuario] = useState('')
    const [email, setEmail] = useState('')
@@ -23,8 +27,8 @@ export const CadastroUsuario = ({ navigation }) => {
 
    const handleFotoPerfil = () => {
       Alert.alert(
-         'Selecione',
-         'Informe como você deseja obter a foto:',
+         'Fique bem na foto! ;)',
+         'Informe como deseja obter a foto:',
          [
             {
                text: 'Cancelar',
@@ -79,50 +83,51 @@ export const CadastroUsuario = ({ navigation }) => {
    }
 
    const handleSubmit = async () => {
-      if (confirmSenha === senha) {
-         setLoading(true)
-         const usuario = {
-            nomeUsuario,
-            email,
-            senha
-         }
-         const formData = new FormData()
-         formData.append('usuario', JSON.stringify(usuario))
-         formData.append('file', { uri: fotoPerfil.uri, type: fotoPerfil.type, name: fotoPerfil.name })
+      if (
+         !confirmarSenha(senha, confirmSenha) ||
+         !validarSenha(senha) ||
+         !validarNomeUsuario(nomeUsuario) ||
+         !validarEmail(email)
+      ) {
+         return
+      }
 
-         try {
-            await AxiosInstance.post('autenticacao/registro', formData, {
-               headers: {
-                  'Content-Type': 'multipart/form-data'
-               }
-            })
-            handleUploadImage()
-            setLoading(false)
-            Alert.alert(
-               'Sucesso:',
-               'Usuário cadastrado com sucesso.',
-               [
-                  {
-                     text: 'OK',
-                     onPress: () => { navigation.navigate('Login') }
-                  }
-               ]
-            )
-         } catch (error) {
-            console.log(error)
-            setLoading(false)
-            Alert.alert(
-               'Erro:',
-               'Não foi possível cadastrar o usuário.',
-               [
-                  { text: 'OK' }
-               ]
-            )
-         }
-      } else {
+      setLoading(true)
+
+      const usuario = {
+         nomeUsuario,
+         email,
+         senha
+      }
+
+      const formData = new FormData()
+      formData.append('usuario', JSON.stringify(usuario))
+      formData.append('file', { uri: fotoPerfil.uri, type: fotoPerfil.type, name: fotoPerfil.name })
+
+      try {
+         await AxiosInstance.post('autenticacao/registro', formData, {
+            headers: {
+               'Content-Type': 'multipart/form-data'
+            }
+         })
+         handleUploadImage()
+         setLoading(false)
          Alert.alert(
-            'Erro:',
-            'Senha não confirmada.',
+            'Obrigado!',
+            'Seu cadastro foi um sucesso.',
+            [
+               {
+                  text: 'OK',
+                  onPress: () => { navigation.navigate('Login') }
+               }
+            ]
+         )
+      } catch (error) {
+         console.log(error)
+         setLoading(false)
+         Alert.alert(
+            'Ops...',
+            'Não foi possível realizar o cadastro.',
             [
                { text: 'OK' }
             ]
@@ -134,7 +139,7 @@ export const CadastroUsuario = ({ navigation }) => {
       <>
          <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.botaoVoltar}>
-               <Voltar navigation={navigation} route='Login' />
+               <Voltar navigation={navigation} route='Login' color='#C4DFE8' size={32} />
             </View>
             <Text style={styles.title}>Cadastro</Text>
             <View>
