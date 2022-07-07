@@ -49,7 +49,8 @@ export function CarrinhoProvider({ children }) {
           descricao_produto: produto.descricaoProduto,
           preco_produto: produto.precoProduto,
           imagem_produto: produto.imagemProduto,
-          quantidade_produto: 1
+          quantidade_produto: 1,
+          nome_categoria:produto.nomeCategoria
         });
       })
       AlertAdicionado()

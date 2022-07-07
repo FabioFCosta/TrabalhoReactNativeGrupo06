@@ -26,7 +26,8 @@ const CardCarrinho = (props) => {
           imagemProduto: props.produto.imagem_produto,
           nomeProduto: props.produto.nome_produto,
           precoProduto: props.produto.preco_produto,
-          descricaoProduto: props.produto.descricao_produto
+          descricaoProduto: props.produto.descricao_produto,
+          nomeCategoria: props.produto.nome_categoria
         }
       }
     })
