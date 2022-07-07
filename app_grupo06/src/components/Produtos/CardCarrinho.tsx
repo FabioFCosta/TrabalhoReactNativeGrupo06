@@ -49,7 +49,7 @@ const CardCarrinho = (props) => {
           <Text style={styles.card_nome}>{props.produto.nome_produto}</Text>
           <Text style={styles.card_desc}>Ver descrição</Text>
           <View style={styles.prod_preco_qtd}>
-            <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)}</Text>
+            <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)} un.</Text>
           </View>
         </View>
         <View style={styles.qtd_produto}>
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   card_container: {
     flexDirection: 'row',
     width: '95%',
+    height: 120,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     alignSelf: 'center',
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     width: '30%',
     height: '90%',
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: '#070D2D'
   },
   prod_detalhes: {

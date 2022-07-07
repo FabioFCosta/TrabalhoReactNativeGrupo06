@@ -14,10 +14,16 @@ const styles = StyleSheet.create({
    submitButton: {
       backgroundColor: '#06C1FF',
       borderRadius: 50,
-      width: 200,
+      width: 220,
+      paddingHorizontal: 10,
       height: 60,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      elevation: 5,
+      shadowColor: '#000',
+      borderWidth: 2,
+      borderStyle: 'solid',
+      borderColor: '#070D2D'
    },
 
    submitButtonText: {
