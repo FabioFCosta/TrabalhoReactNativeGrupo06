@@ -12,7 +12,7 @@ import { Text } from "react-native-elements";
 import LottieView from 'lottie-react-native';
 
 const ScrollProdutos = ({ navigation }) => {
-  const { filterProd, getDadosProdutoPaginacao } = useContext(ProdutoContext)
+  const { filterProd, getDadosProdutoPaginacao} = useContext(ProdutoContext)
   const [loading, setLoading] = useState(false);
   const { favoritos } = useContext(FavoritosContext)
   const [produto, setProduto] = useState([])
@@ -69,7 +69,7 @@ const ScrollProdutos = ({ navigation }) => {
           numColumns={2}
           keyExtractor={item => item.idProduto}
           showsVerticalScrollIndicator={false}
-          onEndReached={getProdutos}
+          onEndReached={filterProd?.length>=6?getProdutos:null}
           onEndReachedThreshold={0.1}
           // ListFooterComponent={<AppLoader load={loading}/>}
           ListFooterComponent={appLoader()}

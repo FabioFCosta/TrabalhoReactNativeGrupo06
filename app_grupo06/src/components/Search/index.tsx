@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Icon } from "react-native-elements";
+import { useValue } from "react-native-reanimated";
 import { ProdutoContext } from "../../context/ProdutoContext";
 
 export const SearchBar = (props) => {
@@ -27,6 +28,7 @@ useEffect(()=>{
     }
   }
   const buscarProduto = (busca: string) => {
+    console.log(busca)
     if (busca !== '') {
       setFilterProd(
         produto.filter
@@ -38,6 +40,7 @@ useEffect(()=>{
 
   return (
     <Input
+      defaultValue=""
       placeholder={props.type=="Categoria"?`Encontre o seu jogo de ${props.nome}`:"Encontre o seu jogo"} 
       leftIcon={<Icon name="search" color="#00000080" type="font-awesome" size={24} />}
       onChangeText={setBusca}
