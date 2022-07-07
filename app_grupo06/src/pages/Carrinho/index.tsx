@@ -154,8 +154,6 @@ const styles = StyleSheet.create({
   },
   submit: {
     alignItems: 'center',
-    backgroundColor: '#06C1FF',
-    borderRadius: 50,
   },
   submit_text: {
     textAlign: 'center',

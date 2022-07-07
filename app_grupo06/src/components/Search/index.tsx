@@ -38,6 +38,7 @@ useEffect(()=>{
 
   return (
     <Input
+      defaultValue=""
       placeholder={props.type=="Categoria"?`Encontre o seu jogo de ${props.nome}`:"Encontre o seu jogo"} 
       leftIcon={<Icon name="search" color="#00000080" type="font-awesome" size={24} />}
       onChangeText={setBusca}

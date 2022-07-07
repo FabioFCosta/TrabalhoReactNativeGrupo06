@@ -64,7 +64,6 @@ export const ProdutoProvider = ({ children }) => {
       setPage,
       produtoCat,
       setProdutoCat
-      // page,
     }}>
       {children}
     </ProdutoContext.Provider>
