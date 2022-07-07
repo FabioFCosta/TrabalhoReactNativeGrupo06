@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import { CarrinhoContext } from "../../context/CarrinhoContext";
 
 const RemoverCarrinho = (props) => {
   const { deletarProduto } = useContext(CarrinhoContext);
-  
-  const handleRemoverProduto =()=>{   
+
+  const handleRemoverProduto =()=>{ 
     deletarProduto(props.produto)
   }
 

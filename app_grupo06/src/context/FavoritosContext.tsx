@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { Alert } from 'react-native';
 import RealmBD from '../Realm/Realm'
 
 export const FavoritosContext = createContext({});
@@ -35,6 +36,7 @@ export function FavoritosProvider({ children }) {
           nome_categoria: produto.nomeCategoria
         });
       })
+      AlertAdicionado()
       listarFavoritos()
     } else {
       deletarFavorito(produto.idProduto)
@@ -45,6 +47,7 @@ export function FavoritosProvider({ children }) {
     RealmBD.write(() =>
       RealmBD.delete(RealmBD.objects('Favorito').filtered("id_produto == " + id)),
     );
+    AlertDeletado()
     listarFavoritos()
   }
 
@@ -52,6 +55,26 @@ export function FavoritosProvider({ children }) {
     RealmBD.write(() => {
       RealmBD.deleteAll();
     })
+  }
+  const AlertAdicionado = () => {
+    Alert.alert(
+      'Excelente!',
+      `Produto adicionado aos favoritos`,
+      [
+        {
+
+        },
+      ])
+  }
+  const AlertDeletado = () => {
+    Alert.alert(
+      'Muito triste!',
+      `Item removido dos favoritos`,
+      [
+        {
+
+        },
+      ])
   }
 
   return (

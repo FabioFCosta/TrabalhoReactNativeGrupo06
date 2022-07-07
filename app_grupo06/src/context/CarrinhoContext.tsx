@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 import RealmBD from '../Realm/Realm'
 import { ProdutoType } from '../models/ProdutoType';
+import { Alert } from 'react-native';
 
 export const CarrinhoContext = createContext({});
 
@@ -51,6 +52,7 @@ export function CarrinhoProvider({ children }) {
           quantidade_produto: 1
         });
       })
+      AlertAdicionado()
     } else {
       let prod = RealmBD.objects<ProdutoType>('Produto').filter(item => item.id_produto == produto.idProduto)[0];
 
@@ -76,10 +78,12 @@ export function CarrinhoProvider({ children }) {
     listarProdutos();
   }
 
+
   const deletarProduto = (produto) => {
     RealmBD.write(() => {
       RealmBD.delete(produto)
     })
+    AlertDeletado()
     listarProdutos();
   }
 
@@ -90,6 +94,26 @@ export function CarrinhoProvider({ children }) {
       })
     })
     listarProdutos();
+  }
+  const AlertAdicionado = () => {
+    Alert.alert(
+      'Muito bem!',
+      `Produto adicionado ao carrinho`,
+      [
+        {
+
+        },
+      ])
+  }
+  const AlertDeletado = () => {
+    Alert.alert(
+      'Que pena! ;(',
+      `Item removido do carrinho`,
+      [
+        {
+
+        },
+      ])
   }
 
   return (

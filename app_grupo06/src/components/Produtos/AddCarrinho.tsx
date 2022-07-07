@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import { CarrinhoContext } from "../../context/CarrinhoContext";
 
 const AddCarrinho = ({ produto }) => {
   const { adicionarProduto } = useContext(CarrinhoContext);
-
+  
   const handleAddProduto = () => {
     adicionarProduto(produto)
   }
