@@ -15,60 +15,60 @@ const Carrinho = ({ navigation }) => {
     resetCarrinho()
     AlertFinalizado()
     navigation.navigate('Foldbreakers Store')
-    
+
   }
 
   const HandleFinalizarPedido = () => {
-    if(carrinho.length == 0){
+    if (carrinho.length == 0) {
       AlertCarrinhoVazio()
     } else {
       AlertFinalizarPedido()
     }
   }
 
-  const AlertCarrinhoVazio = ()=>{
+  const AlertCarrinhoVazio = () => {
     Alert.alert(
       'Ops...',
       'O seu carrinho ainda está vazio',
       [
-         {
-            text: 'Ok',
-            style: 'cancel'
-         },
-         {
-            text: 'Ir às compras',
-            style: 'default',
-            onPress: HandleContinuarComprando
-         }
+        {
+          text: 'Ok',
+          style: 'cancel'
+        },
+        {
+          text: 'Ir às compras',
+          style: 'default',
+          onPress: HandleContinuarComprando
+        }
       ])
   }
 
-  const AlertFinalizarPedido = ()=>{
+  const AlertFinalizarPedido = () => {
     Alert.alert(
       'Quase lá...',
       `Deseja confirmar o pedido no valor total de R$ ${totalizarCarrinho().toFixed(2)} ?`,
       [
-         {
-            text: 'Finalizar Pedido',
-            style: 'default',
-            onPress: FinalizarPedido
-         },
-         {
-            text: 'Continuar Comprando',
-            style: 'default',
-            onPress: HandleContinuarComprando
-         }
+        {
+          text: 'Finalizar Pedido',
+          style: 'default',
+          onPress: FinalizarPedido
+        },
+        {
+          text: 'Continuar Comprando',
+          style: 'default',
+          onPress: HandleContinuarComprando
+        }
       ])
   }
 
-  const AlertFinalizado = ()=>{
+  const AlertFinalizado = () => {
     Alert.alert(
       'Vamos jogar juntos?',
       `Seu pedido foi finalizado com sucesso!`,
       [
-         {          
-            
-         },         
+        {
+
+        },
       ])
   }
 
@@ -120,10 +120,16 @@ const styles = StyleSheet.create({
   container_detalhes_compra: {
     width: '100%',
     alignSelf: 'center',
-    padding: 20,
-    backgroundColor: '#070D2D',
+    padding: 15,
+    // backgroundColor: '#C4DFE8',
+    borderTopEndRadius: 10,
+    borderTopStartRadius: 10,
+    borderWidth: 4,
+    borderStyle: 'solid',
+    borderColor: '#06C1FF',
+    borderBottomWidth: 0,
     position: 'absolute',
-    bottom: 0,
+    bottom: 0
   },
   continuar_comprando: {
     textAlign: 'center',

@@ -51,9 +51,9 @@ const CardCarrinho = (props) => {
             <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)}</Text>
           </View>
         </View>
-            <View style={styles.qtd_produto}>
-              <QtdProdutos quantidade={props.produto.quantidade_produto} produto={produto} />
-            </View>
+        <View style={styles.qtd_produto}>
+          <QtdProdutos quantidade={props.produto.quantidade_produto} produto={produto} />
+        </View>
       </View>
     </TouchableOpacity>
   )
@@ -80,9 +80,12 @@ const styles = StyleSheet.create({
     width: '30%',
     height: '90%',
     borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#070D2D'
   },
   prod_detalhes: {
     width: '50%',
+    paddingLeft: 10
   },
   prod_preco_qtd: {
     flexDirection: 'row',

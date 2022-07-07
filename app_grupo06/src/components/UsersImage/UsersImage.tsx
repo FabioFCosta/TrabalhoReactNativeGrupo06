@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
   usuario_image: {
     width: 70,
     height: 70,
-    borderRadius: 35
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor: '#C4DFE8'
   }
 });
 
