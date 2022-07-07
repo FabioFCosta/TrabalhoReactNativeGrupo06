@@ -1,9 +1,9 @@
 export default {
-   apiKey: "AIzaSyC3-hcU8tlE5EBaqI8GQNeQRSnri-63M4o",
-   authDomain: "reactnativegrupo6.firebaseapp.com",
-   projectId: "reactnativegrupo6",
-   storageBucket: "reactnativegrupo6.appspot.com",
-   messagingSenderId: "591617905636",
-   appId: "1:591617905636:web:7b45e7c1bb4a39a9876df1",
-   measurementId: "G-9QY9QTN41X"
+   apiKey: "AIzaSyANwMDnmY7USawQiO-6EHyJoVuD-dWmB-M",
+   authDomain: "reactnativegrupo6-20664.firebaseapp.com",
+   projectId: "reactnativegrupo6-20664",
+   storageBucket: "reactnativegrupo6-20664.appspot.com",
+   messagingSenderId: "139758145558",
+   appId: "1:139758145558:web:82dc77df3056df7d5f6537",
+   measurementId: "G-X8EHVSBDH2"
 };
