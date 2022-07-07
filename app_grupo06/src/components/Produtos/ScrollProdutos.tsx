@@ -43,14 +43,14 @@ const ScrollProdutos = ({ navigation }) => {
     setLoading(false);
   }
 
-  function AppLoader({load}) {
-    if(!load)return null;
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size={30} color="#fd6005"/>
-      </View>
-    );
-  };
+  // function AppLoader({load}) {
+  //   if(!load)return null;
+  //   return (
+  //     <View style={styles.container}>
+  //       <ActivityIndicator size={30} color="#fd6005"/>
+  //     </View>
+  //   );
+  // };
   
   return (
     <>
@@ -62,7 +62,7 @@ const ScrollProdutos = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           onEndReached={getProdutos}
           onEndReachedThreshold={0.1}
-          ListFooterComponent={<AppLoader load={loading}/>}
+          // ListFooterComponent={<AppLoader load={loading}/>}
           renderItem={response =>
             <>
               <CardProdutos
@@ -85,12 +85,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  container: {
-    position:'absolute',
-    top:'200',
-    backgroundColor:'#333',
-    zIndex:20,
-
-  },
+  
 })
 export default ScrollProdutos;

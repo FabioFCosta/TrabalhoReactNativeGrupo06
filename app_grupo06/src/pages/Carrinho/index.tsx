@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CarrinhoContext } from "../../context/CarrinhoContext";
-import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, FlatList, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import CardCarrinho from "../../components/Produtos/CardCarrinho";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 
@@ -11,9 +11,65 @@ const Carrinho = ({ navigation }) => {
     navigation.navigate('Foldbreakers Store')
   }
 
-  const HandleFinalizarPedido = () => {
-    resetCarrinho();
+  const FinalizarPedido = () => {
+    resetCarrinho()
+    AlertFinalizado()
     navigation.navigate('Foldbreakers Store')
+    
+  }
+
+  const HandleFinalizarPedido = () => {
+    if(carrinho.length == 0){
+      AlertCarrinhoVazio()
+    } else {
+      AlertFinalizarPedido()
+    }
+  }
+
+  const AlertCarrinhoVazio = ()=>{
+    Alert.alert(
+      'Ops...',
+      'O seu carrinho ainda está vazio',
+      [
+         {
+            text: 'Ok',
+            style: 'cancel'
+         },
+         {
+            text: 'Ir às compras',
+            style: 'default',
+            onPress: HandleContinuarComprando
+         }
+      ])
+  }
+
+  const AlertFinalizarPedido = ()=>{
+    Alert.alert(
+      'Quase lá...',
+      `Deseja confirmar o pedido no valor total de R$ ${totalizarCarrinho().toFixed(2)} ?`,
+      [
+         {
+            text: 'Finalizar Pedido',
+            style: 'default',
+            onPress: FinalizarPedido
+         },
+         {
+            text: 'Continuar Comprando',
+            style: 'default',
+            onPress: HandleContinuarComprando
+         }
+      ])
+  }
+
+  const AlertFinalizado = ()=>{
+    Alert.alert(
+      'Vamos jogar juntos?',
+      `Seu pedido foi finalizado com sucesso!`,
+      [
+         {          
+            
+         },         
+      ])
   }
 
   return (
