@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Icon } from "react-native-elements";
-import { CategoriaContext } from "../../context/CategoriaContext";
 import { ProdutoContext } from "../../context/ProdutoContext";
 
 export const SearchBar = (props) => {
   const [busca, setBusca] = useState('');
-  const { produto, setFilterProd, getDadosProduto, getDadosProdutoPaginacao,setPage, setProdutoCat} = useContext(ProdutoContext)
+  const { produto, setFilterProd, getDadosProduto, PaginacaoInicio, setProdutoCat} = useContext(ProdutoContext)
 
 useEffect(()=>{
   getDadosProduto();
@@ -33,8 +32,8 @@ useEffect(()=>{
         produto.filter
           (res => res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
     } else {
-      setPage(1);
-      getDadosProdutoPaginacao();
+      console.log("entrou no else")
+      PaginacaoInicio(0);
     }
   }
 

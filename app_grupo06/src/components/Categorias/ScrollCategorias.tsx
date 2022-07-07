@@ -13,13 +13,11 @@ const ScrollCategorias = ({ navigation }) => {
   const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
-    setLoading(true);
     getDadosCategoria();
   }, []);
 
   return (
     <View style={styles.scroll_categorias}>
-      {loading ? <AppLoader /> :
         <FlatList
           horizontal={true}
           data={categoria}
@@ -31,7 +29,6 @@ const ScrollCategorias = ({ navigation }) => {
             />
           }
         />
-      }
     </View> 
   );
 }

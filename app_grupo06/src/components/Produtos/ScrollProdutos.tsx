@@ -18,7 +18,7 @@ const ScrollProdutos = ({ navigation }) => {
   const [state, setState] = useState(true)
 
   useEffect(() => {
-    getDadosProdutoPaginacao()
+    getDadosProdutoPaginacao(0)
     setProduto(filterProd)
   }, []);
 

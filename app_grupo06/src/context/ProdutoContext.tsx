@@ -13,7 +13,7 @@ export const ProdutoProvider = ({ children }) => {
   const [filterProd, setFilterProd] = useState<ProdutoType[]>([]);
   const [produtoCat, setProdutoCat] = useState<ProdutoType[]>([]);
 
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const perPage = 6
 
   const getDadosProduto = async () => {
@@ -34,7 +34,7 @@ export const ProdutoProvider = ({ children }) => {
       `/produto?pagina=${page}&qtdRegistros=${perPage}`,
       { headers: { "Authorization": `Bearer ${usuario.token}` } }
     ).then(result => {
-      if (page == 1) {
+      if (page == 0) {
         setFilterProd(result.data);
       } else {        
         setFilterProd([...filterProd, ...result.data]);
@@ -46,6 +46,18 @@ export const ProdutoProvider = ({ children }) => {
     setLoading(false)
   }
 
+  const PaginacaoInicio = async (page:number) => {
+    await AxiosInstance.get(
+      `/produto?pagina=${page}&qtdRegistros=${perPage}`,
+      { headers: { "Authorization": `Bearer ${usuario.token}` } }
+    ).then(result => {
+      setFilterProd(result.data);
+      setPage(0);
+    }).catch((error) => {
+      console.log("Erro ao carregar a lista de produtos - " + JSON.stringify(error));
+    })
+  }
+
   return (
     <ProdutoContext.Provider value={{
       produto,
@@ -54,6 +66,7 @@ export const ProdutoProvider = ({ children }) => {
       setFilterProd,
       getDadosProduto,
       getDadosProdutoPaginacao,
+      PaginacaoInicio,
       setPage,
       produtoCat,
       setProdutoCat
