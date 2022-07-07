@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
     height: 140,
     marginBottom: 10,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#070D2D'
   },
   icon_fav: {
     position: 'absolute',

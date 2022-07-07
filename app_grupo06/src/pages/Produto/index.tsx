@@ -28,7 +28,7 @@ const Produto = ({ route, navigation }) => {
         <Text style={styles.nome_produto}>{produto.nomeProduto}</Text>
         <Text style={styles.desc_produto}>{produto.descricaoProduto}</Text>
         <View style={styles.container_price_qtd}>
-          <Text style={styles.price}>R$ {produto.precoProduto.toFixed(2)}</Text>
+          <Text style={styles.price}>R$ {produto.precoProduto.toFixed(2)} un.</Text>
           <QtdProdutos quantidade={listarQtdProduto(produto.idProduto)} produto={produto} />
         </View>
       </View>
