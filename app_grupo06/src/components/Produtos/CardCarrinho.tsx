@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Text } from "react-native-elements";
 import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
 import RemoverCarrinho from "./RemoverCarrinho";
@@ -49,11 +49,11 @@ const CardCarrinho = (props) => {
           <Text style={styles.card_desc}>Ver descrição</Text>
           <View style={styles.prod_preco_qtd}>
             <Text style={styles.prod_preco}>R$ {props.produto.preco_produto.toFixed(2)}</Text>
+          </View>
+        </View>
             <View style={styles.qtd_produto}>
               <QtdProdutos quantidade={props.produto.quantidade_produto} produto={produto} />
             </View>
-          </View>
-        </View>
       </View>
     </TouchableOpacity>
   )
@@ -61,7 +61,6 @@ const CardCarrinho = (props) => {
 const styles = StyleSheet.create({
   card_container: {
     flexDirection: 'row',
-    height: 110,
     width: '95%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    // backgroundColor: '#06C1FF',
   },
   card_image: {
     width: '30%',

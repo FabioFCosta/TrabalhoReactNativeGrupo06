@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   desc_produto: {
-    height: 200,
+    height: 150,
     fontSize: 20,
     color: '#C4DFE8',
   },

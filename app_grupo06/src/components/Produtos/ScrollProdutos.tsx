@@ -11,7 +11,7 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 
 const ScrollProdutos = ({ navigation }) => {
-  const { filterProd, getDadosProduto, getDadosProdutoPaginacao} = useContext(ProdutoContext)
+  const { filterProd, getDadosProduto, getDadosProdutoPaginacao } = useContext(ProdutoContext)
   const { loading, setLoading } = useContext(LoadingContext);
   const { favoritos } = useContext(FavoritosContext)
   const [produto, setProduto] = useState([])
@@ -35,17 +35,18 @@ const ScrollProdutos = ({ navigation }) => {
     setProduto(filterProd)
   }, [filterProd])
 
-const getProdutos=()=>{
-  getDadosProdutoPaginacao()
-}
+  const getProdutos = () => {
+    getDadosProdutoPaginacao()
+  }
 
   return (
     <>
-    {filterProd?.length >= 1 ?
+      {filterProd?.length >= 1 ?
         <FlatList
           data={produto}
           numColumns={2}
           keyExtractor={item => item.idProduto}
+          showsVerticalScrollIndicator={false}
           onEndReached={getProdutos}
           onEndReachedThreshold={0.1}
           ListFooterComponent={loading ? <AppLoader /> : null}

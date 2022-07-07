@@ -21,6 +21,10 @@ const QtdProdutos = (props) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity>
+        <Icon name="plus-circle" color="#06C1FF" type="font-awesome" size={30} onPress={() => handleAddProduto()} />
+      </TouchableOpacity>
+      <Text style={styles.contador}>{quantidade}</Text>
       {quantidade!=0?
       <TouchableOpacity>
         <Icon name="minus-circle" color="#06C1FF" type="font-awesome" size={30} onPress={() => handleRemoveProduto()} />
@@ -30,18 +34,14 @@ const QtdProdutos = (props) => {
         <Icon name="minus-circle" color="#C4DFE8" type="font-awesome" size={30} />
       </TouchableOpacity>
       }
-      <Text style={styles.contador}>{quantidade}</Text>
-      <TouchableOpacity>
-        <Icon name="plus-circle" color="#06C1FF" type="font-awesome" size={30} onPress={() => handleAddProduto()} />
-      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: 80,
-    flexDirection: 'row',
+    // width: 80,
+    // flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
