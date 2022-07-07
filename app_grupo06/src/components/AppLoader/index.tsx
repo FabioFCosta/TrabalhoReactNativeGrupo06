@@ -6,7 +6,7 @@ import LottieView from 'lottie-react-native';
 export const AppLoader = () => {
   return (
     <View style={[StyleSheet.absoluteFillObject, styles.container]}>
-      <LottieView source={require('../../assets/double-loader.json')} autoPlay loop />
+      <LottieView source={require('../../assets/blocks-loader.json')} autoPlay loop />
     </View>
   );
 };
@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
-    backgroundColor: '#0000006e',    
+    backgroundColor: '#000000bd',
   },
 });

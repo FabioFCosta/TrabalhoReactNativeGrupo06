@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { FlatList } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 
 import { LoadingContext } from "../../context/LoadingContext";
 
@@ -9,16 +9,17 @@ import { ProdutoContext } from "../../context/ProdutoContext";
 import { FavoritosContext } from "../../context/FavoritosContext";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
+import LottieView from 'lottie-react-native';
 
 const ScrollProdutos = ({ navigation }) => {
-  const { filterProd, getDadosProduto } = useContext(ProdutoContext)
-  const { loading, setLoading } = useContext(LoadingContext);
+  const { filterProd, getDadosProdutoPaginacao } = useContext(ProdutoContext)
+  const [loading, setLoading] = useState(false);
   const { favoritos } = useContext(FavoritosContext)
   const [produto, setProduto] = useState([])
   const [state, setState] = useState(true)
 
   useEffect(() => {
-    getDadosProduto();
+    getDadosProdutoPaginacao(0)
     setProduto(filterProd)
   }, []);
 
@@ -35,6 +36,31 @@ const ScrollProdutos = ({ navigation }) => {
     setProduto(filterProd)
   }, [filterProd])
 
+  async function getProdutos() {
+    if (loading) return;
+    setLoading(true);
+    await getDadosProdutoPaginacao()
+    setLoading(false);
+  }
+
+  // function AppLoader({load}) {
+  //   if(!load)return null;
+  //   return (
+  //     <View style={styles.container}>
+  //       <ActivityIndicator size={30} color="#fd6005"/>
+  //     </View>
+  //   );
+  // };
+
+  function appLoader() {
+    if (!loading) return null;
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size={30} color="#fd6005" />
+      </View>
+    );
+  };
+
   return (
     <>
       {filterProd?.length >= 1 ?
@@ -42,9 +68,11 @@ const ScrollProdutos = ({ navigation }) => {
           data={produto}
           numColumns={2}
           keyExtractor={item => item.idProduto}
-          // onEndReached={getDadosProduto()}
-          // onEndReachedThreshold={0.1}
-          // ListFooterComponent={loading ? <AppLoader /> : null}
+          showsVerticalScrollIndicator={false}
+          onEndReached={getProdutos}
+          onEndReachedThreshold={0.1}
+          // ListFooterComponent={<AppLoader load={loading}/>}
+          ListFooterComponent={appLoader()}
           renderItem={response =>
             <>
               <CardProdutos
@@ -67,5 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+
 })
 export default ScrollProdutos;

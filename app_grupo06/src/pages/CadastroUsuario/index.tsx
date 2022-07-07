@@ -1,25 +1,41 @@
 import React, { useContext, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Icon, Image } from "react-native-elements";
-import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import AxiosInstance from "../../api/AxiosInstance";
+
+import Voltar from "../../components/Voltar";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { InputTexto } from "../../components/InputTexto/InputTexto";
-import Voltar from "../../components/Voltar";
+import { AppLoader } from "../../components/AppLoader";
+
 import { AutenticacaoContext } from "../../context/AutenticacaoContext";
+import { LoadingContext } from "../../context/LoadingContext";
+import { ValidacaoContext } from "../../context/ValidacaoContext";
+
+import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
-
 export const CadastroUsuario = ({ navigation }) => {
+   const { fotoPerfil, setFotoPerfil } = useContext(AutenticacaoContext)
+   const { loading, setLoading } = useContext(LoadingContext)
+   const { confirmarSenha, validarSenha, validarNomeUsuario, validarEmail } = useContext(ValidacaoContext)
+
    const [nomeUsuario, setNomeUsuario] = useState('')
    const [email, setEmail] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmSenha, setConfirmSenha] = useState('')
-   const { fotoPerfil, setFotoPerfil } = useContext(AutenticacaoContext)
 
    const handleFotoPerfil = () => {
-      Alert.alert('Selecione', 'Informe como você deseja obter a foto:',
+      Alert.alert(
+         'Fique bem na foto! ;)',
+         'Informe como deseja obter a foto:',
          [
+            {
+               text: 'Cancelar',
+               style: 'cancel'
+               // cancelable: true,
+               // onDismiss: () => console.log('tratar depois')
+            },
             {
                text: 'Galeria',
                onPress: () => pickImageFromGallery(),
@@ -28,12 +44,7 @@ export const CadastroUsuario = ({ navigation }) => {
             {
                text: 'Câmera',
                onPress: () => pickImageFromCamera(),
-               style: 'default'
-            },
-            {
-               text: 'Cancelar'
-               // cancelable: true,
-               // onDismiss: () => console.log('tratar depois')
+               style: 'destructive'
             }
          ])
    }
@@ -42,7 +53,6 @@ export const CadastroUsuario = ({ navigation }) => {
       const options: ImageLibraryOptions = {
          mediaType: 'photo'
       }
-
       const result = await launchImageLibrary(options)
       if (result?.assets) {
          setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
@@ -56,7 +66,6 @@ export const CadastroUsuario = ({ navigation }) => {
          cameraType: 'front',
          quality: 1
       }
-
       const result = await launchCamera(options)
       if (result?.assets) {
          setFotoPerfil({ uri: result.assets[0].uri!, type: result.assets[0].type!, name: result.assets[0].fileName! })
@@ -74,49 +83,51 @@ export const CadastroUsuario = ({ navigation }) => {
    }
 
    const handleSubmit = async () => {
-      console.log('Submit')
-      if (confirmSenha === senha) {
-         console.log('Senha confirmada')
-         const usuario = {
-            nomeUsuario,
-            email,
-            senha
-         }
-         const formData = new FormData()
-         formData.append('usuario', JSON.stringify(usuario))
-         formData.append('file', { uri: fotoPerfil.uri, type: fotoPerfil.type, name: fotoPerfil.name })
+      if (
+         !confirmarSenha(senha, confirmSenha) ||
+         !validarSenha(senha) ||
+         !validarNomeUsuario(nomeUsuario) ||
+         !validarEmail(email)
+      ) {
+         return
+      }
 
-         try {
-            await AxiosInstance.post('autenticacao/registro', formData, {
-               headers: {
-                  'Content-Type': 'multipart/form-data'
-               }
-            })
-            handleUploadImage()
-            Alert.alert(
-               'Sucesso:',
-               'Usuário cadastrado com sucesso.',
-               [
-                  {
-                     text: 'OK',
-                     onPress: () => { navigation.navigate('Login') }
-                  }
-               ]
-            )
-         } catch (error) {
-            console.log(error)
-            Alert.alert(
-               'Erro:',
-               'Não foi possível cadastrar o usuário.',
-               [
-                  { text: 'OK' }
-               ]
-            )
-         }
-      } else {
+      setLoading(true)
+
+      const usuario = {
+         nomeUsuario,
+         email,
+         senha
+      }
+
+      const formData = new FormData()
+      formData.append('usuario', JSON.stringify(usuario))
+      formData.append('file', { uri: fotoPerfil.uri, type: fotoPerfil.type, name: fotoPerfil.name })
+
+      try {
+         await AxiosInstance.post('autenticacao/registro', formData, {
+            headers: {
+               'Content-Type': 'multipart/form-data'
+            }
+         })
+         handleUploadImage()
+         setLoading(false)
          Alert.alert(
-            'Erro:',
-            'Senha não confirmada.',
+            'Obrigado!',
+            'Seu cadastro foi um sucesso.',
+            [
+               {
+                  text: 'OK',
+                  onPress: () => { navigation.navigate('Login') }
+               }
+            ]
+         )
+      } catch (error) {
+         console.log(error)
+         setLoading(false)
+         Alert.alert(
+            'Ops...',
+            'Não foi possível realizar o cadastro.',
             [
                { text: 'OK' }
             ]
@@ -125,51 +136,54 @@ export const CadastroUsuario = ({ navigation }) => {
    }
 
    return (
-      <ScrollView contentContainerStyle={styles.container}>
-         <View style={styles.botaoVoltar}>
-            <Voltar navigation={navigation} route='Login' />
-         </View>
-         <Text style={styles.title}>Cadastro</Text>
-         <View>
-            <Image
-               style={styles.imageStyle}
-               source={{ uri: fotoPerfil.uri }}
+      <>
+         <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.botaoVoltar}>
+               <Voltar navigation={navigation} route='Login' color='#C4DFE8' size={32} />
+            </View>
+            <Text style={styles.title}>Cadastro</Text>
+            <View>
+               <Image
+                  style={styles.imageStyle}
+                  source={{ uri: fotoPerfil.uri }}
+               />
+            </View>
+            <View style={styles.addPhotoButton}>
+               <TouchableOpacity onPress={handleFotoPerfil}>
+                  <Icon name="camera" color="#fff" type="font-awesome" size={24} />
+               </TouchableOpacity>
+            </View>
+            <InputTexto
+               secureTextEntry={false}
+               placeholder='Nome'
+               onChangeText={setNomeUsuario}
+               value={nomeUsuario}
             />
-         </View>
-         <View style={styles.addPhotoButton}>
-            <TouchableOpacity onPress={handleFotoPerfil}>
-               <Icon name="camera" color="#fff" type="font-awesome" size={24} />
-            </TouchableOpacity>
-         </View>
-         <InputTexto
-            secureTextEntry={false}
-            placeholder='Nome'
-            onChangeText={setNomeUsuario}
-            value={nomeUsuario}
-         />
-         <InputTexto
-            secureTextEntry={false}
-            placeholder='E-mail'
-            onChangeText={setEmail}
-            value={email}
-         />
-         <InputTexto
-            secureTextEntry={true}
-            placeholder='Senha'
-            onChangeText={setSenha}
-            value={senha}
-         />
-         <InputTexto
-            secureTextEntry={true}
-            placeholder='Confirme sua senha'
-            onChangeText={setConfirmSenha}
-            value={confirmSenha}
-         />
-         <ActionButton
-            text='Cadastrar'
-            onPress={handleSubmit}
-         />
-      </ScrollView >
+            <InputTexto
+               secureTextEntry={false}
+               placeholder='E-mail'
+               onChangeText={setEmail}
+               value={email}
+            />
+            <InputTexto
+               secureTextEntry={true}
+               placeholder='Senha'
+               onChangeText={setSenha}
+               value={senha}
+            />
+            <InputTexto
+               secureTextEntry={true}
+               placeholder='Confirme sua senha'
+               onChangeText={setConfirmSenha}
+               value={confirmSenha}
+            />
+            <ActionButton
+               text='Cadastrar'
+               onPress={handleSubmit}
+            />
+         </ScrollView >
+         {loading ? <AppLoader /> : null}
+      </>
    )
 }
 

@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Icon } from "react-native-elements";
-import { CategoriaContext } from "../../context/CategoriaContext";
 import { ProdutoContext } from "../../context/ProdutoContext";
 
 export const SearchBar = (props) => {
   const [busca, setBusca] = useState('');
-  const { categoria, setCategoria, getDadosCategoria } = useContext(CategoriaContext);
-  const { filterProd, setFilterProd, getDadosProduto } = useContext(ProdutoContext)
+  const { produto, setFilterProd, getDadosProduto, PaginacaoInicio, setProdutoCat} = useContext(ProdutoContext)
+
+useEffect(()=>{
+  getDadosProduto();
+},[])
 
   useEffect(() => {
     props.type === "Categoria" ? buscarCategoria(busca) : buscarProduto(busca)
@@ -15,26 +17,28 @@ export const SearchBar = (props) => {
 
   const buscarCategoria = (busca: string) => {
     if (busca !== '') {
-      setCategoria(
-        categoria.filter
-          (res => res.nomeCategoria.toLowerCase().includes(busca.toLowerCase())));
+      setProdutoCat(
+        produto.filter
+          (res => res.nomeCategoria==props.nome && res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
     } else {
-      getDadosCategoria();
+      setProdutoCat(
+        produto.filter
+          (res => res.nomeCategoria==props.nome));
     }
   }
   const buscarProduto = (busca: string) => {
     if (busca !== '') {
       setFilterProd(
-        filterProd.filter
+        produto.filter
           (res => res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
     } else {
-      getDadosProduto();
+      PaginacaoInicio(0);
     }
   }
 
   return (
     <Input
-      placeholder={props.titulo}
+      placeholder={props.type=="Categoria"?`Encontre o seu jogo de ${props.nome}`:"Encontre o seu jogo"} 
       leftIcon={<Icon name="search" color="#00000080" type="font-awesome" size={24} />}
       onChangeText={setBusca}
       value={busca}

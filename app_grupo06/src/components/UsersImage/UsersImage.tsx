@@ -6,20 +6,11 @@ import { Image, Icon } from "react-native-elements";
 const UserImage = () => {
   const { usuario, buscarFotoPerfil } = useContext(AutenticacaoContext);
 
-  // const [hasImage, setHasImage] = useState(false);
-
   useEffect(() => {
     buscarFotoPerfil()
-    // usuarioHasImage();
   }, []);
 
-  // const usuarioHasImage = () => {
-  //   console.log('USUARIO IMAGEM: ' + usuario.imagem)
-  //   usuario.imagem === '' ? setHasImage(false) : setHasImage(true);
-  // }
-
   return (
-
     <View style={styles.container_title_content_img}>
       {usuario.imagem != '' ? <Image style={styles.usuario_image} source={{ uri: usuario.imagem }} />
         :
@@ -36,7 +27,9 @@ const styles = StyleSheet.create({
   usuario_image: {
     width: 70,
     height: 70,
-    borderRadius: 35
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor: '#C4DFE8'
   }
 });
 

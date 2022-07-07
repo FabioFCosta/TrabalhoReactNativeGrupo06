@@ -10,7 +10,8 @@ ProdutoSchema.schema = {
     descricao_produto: 'string',
     preco_produto: 'double',
     imagem_produto: 'string',
-    quantidade_produto: 'int'
+    quantidade_produto: 'int',
+    nome_categoria:'string'
   }
 };
 
@@ -28,6 +29,6 @@ FavoritoSchema.schema = {
   }
 };
 
-const RealmBD = new Realm({ schema: [ProdutoSchema,FavoritoSchema], schemaVersion: 3 });
+const RealmBD = new Realm({ schema: [ProdutoSchema,FavoritoSchema], schemaVersion: 5 });
 
 export default RealmBD;
