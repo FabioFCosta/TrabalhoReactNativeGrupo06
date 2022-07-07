@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Input, Icon } from "react-native-elements";
-import { useValue } from "react-native-reanimated";
 import { ProdutoContext } from "../../context/ProdutoContext";
 
 export const SearchBar = (props) => {
@@ -28,7 +27,6 @@ useEffect(()=>{
     }
   }
   const buscarProduto = (busca: string) => {
-    console.log(busca)
     if (busca !== '') {
       setFilterProd(
         produto.filter

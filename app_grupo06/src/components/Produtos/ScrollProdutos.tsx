@@ -1,15 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 
-import { LoadingContext } from "../../context/LoadingContext";
-
 import CardProdutos from "./CardProdutos";
-import { AppLoader } from "../AppLoader";
 import { ProdutoContext } from "../../context/ProdutoContext";
 import { FavoritosContext } from "../../context/FavoritosContext";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
-import LottieView from 'lottie-react-native';
 
 const ScrollProdutos = ({ navigation }) => {
   const { filterProd, getDadosProdutoPaginacao} = useContext(ProdutoContext)
@@ -43,15 +39,6 @@ const ScrollProdutos = ({ navigation }) => {
     setLoading(false);
   }
 
-  // function AppLoader({load}) {
-  //   if(!load)return null;
-  //   return (
-  //     <View style={styles.container}>
-  //       <ActivityIndicator size={30} color="#fd6005"/>
-  //     </View>
-  //   );
-  // };
-
   function appLoader() {
     if (!loading) return null;
     return (
@@ -71,7 +58,6 @@ const ScrollProdutos = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           onEndReached={filterProd?.length>=6?getProdutos:null}
           onEndReachedThreshold={0.1}
-          // ListFooterComponent={<AppLoader load={loading}/>}
           ListFooterComponent={appLoader()}
           renderItem={response =>
             <>
