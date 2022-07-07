@@ -3,10 +3,11 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import CardProdutos from "../../components/Produtos/CardProdutos";
 import { ProdutoContext } from "../../context/ProdutoContext";
 import { SearchBar } from "../../components/Search";
+import UserImage from "../../components/UsersImage/UsersImage";
 
-const Categoria = ({route,navigation}) => {
-  const {categoria} = route.params;
-  const { produto, filterProd, getDadosProduto,produtoCat, setProdutoCat } = useContext(ProdutoContext);
+const Categoria = ({ route, navigation }) => {
+  const { categoria } = route.params;
+  const { produto, filterProd, getDadosProduto, produtoCat, setProdutoCat } = useContext(ProdutoContext);
 
   useEffect(() => {
     getDadosProduto()
@@ -18,12 +19,14 @@ const Categoria = ({route,navigation}) => {
       <View style={styles.container_top}>
         <View style={styles.categoria}>
           <Text style={styles.categoria_title}>{categoria.nomeCategoria}</Text>
+          <UserImage />
         </View>
-        <SearchBar type="Categoria" nome={categoria.nomeCategoria}/>
+        <SearchBar type="Categoria" nome={categoria.nomeCategoria} />
       </View>
       {produtoCat?.length >= 1 ?
         <FlatList
-        contentContainerStyle={styles.flatList}
+          style={styles.flatList_container}
+          showsVerticalScrollIndicator={false}
           data={produtoCat}
           numColumns={2}
           keyExtractor={item => item.idProduto}
@@ -49,21 +52,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#070D2D',
   },
   container_top: {
-    paddingVertical: 30,
+    height: 180,
+    paddingVertical: 20,
     alignItems: 'center',
   },
   categoria: {
-    backgroundColor: '#FE5430',
-    height: 60,
-    width: '80%',
-    borderRadius: 30,
+    flexDirection: 'row',
+    width: '90%',
     marginBottom: 30,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   categoria_title: {
     fontSize: 30,
-    color: '#C4DFE8',
+    color: '#546EE5',
   },
   text: {
     color: '#C4DFE8',
@@ -71,11 +73,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  flatList:{
-    alignSelf:'center',
-  }
-
-
+  flatList_container: {
+    marginTop:10,
+    alignSelf: 'center',
+    paddingLeft:10,
+  },
 })
 
 export default Categoria;
