@@ -84,10 +84,10 @@ export const CadastroUsuario = ({ navigation }) => {
 
    const handleSubmit = async () => {
       if (
-         !confirmarSenha(senha, confirmSenha) ||
-         !validarSenha(senha) ||
          !validarNomeUsuario(nomeUsuario) ||
-         !validarEmail(email)
+         !validarEmail(email) ||
+         !validarSenha(senha) ||
+         !confirmarSenha(senha, confirmSenha)
       ) {
          return
       }
