@@ -32,7 +32,6 @@ useEffect(()=>{
         produto.filter
           (res => res.nomeProduto.toLowerCase().includes(busca.toLowerCase())));
     } else {
-      console.log("entrou no else")
       PaginacaoInicio(0);
     }
   }
