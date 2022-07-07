@@ -10,6 +10,7 @@ export const ProdutoProvider = ({ children }) => {
   const [produto, setProduto] = useState<ProdutoType[]>([]);
   const [filterProd, setFilterProd] = useState<ProdutoType[]>([]);
   const [produtoCat, setProdutoCat] = useState<ProdutoType[]>([]);
+  const [isFiltering, setIsFiltering] = useState(Boolean);
 
   const [page, setPage] = useState(0)
   const perPage = 6
@@ -63,8 +64,9 @@ export const ProdutoProvider = ({ children }) => {
       PaginacaoInicio,
       setPage,
       produtoCat,
-      setProdutoCat
-      // page,
+      setProdutoCat,
+      isFiltering,
+      setIsFiltering
     }}>
       {children}
     </ProdutoContext.Provider>
